@@ -1,7 +1,7 @@
 import { Action } from './createAction';
 
 export default function createReducer(initialState: any, actionMap: object) {
-    return (state: any, action: Action) => {
+    return (state = initialState, action: Action) => {
         if (actionMap.hasOwnProperty(action.type)) {
             return actionMap[action.type](state, action);
         } else {
