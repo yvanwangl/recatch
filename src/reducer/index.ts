@@ -1,8 +1,8 @@
 import {combineReducers} from 'redux';
-import hello from './hello';
+import schema from './schema';
 
 let rootReducer = combineReducers({
-    hello
+    orm: schema.reducer()
 });
 
 export default rootReducer;

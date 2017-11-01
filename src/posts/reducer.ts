@@ -1,9 +1,9 @@
 import { Action } from '../utils/createAction';
 import createReducer from '../utils/createReducer';
-import { LIST_BLOG_SUCCESS } from './constants';
+import { FETCH_POST_SUCCESS } from './constants';
 
 const blogReducer = createReducer({}, {
-    [LIST_BLOG_SUCCESS]: (state: any, { payload }:Action) => {
+    [FETCH_POST_SUCCESS]: (state: any, { payload }:Action) => {
         return { ...state, };
     }
 });

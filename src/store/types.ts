@@ -1,4 +1,6 @@
-export interface StoreState {
-    languageName: string;
-    level: number;
+interface StoreState {
+    orm: object;
+    ui: object;
 }
+
+export default StoreState;

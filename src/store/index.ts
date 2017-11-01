@@ -1,5 +1,5 @@
-import {StoreState} from './types';
-import rootReducer from '../reducers/index';
+import StoreState from './types';
+import rootReducer from '../reducer/index';
 import {createStore} from 'redux';
 
 export default function configStore(initialState: StoreState){

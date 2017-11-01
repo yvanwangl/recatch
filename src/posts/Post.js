@@ -1,8 +1,8 @@
-import { Action } from '../utils/createAction';
+//import { Action } from '../utils/createAction';
 import { Model, attr, many } from 'redux-orm';
 import { FETCH_POST_SUCCESS } from './constants';
 
-export class PostModel extends Model {
+class Post extends Model {
     static get fields() {
         return {
             id: attr(),
@@ -10,16 +10,18 @@ export class PostModel extends Model {
         };
     }
 
-    static reducer(action: Action, PostModel: Model, session:any) {
+    static reducer(action, Post, session) {
         const { type, payload } = action;
         switch (type) {
             case FETCH_POST_SUCCESS:
-                payload.posts.map((post: object) => {
-                    PostModel.create(post);
+                payload.posts.map((post) => {
+                    Post.create(post);
                 });
                 break;
-
-
         }
     }
 }
+
+Post.modelName = "Post";
+
+export default Post;
