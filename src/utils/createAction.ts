@@ -4,7 +4,7 @@ export interface Action {
     payload?: any
 }
 
-export function createAction(actionName: string) {
+export function createAction(actionName: string): Function {
     return (payload: any): Action => {
         return {
             type: actionName,
@@ -19,15 +19,15 @@ export interface AsyncData {
     types: Array<string>;
 }
 
-export function createAsyncAction(asyncData: AsyncData) {
+export function createAsyncAction(asyncData: AsyncData): Function {
     const { callApi, types: [requestType, successType, failType] } = asyncData;
-    return (params: any) => {
+    return (params: any): Function => {
         /**
          * return function action, to dispatch for redux-thunk
          */
         return (dispatch: any) => {
             dispatch({
-                type: requestType
+                type: requestType || "REQUEST"
             });
             return callApi(params)
                 .then((jsonData: any) => {
@@ -38,8 +38,9 @@ export function createAsyncAction(asyncData: AsyncData) {
                     return jsonData;
                 })
                 .catch((error: any) => {
+                    console.log(error);
                     dispatch({
-                        type: failType,
+                        type: failType || "FAIL",
                         payload: error
                     });
                 })
