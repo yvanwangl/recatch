@@ -1,10 +1,15 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import StoreState from './store/types';
-import {Provider} from 'react-redux';
-import App from './App';
 import configStore from './store/index';
+import { BrowserRouter } from 'react-router-dom';
+import { renderRoutes } from 'react-router-config';
+import routes from './routes';
 import registerServiceWorker from './registerServiceWorker';
+import orm from './reducer/orm';
+//import bootstrap from './bootstrap';
 import './index.css';
 
 declare global {
@@ -13,13 +18,17 @@ declare global {
     }
 }
 
-const initialState = window.__INITIAL_STATE__ || {orm: {}, ui: {}};
+const initialState = window.__INITIAL_STATE__ || {orm: orm.getEmptyState(), ui:{}};
 const store = configStore(initialState);
 
 ReactDOM.render(
     <Provider store={store}>
-        <App />
+        <MuiThemeProvider>
+            <BrowserRouter>
+                {renderRoutes(routes)}
+            </BrowserRouter>
+        </MuiThemeProvider>
     </Provider>,
-    document.getElementById('root') as HTMLElement
+    document.getElementById('root')
 );
 registerServiceWorker();

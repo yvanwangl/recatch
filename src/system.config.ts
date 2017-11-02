@@ -24,7 +24,6 @@ const defaultOptionsProd = {
     },
 };
 
-
 module.exports = {
     httpServer: debug ? httpServerDev : httpServerProd,
     defaultOptions: debug ? defaultOptionsDev : defaultOptionsProd

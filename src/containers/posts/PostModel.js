@@ -6,6 +6,10 @@ class Post extends Model {
     static get fields() {
         return {
             id: attr(),
+            author: attr(),
+            content: attr(),
+            publishDate: attr(),
+            views: attr(),
             comments: many("Comment", "posts")
         };
     }

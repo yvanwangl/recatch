@@ -1,5 +1,5 @@
-import { Action } from '../utils/createAction';
-import createReducer from '../utils/createReducer';
+import { Action } from '../../utils/createAction';
+import createReducer from '../../utils/createReducer';
 import { FETCH_POST_SUCCESS } from './constants';
 
 const blogReducer = createReducer({}, {
