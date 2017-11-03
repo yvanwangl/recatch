@@ -1,5 +1,5 @@
 import { ORM } from 'redux-orm';
-import { PostModel as Post } from '../containers/posts/index';
+import Post from '../containers/posts/PostModel';
 import { Comment } from '../containers/comments/index';
 
 export const orm = new ORM();
