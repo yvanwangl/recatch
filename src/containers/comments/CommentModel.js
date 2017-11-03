@@ -2,12 +2,12 @@ import {Model, attr, many} from 'redux-orm';
 import {ADD_COMMENT} from './constants';
 
 class Comment extends Model {
-    static get fields() {
-        return {
-            id: attr(),
-            content: attr()
-        };
-    }
+    // static get fields() {
+    //     return {
+    //         id: attr(),
+    //         content: attr()
+    //     };
+    // }
 
     static reducer(action, Comment, session){
         let {type, payload} = action;
@@ -18,6 +18,11 @@ class Comment extends Model {
         }
     }
 }
+
+Comment.fields = {
+    id: attr(),
+    content: attr()
+};
 
 Comment.modelName = 'Comment';
 

@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { createReducer } from 'redux-orm';
-import orm from './orm';
+import {orm} from './orm';
 
 let rootReducer = combineReducers({
     orm: createReducer(orm),

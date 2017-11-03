@@ -1,4 +1,8 @@
 //model
-export {default as Post} from './PostModel'; 
+import Post from './PostModel';
+
 //view
-export {default as PostList} from './components/PostList';
+//import { default as PostList } from './components/PostList';
+
+export const PostModel = Post;
+//export { PostList };

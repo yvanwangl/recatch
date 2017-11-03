@@ -1,6 +1,7 @@
 import * as React from 'react';
+//import PureComponent from 'react-pure-render/component';
 import { connect } from 'react-redux';
-import { posts } from '../selectors';
+import { postSelector } from '../selectors';
 import StoreState from '../../../store/types';
 import PostItem from './PostItem';
 
@@ -25,7 +26,7 @@ class PostList extends React.Component<PostListProps, object> {
 
 function mapStateToProps(state: StoreState) {
     return {
-        posts: posts(state)
+        posts: postSelector(state)
     }
 }
 

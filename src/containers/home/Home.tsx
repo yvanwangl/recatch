@@ -1,16 +1,16 @@
 import * as React from 'react';
 import AppBar from 'material-ui/AppBar';
-import {PostList} from '../posts/index';
+//import { PostList } from '../posts/index';
 
 class Home extends React.Component {
-    render(){
+    render() {
         return (
             <div>
-                <AppBar 
+                <AppBar
                     title="Title"
                     iconClassNameRight="muidocs-icon-navigation-expand-more"
                 />
-                <PostList />
+                
                 ssdfd
             </div>
         );
