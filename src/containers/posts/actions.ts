@@ -4,7 +4,7 @@ import request from '../../utils/request';
 
 export const addPOST = createAction(ADD_POST);
 
-export const FETCHPOST = createAsyncAction({
+export const fetchPosts = createAsyncAction({
     callApi: () => request('/api/posts'),
     types: [FETCH_POST_REQUEST, FETCH_POST_SUCCESS, FETCH_POST_FAIL],
 });
