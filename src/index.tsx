@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import StoreState from './store/types';
 import configStore from './store/index';
-import { BrowserRouter } from 'react-router-dom';
+import { StaticRouter } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
 import routes from './routes';
 import registerServiceWorker from './registerServiceWorker';
@@ -24,9 +24,9 @@ const store = configStore(initialState);
 ReactDOM.render(
     <Provider store={store}>
         <MuiThemeProvider>
-            <BrowserRouter>
+            <StaticRouter>
                 {renderRoutes(routes)}
-            </BrowserRouter>
+            </StaticRouter>
         </MuiThemeProvider>
     </Provider>,
     document.getElementById('root')

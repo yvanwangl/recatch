@@ -1,26 +1,24 @@
 import * as React from 'react';
-import {bindActionCreators} from 'redux';
 import { connect } from 'react-redux';
+import { Store } from 'redux';
 import { postSelector } from '../selectors';
 import StoreState from '../../../store/types';
 import PostItem from './PostItem';
-import {fetchPosts} from '../actions';
+import { fetchPosts } from '../actions';
 
 export interface PostListProps {
-    pathname: string;
-    posts: Array<object>
+    posts: Array<object>;
+    fetchPosts: Function;
 }
 
-class PostList extends React.Component<PostListProps, object> {
-    static fetchData(){
+class PostList extends React.Component<PostListProps> {
 
+    static fetchData(store: Store<StoreState>) {
+        store.dispatch(fetchPosts());
     }
 
-    componentWillMount(){
-        let {pathname} = this.props;
-        if(pathname == '/') {
-            this.fetchData();
-        }
+    componentWillMount() {
+        this.props.fetchPosts();
     }
 
     render() {
@@ -42,10 +40,14 @@ function mapStateToProps(state: StoreState) {
     }
 }
 
-function mapDispatchToProps(dispatch){
+function mapDispatchToProps(dispatch: Function) {
     return {
-        fetchPosts: bindActionCreators(fetchPosts, dispatch)
+        fetchPosts: () => dispatch(fetchPosts())
     }
 }
 
-export default connect(mapStateToProps)(PostList);
+function mergeProps(stateProps: Object, dispatchProps: Object, ownProps: Object) {
+    return Object.assign({}, ownProps, stateProps, dispatchProps);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(PostList) as any;

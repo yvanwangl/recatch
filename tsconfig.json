@@ -3,7 +3,7 @@
     "outDir": "build/dist",
     "module": "commonjs",
     "target": "es5",
-    "lib": ["es7", "dom"],
+    "lib": ["es6", "dom"],
     "sourceMap": true,
     "allowJs": true,
     "jsx": "react",
@@ -24,6 +24,7 @@
     "acceptance-tests",
     "webpack",
     "jest",
-    "src/setupTests.ts"
+    "src/setupTests.ts",
+    "webpack.dev.js"
   ]
 }

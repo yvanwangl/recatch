@@ -21,7 +21,7 @@ export interface AsyncData {
 
 export function createAsyncAction(asyncData: AsyncData): Function {
     const { callApi, types: [requestType, successType, failType] } = asyncData;
-    return (params: any): Function => {
+    return (params?: any): Function => {
         /**
          * return function action, to dispatch for redux-thunk
          */

@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@types/express": "^4.0.39",
     "@types/isomorphic-fetch": "0.0.34",
     "@types/material-ui": "^0.18.3",
     "@types/react-redux": "^5.0.11",
@@ -11,6 +12,9 @@
     "@types/react-router-dom": "^4.2.0",
     "@types/redux-thunk": "^2.1.0",
     "@types/reselect": "^2.2.0",
+    "cross-env": "^5.1.1",
+    "css-loader": "^0.28.7",
+    "express": "^4.16.2",
     "isomorphic-fetch": "^2.2.1",
     "material-ui": "^0.19.4",
     "react": "^16.0.0",
@@ -24,18 +28,23 @@
     "redux": "^3.7.2",
     "redux-orm": "^0.9.4",
     "redux-thunk": "^2.2.0",
-    "reselect": "^3.0.1"
+    "reselect": "^3.0.1",
+    "style-loader": "^0.19.0",
+    "webpack-dev-server": "^2.9.4"
   },
   "scripts": {
     "start": "react-scripts-ts start",
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
-    "eject": "react-scripts-ts eject"
+    "eject": "react-scripts-ts eject",
+    "start:dev": "cross-env NODE_ENV=development webpack-dev-server --hot --progress --color --config webpack.dev.js"
   },
   "devDependencies": {
     "@types/jest": "^21.1.5",
     "@types/node": "^8.0.47",
     "@types/react": "^16.0.18",
-    "@types/react-dom": "^16.0.2"
+    "@types/react-dom": "^16.0.2",
+    "awesome-typescript-loader": "^3.3.0",
+    "source-map-loader": "^0.2.3"
   }
 }

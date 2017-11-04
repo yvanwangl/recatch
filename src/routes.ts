@@ -1,5 +1,5 @@
 import App from './App';
-import {Home} from './containers/home/index';
+import Home from './containers/home/Home';
 
 const routes = [
     {

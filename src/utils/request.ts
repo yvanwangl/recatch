@@ -1,5 +1,5 @@
 import * as fetch from 'isomorphic-fetch';
-const {httpServer, defaultOptions} = require('../../system.config');
+const {httpServer, defaultOptions} = require('../system.config');
 
 function checkStatus(response: Response): object {
     let responseStatus = response.status;
