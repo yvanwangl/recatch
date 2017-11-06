@@ -4,9 +4,10 @@ import { Provider } from 'react-redux';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import StoreState from './store/types';
 import configStore from './store/index';
-import { StaticRouter } from 'react-router-dom';
-import { renderRoutes } from 'react-router-config';
-import routes from './routes';
+import { BrowserRouter } from 'react-router-dom';
+import App from './App';
+// import { renderRoutes } from 'react-router-config';
+// import routes from './routes';
 import registerServiceWorker from './registerServiceWorker';
 import orm from './reducer/orm';
 //import bootstrap from './bootstrap';
@@ -24,9 +25,9 @@ const store = configStore(initialState);
 ReactDOM.render(
     <Provider store={store}>
         <MuiThemeProvider>
-            <StaticRouter>
-                {renderRoutes(routes)}
-            </StaticRouter>
+            <BrowserRouter>
+                <App />
+            </BrowserRouter>
         </MuiThemeProvider>
     </Provider>,
     document.getElementById('root')

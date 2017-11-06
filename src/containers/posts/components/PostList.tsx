@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Store } from 'redux';
 import { postSelector } from '../selectors';
 import StoreState from '../../../store/types';
 import PostItem from './PostItem';
@@ -12,10 +11,6 @@ export interface PostListProps {
 }
 
 class PostList extends React.Component<PostListProps> {
-
-    static fetchData(store: Store<StoreState>) {
-        store.dispatch(fetchPosts());
-    }
 
     componentWillMount() {
         this.props.fetchPosts();
@@ -29,6 +24,7 @@ class PostList extends React.Component<PostListProps> {
         return (
             <div>
                 {postItems}
+                posts
             </div>
         );
     }
