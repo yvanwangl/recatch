@@ -18,8 +18,8 @@ class Post extends Model {
         const { type, payload } = action;
         switch (type) {
             case FETCH_POST_SUCCESS:
-                payload.posts.map((post) => {
-                    Post.create(post);
+                payload.map((post) => {
+                    new Post(post);
                 });
                 break;
         }
