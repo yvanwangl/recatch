@@ -22,8 +22,8 @@ export default function bootstrap(orm) {
         id: 0,
         author: '2343',
         content: '2343',
-        publishDate: '2343',
-        views: 33,
+        //publishDate: '2343',
+        //views: 33,
         //comments: [comment]
     });
 

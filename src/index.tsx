@@ -10,7 +10,7 @@ import App from './App';
 // import routes from './routes';
 import registerServiceWorker from './registerServiceWorker';
 import orm from './reducer/orm';
-//import bootstrap from './bootstrap';
+import bootstrap from './bootstrap';
 import './index.css';
 
 declare global {
@@ -19,7 +19,7 @@ declare global {
     }
 }
 
-const initialState = window.__INITIAL_STATE__ || {orm: orm.getEmptyState(), ui:{}};
+const initialState = bootstrap(orm) || {orm: orm.getEmptyState(), ui:{}};
 const store = configStore(initialState);
 
 ReactDOM.render(

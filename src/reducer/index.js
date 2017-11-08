@@ -1,8 +1,13 @@
 import { combineReducers } from 'redux';
 import { createReducer } from 'redux-orm';
-import {orm} from './orm';
+import orm from './orm';
 
-let rootReducer = combineReducers({
+// let rootReducer = combineReducers({
+//     orm: createReducer(orm),
+//     ui: (state = {}, action) => state
+// });
+
+const rootReducer = combineReducers({
     orm: createReducer(orm),
     ui: (state = {}, action) => state
 });

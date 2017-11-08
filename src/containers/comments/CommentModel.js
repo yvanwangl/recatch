@@ -1,15 +1,26 @@
 import {Model, attr, many} from 'redux-orm';
 import {ADD_COMMENT} from './constants';
 
-class Comment extends Model {
-    // static get fields() {
-    //     return {
-    //         id: attr(),
-    //         content: attr()
-    //     };
-    // }
+// class Comment extends Model {
+//     // static get fields() {
+//     //     return {
+//     //         id: attr(),
+//     //         content: attr()
+//     //     };
+//     // }
 
-    static reducer(action, Comment, session){
+//     static reducer(action, Comment){
+//         let {type, payload} = action;
+//         switch(type){
+//             case ADD_COMMENT:
+//                 Comment.create(payload);
+//             break;
+//         }
+//     }
+// }
+
+export class Comment extends Model {
+    static reducer(action, Comment) {
         let {type, payload} = action;
         switch(type){
             case ADD_COMMENT:
@@ -25,5 +36,3 @@ Comment.fields = {
 };
 
 Comment.modelName = 'Comment';
-
-export default Comment;
