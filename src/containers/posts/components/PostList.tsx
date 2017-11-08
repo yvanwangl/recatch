@@ -1,4 +1,6 @@
 import * as React from 'react';
+import AppBar from 'material-ui/AppBar';
+import FlatButton from 'material-ui/FlatButton';
 import { connect } from 'react-redux';
 import { postSelector } from '../selectors';
 import StoreState from '../../../store/types';
@@ -18,11 +20,14 @@ class PostList extends React.Component<PostListProps> {
 
     render() {
         let { posts } = this.props;
-        let postItems = posts.map((post, index) => {
-            <PostItem key={index} post={post} />
-        })
+        let postItems = posts.map((post, index) => <PostItem key={index} post={post} />);
         return (
             <div>
+                <AppBar
+                    title={<span>Title</span>}
+                    iconElementLeft={<span></span>}
+                    iconElementRight={<FlatButton label="Save" />}
+                />
                 {postItems}
                 posts
             </div>

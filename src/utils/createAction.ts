@@ -16,7 +16,7 @@ export function createAction(actionName: string): Function {
 // aync action creator
 export interface AsyncData {
     callApi: any;
-    types: Array<string>;
+    types: Array<string|undefined>;
 }
 
 export function createAsyncAction(asyncData: AsyncData): Function {
