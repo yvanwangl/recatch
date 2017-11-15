@@ -1,0 +1,11 @@
+.post-list-tabbar {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+}
+.post-list-title {
+    margin: 0;
+    font-weight: normal;
+    font-size: 24px;
+}

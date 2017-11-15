@@ -1,11 +1,13 @@
 import * as React from 'react';
-//import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
+import ContentAddIcon from 'material-ui/svg-icons/content/add';
+import RefreshIcon from 'material-ui/svg-icons/action/cached';
 import { connect } from 'react-redux';
 import { postSelector } from '../selectors';
 import StoreState from '../../../store/types';
 import PostItem from './PostItem';
 import { fetchPosts } from '../actions';
+import './index.css';
 
 export interface PostListProps {
     posts: Array<object>;
@@ -14,7 +16,11 @@ export interface PostListProps {
 
 class PostList extends React.Component<PostListProps> {
 
-    componentWillMount() {
+    handleRefresh = () => {
+        this.props.fetchPosts();
+    }
+
+    componentDidMount() {
         this.props.fetchPosts();
     }
 
@@ -23,18 +29,14 @@ class PostList extends React.Component<PostListProps> {
         let postItems = posts.map((post, index) => <PostItem key={index} post={post} />);
         return (
             <div>
-                <div style={{
-                    position: 'relative',
-                    display: 'flex',
-                    justifyContent: 'space-between'
-                }}>
-                    <h2 style={{margin: 0, padding: 15, fontWeight: 'normal', fontSize: 24}}>Posts List</h2>
+                <div className='post-list-tabbar'>
+                    <h2 className='post-list-title'>Posts List</h2>
                     <div>
-                        <FlatButton />
+                        <FlatButton label="Create" icon={<ContentAddIcon />} primary={true} />
+                        <FlatButton label="Refresh" onClick={this.handleRefresh} icon={<RefreshIcon />} primary={true} />
                     </div>
                 </div>
                 {postItems}
-                posts
             </div>
         );
     }
