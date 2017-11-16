@@ -4,10 +4,16 @@ import { FETCH_POST_SUCCESS } from './constants';
 
 export interface PostProps {
     id: number | string,
-    author: string,
+    title: string,
+    author: object,
+    plaintext: string,
     content: string,
     publishDate: string,
-    views: number | string,
+    blogStatus: string,
+    count: number | string,
+    type: string,
+    updateDate: string,
+    coverImg: string,
     comments: Array<object>
 }
 
@@ -17,10 +23,16 @@ class Post extends Model<PostProps> {
 
     static fields = {
         id: attr(),
+        title: attr(),
         author: attr(),
+        plaintext: attr(),
         content: attr(),
         publishDate: attr(),
-        views: attr(),
+        blogStatus: attr(),
+        count: attr(),
+        type: attr(),
+        updateDate: attr(),
+        coverImg: attr(),
         comments: many({
             to: 'Comment',
             relatedName: 'posts'

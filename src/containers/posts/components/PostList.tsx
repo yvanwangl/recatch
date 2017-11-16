@@ -5,12 +5,12 @@ import RefreshIcon from 'material-ui/svg-icons/action/cached';
 import { connect } from 'react-redux';
 import { postSelector } from '../selectors';
 import StoreState from '../../../store/types';
-import PostItem from './PostItem';
+import PostItem, { PostModel } from './PostItem';
 import { fetchPosts } from '../actions';
 import './index.css';
 
 export interface PostListProps {
-    posts: Array<object>;
+    posts: Array<PostModel>;
     fetchPosts: Function;
 }
 
@@ -29,8 +29,8 @@ class PostList extends React.Component<PostListProps> {
         let postItems = posts.map((post, index) => <PostItem key={index} post={post} />);
         return (
             <div>
-                <div className='post-list-tabbar'>
-                    <h2 className='post-list-title'>Posts List</h2>
+                <div className='PostList-tabbar'>
+                    <h2 className='PostList-title'>Posts List</h2>
                     <div>
                         <FlatButton label="Create" icon={<ContentAddIcon />} primary={true} />
                         <FlatButton label="Refresh" onClick={this.handleRefresh} icon={<RefreshIcon />} primary={true} />

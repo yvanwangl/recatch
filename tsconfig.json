@@ -19,6 +19,7 @@
         "strictNullChecks": true,
         "suppressImplicitAnyIndexErrors": true,
         "noUnusedLocals": true,
+        "experimentalDecorators": true,
         "typeRoots": [
             "./node_modules/types-redux-orm",
             "./node_modules/@types"

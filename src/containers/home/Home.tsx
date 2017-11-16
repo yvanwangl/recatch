@@ -1,23 +1,71 @@
 import * as React from 'react';
-import DatePicker from 'material-ui/DatePicker';
 import Paper from 'material-ui/Paper';
+import { Route } from 'react-router-dom'
+import AppBar from 'material-ui/AppBar';
+import Drawer from 'material-ui/Drawer';
+import MenuItem from 'material-ui/MenuItem';
+import DashBoard from 'material-ui/svg-icons/action/dashboard';
+import PostListIcon from 'material-ui/svg-icons/action/list';
+import MenuLink from '../../components/menuLink/MenuLink';
+import PostList from '../posts/components/PostList';
 
-const style = {
-    height: 100,
-    width: 100,
-    margin: 20,
-    textAlign: 'center',
-    display: 'inline-block',
-};
+const PADDING = 30;
 
-class Home extends React.Component {
+// const style = {
+//     height: 100,
+//     width: 100,
+//     margin: 20,
+//     textAlign: 'center',
+//     display: 'inline-block',
+// };
+
+export interface AppState {
+    drawerOpen: boolean;
+}
+
+class Home extends React.Component<object, AppState> {
+
+    constructor(props: any) {
+        super(props);
+        this.state = {
+            drawerOpen: true
+        };
+    }
+
+    handleClick = () => {
+        this.setState({
+            drawerOpen: !this.state.drawerOpen
+        });
+    };
+
 
     render() {
         return (
             <div>
-                <Paper style={style} zDepth={1}>
-                    <DatePicker hintText="Landscape Inline" container="inline" mode="landscape" />
-                </Paper>
+                <AppBar
+                    title="Title"
+                    iconClassNameRight="muidocs-icon-navigation-expand-more"
+                    style={{ zIndex: 9999 }}
+                    onLeftIconButtonTouchTap={this.handleClick}
+                />
+                <div style={{
+                    backgroundColor: 'rgb(237, 236, 236)',
+                    display: 'flex',
+                    flex: '1 1 0%'
+                }}>
+                    <Drawer
+                        containerStyle={{ top: 64 }}
+                        open={this.state.drawerOpen}
+                    >
+                        <MenuItem primaryText={<MenuLink to='/' linkText='主页' />} leftIcon={<DashBoard />} />
+                        <MenuItem primaryText={<MenuLink to='/posts' linkText='文章' />} leftIcon={<PostListIcon />} />
+                    </Drawer>
+                    <div style={{ position: 'fixed', padding: PADDING, top: 64, left: this.state.drawerOpen ? 256 : 0, right: 0, bottom: 0, overflowY: 'scroll', transition: 'left 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms' }}>
+                        <Paper style={{position: 'absolute', top: PADDING, right: PADDING, bottom: PADDING, left: PADDING}}>
+                            <Route path="/posts" component={PostList} />
+                        </Paper>
+                    </div>
+                </div>
             </div>
         );
     }
