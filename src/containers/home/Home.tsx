@@ -62,6 +62,7 @@ class Home extends React.Component<object, AppState> {
                     </Drawer>
                     <div style={{ position: 'fixed', padding: PADDING, top: 64, left: this.state.drawerOpen ? 256 : 0, right: 0, bottom: 0, overflowY: 'scroll', transition: 'left 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms' }}>
                         <Paper style={{position: 'absolute', top: PADDING, right: PADDING, bottom: PADDING, left: PADDING}}>
+                            <Route exact path="/" component={PostList} />
                             <Route path="/posts" component={PostList} />
                         </Paper>
                     </div>

@@ -1,8 +1,11 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import RaisedButton from 'material-ui/RaisedButton';
+import LockIcon from 'material-ui/svg-icons/action/lock-outline';
 import { Field, reduxForm, InjectedFormProps } from 'redux-form';
-//import { TextField } from 'redux-form-material-ui';
+import { TextField } from 'redux-form-material-ui';
 import { doLogin } from '../actions';
+import './index.css';
 
 export interface LoginDispatch {
     doLogin: Function;
@@ -25,39 +28,72 @@ class Login extends React.Component<LoginDispatch & InjectedFormProps> {
 
     static validate(values: any) {
         const errors = { username: '', password: '' };
-    
+
         if (!values.username) {
-          errors.username = 'Username is required.';
+            errors.username = 'Username is required.';
         }
-    
+
         if (!values.password) {
-          errors.password = 'Password is required.';
+            errors.password = 'Password is required.';
         }
-    
+
         return errors;
-      }
+    }
 
-    handleSubmit = (values: any)=>{
-        alert(values);
+    handleSubmit = (values: any) => {
+        //alert(values);
+        alert(JSON.stringify(values));
     };
-
-    render(){
+ 
+    render() {
         return (
-            <form onSubmit={this.handleSubmit}>
-                <Field
-                    name="username"
-                    type="text"
-                    component="input"
-                />
-                <Field name="firstName" component="input" label="First Name"/>
-                <Field
-                    name="password"
-                    component="input"
-                    validate={required}
-                    ref="Password"
-                    withRef
-                />
-            </form>
+            <div className='Login-wrapper'>
+                <div className='Login-form'>
+                    <div style={{ margin: 20, textAlign: 'center' }}>
+                        <span className='Login-icon'>
+                            <LockIcon color='#fff' style={{ width: 36, height: 36, margin: 12 }} />
+                        </span>
+                    </div>
+                    <h2 className='Login-title'>Login</h2>
+                    <form onSubmit={this.handleSubmit}>
+                        <div>
+                            <Field
+                                name="username"
+                                type="text"
+                                validate={required}
+                                component={() =>
+                                    <TextField
+                                        hintText='User Name'
+                                        floatingLabelText='User Name'
+                                    />
+                                }
+                            />
+                        </div>
+                        <div>
+                            <Field
+                                name="password"
+                                component={() =>
+                                    <TextField
+                                        hintText='Password'
+                                        floatingLabelText='Password'
+                                        type='password'
+                                    />
+                                }
+                                validate={required}
+                                ref="Password"
+                                withRef
+                            />
+                        </div>
+                        <RaisedButton
+                            label="Primary"
+                            primary={true}
+                            fullWidth={true}
+                            style={{marginTop: 8}}
+                            type="submit"
+                        />
+                    </form>
+                </div>
+            </div>
         );
     }
 }
@@ -65,4 +101,4 @@ class Login extends React.Component<LoginDispatch & InjectedFormProps> {
 export default reduxForm({
     form: 'login',
     validate: Login.validate,
-  })(Login);
+})(Login);
