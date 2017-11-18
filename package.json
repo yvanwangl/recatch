@@ -31,7 +31,7 @@
     "react-scripts-ts": "2.8.0",
     "redux": "^3.7.2",
     "redux-form": "^7.1.2",
-    "redux-form-material-ui": "^4.3.0",
+    "redux-form-material-ui": "^4.3.1",
     "redux-logger": "^3.0.6",
     "redux-orm": "^0.9.4",
     "redux-thunk": "^2.2.0",
