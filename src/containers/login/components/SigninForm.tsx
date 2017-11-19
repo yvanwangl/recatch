@@ -10,8 +10,6 @@ interface SigninFormProps {
     onSignUp: ((event: any) => void);
 }
 
-const required = (value: any) => (value == null ? 'Required' : undefined);
-
 class SigninForm extends React.Component<InjectedFormProps & SigninFormProps> {
 
     static validate(values: any) {
@@ -43,7 +41,6 @@ class SigninForm extends React.Component<InjectedFormProps & SigninFormProps> {
                         <div className='Signin-form-item'>
                             <Field
                                 name="username"
-                                validate={required}
                                 component={TextField as any}
                                 props={{
                                     fullWidth: true,
@@ -55,7 +52,6 @@ class SigninForm extends React.Component<InjectedFormProps & SigninFormProps> {
                         <div className='Signin-form-item'>
                             <Field
                                 name="password"
-                                validate={required}
                                 component={TextField as any}
                                 props={{
                                     fullWidth: true,
@@ -87,5 +83,5 @@ class SigninForm extends React.Component<InjectedFormProps & SigninFormProps> {
 
 export default reduxForm({
     form: 'signin',
-    //validate: SigninForm.validate,
+    validate: SigninForm.validate,
 })(SigninForm) as any;

@@ -3,7 +3,7 @@ const debug = process.env.NODE_ENV === 'development';
 
 //开发模式，跨域请求
 //跨域请求url
-const httpServerDev = 'http://localhost:4000';
+const httpServerDev = 'http://localhost:8082';
 //跨域请求头配置
 const defaultOptionsDev = {
      mode: 'cors',

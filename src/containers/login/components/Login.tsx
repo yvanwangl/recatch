@@ -2,6 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { doLogin } from '../actions';
 import SigninForm from './SigninForm';
+import SignupForm from './SignupForm';
 import './index.css';
 
 export interface LoginProps {
@@ -29,21 +30,26 @@ class Login extends React.Component<LoginProps, LoginState> {
     }
 
     handleToggle = (e: any): void=>{
-        alert();
         this.setState({
             signin: !this.state.signin
         });
     };
 
     handleSubmit = (values: any) => {
-        //alert(values);
-        alert(JSON.stringify(values));
+        let {doLogin} = this.props;
+        values['type'] = this.state.signin ? 'signin' : 'signup';
+        doLogin(values);
     };
 
     render() {
+        const {signin} = this.state;
         return (
             <div className='Login-wrapper'>
-                <SigninForm onSubmit={this.handleSubmit} onSignUp={this.handleToggle}/>
+                {
+                    signin ?
+                    <SigninForm onSubmit={this.handleSubmit} onSignUp={this.handleToggle}/>:
+                    <SignupForm onSubmit={this.handleSubmit} onSignIn={this.handleToggle}/>
+                }
             </div>
         );
     }

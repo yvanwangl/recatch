@@ -11,24 +11,30 @@
 }
 .Signin-form {
     padding: 20px 40px;
-    /* background: #fff; */
 }
-.Signin-icon {
+.Signup-form {
+    padding: 30px 60px;
+}
+.Signin-icon,
+.Signup-icon {
     display: inline-block; 
     width: 60px; 
     height: 60px;
     background: rgb(255, 64, 129);
     border-radius: 50%;
 }
-.Signin-title {
+.Signin-title,
+.Signup-title {
     text-align: center; 
     font-weight: normal;
     margin: 5px 0;
 }
-.Signin-form-item {
+.Signin-form-item,
+.Signup-form-item {
     display: flex;
 }
-.Signin-up-btn {
+.Signin-up-btn,
+.Signup-up-btn {
     margin-top: 10px;
     text-align: right;
     padding-right: 23px;
@@ -37,6 +43,7 @@
     color: rgba(0,0,0,.4)
 }
 
-.Signin-up-btn span:hover {
+.Signin-up-btn span:hover,
+.Signup-up-btn span:hover {
     color: rgb(0, 188, 212)
 }
