@@ -1,3 +1,4 @@
+//import { Action } from '../utils/createAction';
 import { Model, attr, many } from 'redux-orm';
 import { FETCH_POST_SUCCESS } from './constants';
 
@@ -38,7 +39,7 @@ class Post extends Model<PostProps> {
         })
     };
 
-    static reducer(action: any, Post: any) {
+    static reducer(action:any, Post:any) {
         const { type, payload: posts } = action;
         switch (type) {
             case FETCH_POST_SUCCESS:

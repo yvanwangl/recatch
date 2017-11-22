@@ -1,7 +1,6 @@
 import { createAsyncAction } from '../../utils/createAction';
 import {LOGIN_SUCCESS, VALIDATE_SUCCESS} from './constants';
 import request from '../../utils/request';
-import {locationRedirect} from '../../utils/historyManage';
 
 export const validateUsername = createAsyncAction({
     callApi: (loginInfo: any)=> request('/api/login/validate-username', {
@@ -20,8 +19,7 @@ export const doLogin = createAsyncAction({
     types: [,LOGIN_SUCCESS,],
     callbacks: {
         success: (userInfo: any)=> {
-            sessionStorage.setItem('user', userInfo);
-            locationRedirect('/');
+            sessionStorage.setItem('user', JSON.stringify(userInfo));
         }
     }
 });

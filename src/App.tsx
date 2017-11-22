@@ -13,7 +13,7 @@ class App extends React.Component<object, AppState> {
     render() {
         return (
             <Switch>
-                <Route exact path="/login" component={Login} />
+                <Route path="/login" component={Login} />
                 <Route path="/" component={Home} />
             </Switch>
         );

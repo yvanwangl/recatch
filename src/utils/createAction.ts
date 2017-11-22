@@ -41,7 +41,7 @@ export function createAsyncAction(asyncData: AsyncData): Function {
                         callbacks && callbacks.success && callbacks.success(jsonData.data);
                         dispatch({
                             type: successType,
-                            payload: jsonData
+                            payload: jsonData.data
                         });
                     }
                     return jsonData;

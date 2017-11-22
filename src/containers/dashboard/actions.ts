@@ -8,11 +8,11 @@ export const addPost = createAsyncAction({
         method: 'post',
         body: JSON.stringify(post)
     }),
-    types: [, ADD_POST_SUCCESS,]
+    types: [,ADD_POST_SUCCESS,]
 });
 
-//查询当前用户所有文章
+//查询所有文章
 export const fetchPosts = createAsyncAction({
-    callApi: () => request('/api/posts/get-by-user'),
+    callApi: () => request('/api/posts'),
     types: [FETCH_POST_REQUEST, FETCH_POST_SUCCESS, FETCH_POST_FAIL],
 });
