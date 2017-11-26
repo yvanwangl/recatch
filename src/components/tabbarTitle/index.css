@@ -1,0 +1,11 @@
+.TabbarTitle-tabbar {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+}
+.TabbarTitle-title {
+    margin: 0;
+    font-weight: normal;
+    font-size: 24px;
+}
