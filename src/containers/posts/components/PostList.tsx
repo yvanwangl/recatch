@@ -53,11 +53,11 @@ class PostList extends React.Component<PostListProps> {
         return (
             <div>
                 <TabbarTitle 
-                    title = 'Posts List'
+                    title = '文章列表'
                     buttons = {
                         [
-                            <FlatButton label="Create" onClick={this.handleCreate} icon={<ContentAddIcon />} primary={true} />,
-                            <FlatButton label="Refresh" onClick={this.handleRefresh} icon={<RefreshIcon />} primary={true} />
+                            <FlatButton key='create' label="新增" onClick={this.handleCreate} icon={<ContentAddIcon />} primary={true} />,
+                            <FlatButton key='refresh' label="刷新" onClick={this.handleRefresh} icon={<RefreshIcon />} primary={true} />
                         ]
                     }
                 />

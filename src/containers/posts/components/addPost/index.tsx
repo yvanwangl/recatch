@@ -4,7 +4,7 @@ import EditPost from '../editPost';
 class AddPost extends React.Component {
     render(){
         return (
-            <EditPost initData={{}} onSave={()=> console.log('save')}/>
+            <EditPost initData={{}} onSubmit={(values: any)=> console.log(values)}/>
         );
     }
 }
