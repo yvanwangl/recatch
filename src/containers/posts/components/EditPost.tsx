@@ -2,20 +2,28 @@ import * as React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import ListIcon from 'material-ui/svg-icons/action/list';
-import TabbarTitle from '../../../../components/tabbarTitle/TabbarTitle';
+import TabbarTitle from '../../../components/tabbarTitle/TabbarTitle';
 import { Field, reduxForm, InjectedFormProps } from 'redux-form';
 import { TextField } from 'redux-form-material-ui';
-import '../index.css';
+import './index.css';
 
 export interface EditPostProps {
     initData: any;
+    onCancel: Function;
     onSubmit: Function;
+    uploadCoverImg: Function;
 }
 
-class EditPost extends React.Component<EditPostProps & InjectedFormProps> {
+export interface EditPostState {
+    coverImg: string;
+}
+
+class EditPost extends React.Component<EditPostProps & InjectedFormProps, EditPostState> {
+
+    upload: any;
 
     state = {
-        stepIndex: 0
+        coverImg: ''
     };
 
     static validate(values: any) {
@@ -37,14 +45,29 @@ class EditPost extends React.Component<EditPostProps & InjectedFormProps> {
     }
 
     handleCancel = () => {
-        const { stepIndex } = this.state;
-        if (stepIndex > 0) {
-            this.setState({ stepIndex: stepIndex - 1 });
-        }
+        // const { stepIndex } = this.state;
+        // if (stepIndex > 0) {
+        //     this.setState({ stepIndex: stepIndex - 1 });
+        // }
+    };
+
+    handleCoverImg = (e: any) => {
+        let { uploadCoverImg } = this.props;
+        let file = e.target.files[0];
+        let formData = new FormData();
+        formData.append('coverImg', file);
+        uploadCoverImg(formData).then((result: any) => {
+            if (result.success) {
+                this.setState({
+                    coverImg: result.data
+                });
+            }
+        });
     };
 
     render() {
         const { handleSubmit } = this.props;
+        const { coverImg } = this.state;
 
         return (
             <div>
@@ -64,9 +87,19 @@ class EditPost extends React.Component<EditPostProps & InjectedFormProps> {
                             props={{
                                 fullWidth: true,
                                 hintText: '封面图',
-                                floatingLabelText: '封面图'
+                                floatingLabelText: '封面图',
+                                disabled: true,
+                                value: coverImg
                             } as any}
                         />
+                        <div style={{ height: 36, marginTop: 16 }}>
+                            <input id="myInput" type="file" ref={(ref) => this.upload = ref} style={{ display: 'none' }} onChange={this.handleCoverImg} />
+                            <RaisedButton
+                                label="封面图"
+                                secondary={true}
+                                onClick={(e) => this.upload.click()}
+                            />
+                        </div>
                     </div>
                     <div className='EditPost-form-item'>
                         <Field

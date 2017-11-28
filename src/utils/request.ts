@@ -24,3 +24,16 @@ export default function request(url: string, options?: object) {
             return { error };
         })
 }
+
+// 文件上传请求
+export function requestUpload(url: string, options?: object){
+    let fetchConfig = {...defaultOptions, ...options};
+    delete fetchConfig['headers']['content-type'];
+    return fetch(`${httpServer}${url}`, fetchConfig)
+    .then(checkStatus)
+    .then(parseJson)
+    .catch((error: any) => {
+        console.log(error);
+        return { error };
+    })
+}

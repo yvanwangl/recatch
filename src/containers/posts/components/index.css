@@ -17,5 +17,6 @@
     flex-wrap: wrap;
 }
 .EditPost-form-item {
+    display: flex;
     width: 45%;
 }
