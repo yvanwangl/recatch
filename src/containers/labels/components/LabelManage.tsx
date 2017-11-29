@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {EditTable} from 'material-ui-table-edit';
+import EditTable, {RowProps} from '../../../components/editTable/EditTable';
 
 const headers = [
     { value: 'Name', type: 'TextField', width: 200 },
@@ -10,9 +10,7 @@ const headers = [
     { value: 'Last Edited By', type: 'ReadOnly', width: 100 }
 ];
 
-const rows = [{
-
-}];
+const rows = new Array<RowProps>();
 
 class LabelManage extends React.Component {
 
