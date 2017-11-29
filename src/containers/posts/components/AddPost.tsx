@@ -1,11 +1,21 @@
 import * as React from 'react';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
+import StoreState from '../../../store/types';
+import { allLabelsSelector } from '../selectors';
 import { uploadCoverImg } from '../actions';
 import EditPost from './EditPost';
 
 export interface AddPostProps {
     uploadCoverImg: Function;
+    history: any;
+    labels: any;
+}
+
+function mapStateToProps(state: StoreState) {
+    return {
+        labels: allLabelsSelector(state)
+    }
 }
 
 function mapDispatchToProps(dispatch: Function) {
@@ -14,7 +24,7 @@ function mapDispatchToProps(dispatch: Function) {
     }
 }
 
-@(connect(null, mapDispatchToProps) as any)
+@(connect(mapStateToProps, mapDispatchToProps) as any)
 class AddPost extends React.Component<AddPostProps> {
     //保存按钮点击事件
     handleSubmit = (values: any) => {
@@ -28,9 +38,15 @@ class AddPost extends React.Component<AddPostProps> {
     };
 
     render() {
-        let { uploadCoverImg } = this.props;
+        let { uploadCoverImg, labels } = this.props;
         return (
-            <EditPost initData={{}} uploadCoverImg={uploadCoverImg} onSubmit={handleSubmit} onCancel={handleCancel}/>
+            <EditPost
+                initData={{}}
+                labels={labels}
+                uploadCoverImg={uploadCoverImg}
+                onSubmit={this.handleSubmit}
+                onCancel={this.handleCancel}
+            />
         );
     }
 }

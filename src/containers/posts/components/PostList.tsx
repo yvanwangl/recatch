@@ -9,11 +9,13 @@ import { postSelector } from '../selectors';
 import StoreState from '../../../store/types';
 import PostItem, { PostModel } from './PostItem';
 import { fetchPosts } from '../actions';
+import { fetchAllLabels } from '../../labels/actions';
 import './index.css';
 
 export interface PostListProps {
     posts: Array<PostModel>;
     fetchPosts: Function;
+    fetchAllLabels: Function;
     history: any;
 }
 
@@ -25,7 +27,8 @@ function mapStateToProps(state: StoreState) {
 
 function mapDispatchToProps(dispatch: Function) {
     return {
-        fetchPosts: () => dispatch(fetchPosts())
+        fetchPosts: () => dispatch(fetchPosts()),
+        fetchAllLabels: () => dispatch(fetchAllLabels())
     }
 }
 
@@ -45,6 +48,7 @@ class PostList extends React.Component<PostListProps> {
 
     componentDidMount() {
         this.props.fetchPosts();
+        this.props.fetchAllLabels();
     }
 
     render() {

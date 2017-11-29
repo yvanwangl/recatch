@@ -1,14 +1,16 @@
 import * as React from 'react';
+import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import ListIcon from 'material-ui/svg-icons/action/list';
 import TabbarTitle from '../../../components/tabbarTitle/TabbarTitle';
 import { Field, reduxForm, InjectedFormProps } from 'redux-form';
-import { TextField } from 'redux-form-material-ui';
+import { TextField, SelectField } from 'redux-form-material-ui';
 import './index.css';
 
 export interface EditPostProps {
     initData: any;
+    labels: any;
     onCancel: Function;
     onSubmit: Function;
     uploadCoverImg: Function;
@@ -16,14 +18,30 @@ export interface EditPostProps {
 
 export interface EditPostState {
     coverImg: string;
+    values: Array<string | number>;
 }
+
+const names = [
+    'Oliver Hansen',
+    'Van Henry',
+    'April Tucker',
+    'Ralph Hubbard',
+    'Omar Alexander',
+    'Carlos Abbott',
+    'Miriam Wagner',
+    'Bradley Wilkerson',
+    'Virginia Andrews',
+    'Kelly Snyder',
+];
+
 
 class EditPost extends React.Component<EditPostProps & InjectedFormProps, EditPostState> {
 
     upload: any;
 
     state = {
-        coverImg: ''
+        coverImg: '',
+        values: []
     };
 
     static validate(values: any) {
@@ -44,11 +62,22 @@ class EditPost extends React.Component<EditPostProps & InjectedFormProps, EditPo
         return errors;
     }
 
-    handleCancel = () => {
-        // const { stepIndex } = this.state;
-        // if (stepIndex > 0) {
-        //     this.setState({ stepIndex: stepIndex - 1 });
-        // }
+    menuItems(values: any) {
+        //let {labels} = this.props;
+        return names.map((name) => (
+            <MenuItem
+                key={name}
+                insetChildren={true}
+                checked={values && values.indexOf(name) > -1}
+                value={name}
+                primaryText={name}
+            />
+        ));
+    }
+
+    handleCancel = ()=> {
+        let {onCancel} = this.props;
+        onCancel();
     };
 
     handleCoverImg = (e: any) => {
@@ -65,9 +94,17 @@ class EditPost extends React.Component<EditPostProps & InjectedFormProps, EditPo
         });
     };
 
+    handleChange = (values: any) => this.setState({values});
+
+    componentDidMount(){
+
+    }
+
+
     render() {
         const { handleSubmit } = this.props;
-        const { coverImg } = this.state;
+        const { coverImg, values } = this.state;
+        const handleChange = this.handleChange;
 
         return (
             <div>
@@ -122,6 +159,22 @@ class EditPost extends React.Component<EditPostProps & InjectedFormProps, EditPo
                                 floatingLabelText: '作者'
                             } as any}
                         />
+                    </div>
+                    <div className='EditPost-form-item'>
+                        <Field
+                            name="labels"
+                            component={SelectField as any}
+                            props={{
+                                multiple: true,
+                                fullWidth: true,
+                                hintText: '标签',
+                                floatingLabelText: '标签',
+                                value: values,
+                                onChange: handleChange
+                            } as any}
+                        >
+                            {this.menuItems(values)}
+                        </Field>
                     </div>
                 </form>
                 <div style={{ marginTop: 12 }}>

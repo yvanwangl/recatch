@@ -13,3 +13,12 @@ export const postSelector = createSelector(
         })
     })
 );
+
+export const allLabelsSelector = createSelector(
+    ormSelector,
+    ormCreateSelector(orm, (session) => {
+        return session.Label.all().toModelArray().map(label => {
+            return Object.assign({}, label.ref);
+        })
+    })
+);
