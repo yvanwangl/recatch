@@ -12,12 +12,15 @@ export interface ColumnProps {
     value: string | boolean | object;
     width?: number;
     type: string;
+    dataIndex: string;
 }
 
 export interface RowProps {
     columns: Array<ColumnProps>;
     id?: string | number;
     selected: boolean;
+    phantom: boolean;
+    primaryId: string | number;
 }
 
 export interface EditTableProps {
@@ -36,10 +39,11 @@ export interface EditTableState {
 
 export default class EditTable extends React.Component<EditTableProps, EditTableState> {
 
-    constructor(props: EditTableProps){
+    constructor(props: EditTableProps) {
         super(props);
+        let rows = this.props.rows.map((row, index) => ({ ...row, phantom: false, primaryId: row.id || -(index + 1) }));
         this.state = {
-            rows: this.props.rows,
+            rows: rows,
             hoverValue: false,
             currentRow: false
         };
@@ -56,8 +60,11 @@ export default class EditTable extends React.Component<EditTableProps, EditTable
     update = () => {
         const row = this.state.rows.filter((row: any) => {
             return row.selected
-        });
-        this.props.onChange(row[0]);
+        })[0];
+        let rowData = row.columns.reduce((data, { dataIndex, value }) => Object.assign(data, { [dataIndex]: value }), {});
+        rowData['phantom'] = row.phantom;
+        rowData['id'] = row.primaryId;
+        this.props.onChange(rowData);
     };
 
     getCellValue = (cell: any) => {
@@ -216,18 +223,20 @@ export default class EditTable extends React.Component<EditTableProps, EditTable
 
         const onDeleteRow = function (e: any) {
             let rows = self.state.rows
-            let deleteEvent = {}
+            let deleteEvent = {} as any;
             rows.forEach((row, i) => {
                 if (rowId === i) {
-                    rows.splice(i, 1)
-                    deleteEvent = { rowId, row }
+                    rows.splice(i, 1);
+                    deleteEvent = { id: row.primaryId, primaryId: row.primaryId, phantom: row.phantom };
                 }
             })
             rows.forEach((row, i) => {
                 row.id = i
             })
             self.setState({ rows: rows })
-            if (deleteEvent !== {}) self.props.onDelete(deleteEvent)
+            if (deleteEvent.primaryId != undefined) {
+                self.props.onDelete(deleteEvent)
+            }
         }
 
         const onClick = function (e: any) {
@@ -314,7 +323,7 @@ export default class EditTable extends React.Component<EditTableProps, EditTable
             };
             const newColumns = headerColumns.map((column, index) => {
                 const value = defaults[column.type];
-                return {...column, value};
+                return { ...column, value };
             });
 
             const updatedRows = rows.map((row) => {
@@ -324,7 +333,7 @@ export default class EditTable extends React.Component<EditTableProps, EditTable
                 }
                 return row
             })
-            updatedRows.push({ columns: newColumns, selected: true, id: updatedRows.length });
+            updatedRows.push({ columns: newColumns, selected: true, id: updatedRows.length, phantom: true, primaryId: -(updatedRows.length + 1) });
             self.setState({ rows: updatedRows })
         }
 
