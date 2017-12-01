@@ -3,7 +3,7 @@ import './index.css';
 
 export interface TabbarTitleProps {
     title: string | React.ReactNode;
-    buttons: any;
+    buttons?: any;
 }
 
 function TabbarTitle({ title, buttons }: TabbarTitleProps) {

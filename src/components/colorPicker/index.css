@@ -1,0 +1,14 @@
+.ColorPicker-colorDot {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    border-radius: 4px;
+    margin-right: 4px;
+}
+.PickerDialog-cover {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}

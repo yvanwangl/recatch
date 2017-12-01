@@ -1,56 +1,87 @@
 import * as React from 'react';
-import {connect} from 'react-redux';
-import {addLabel} from '../actions';
-import EditTable, {RowProps} from '../../../components/editTable/EditTable';
+import { connect } from 'react-redux';
+import StoreState from '../../../store/types';
+import { fetchAllLabels, addLabel, modifyLabel, deleteLabel } from '../actions';
+import { labelSelector } from '../selectors';
+import EditTable from '../../../components/editTable/EditTable';
+import TabbarTitle from '../../../components/tabbarTitle/TabbarTitle';
 
 const headers = [
-    { value: 'Name', dataIndex: 'name', type: 'TextField', width: 200 },
-    { value: 'Address', dataIndex: 'address', type: 'TextField', width: 200 },
-    { value: 'Phone', dataIndex: 'phone', type: 'TextField', width: 200 },
-    { value: 'Date', dataIndex: 'date', type: 'DatePicker', width: 200 },
-    { value: 'Enabled', dataIndex: 'enabled', type: 'Toggle', width: 50 },
-    { value: 'Last Edited By', dataIndex: 'creator', type: 'ReadOnly', width: 100 }
+    { value: '名称', dataIndex: 'name', type: 'TextField', width: 200 },
+    { value: '背景颜色', dataIndex: 'bgColor', type: 'ColorPicker', width: 200 },
+    { value: '字体颜色', dataIndex: 'fontColor', type: 'ColorPicker', width: 200 },
+    { value: '是否可用', dataIndex: 'enabled', type: 'Toggle', width: 50 },
+    { value: '样式', dataIndex: 'labelStyle', type: 'Chip', width: 200 },
 ];
 
-const rows = new Array<RowProps>();
+// const dataSource = [{
+//     id: 1, name: 'React', bgColor: '#000', fontColor: '#fff', enabled: false
+// }];
 
 export interface LabelManageProps {
+    fetchAllLabels: Function;
     addLabel: Function;
+    modifyLabel: Function;
+    deleteLabel: Function;
+    labels: any;
 }
 
-function mapDispatchToProps(dispatch: Function){
+function mapStateToProps(state: StoreState) {
     return {
-        addLabel: (label: any) => dispatch(addLabel(label))
+        labels: labelSelector(state)
     }
 }
 
-@(connect(null, mapDispatchToProps) as any)
+function mapDispatchToProps(dispatch: Function) {
+    return {
+        fetchAllLabels: () => dispatch(fetchAllLabels()),
+        addLabel: (label: any) => dispatch(addLabel(label)),
+        modifyLabel: (label: any) => dispatch(modifyLabel(label)),
+        deleteLabel: (id: number | string) => dispatch(deleteLabel(id)),
+    }
+}
+
+@(connect(mapStateToProps, mapDispatchToProps) as any)
 class LabelManage extends React.Component<LabelManageProps> {
 
 
     onChange = (row: any) => {
         //如果为虚拟数据，则为保存； 否则为修改
-        let {addLabel} = this.props;
-        if(row.phantom){
+        let { addLabel, modifyLabel } = this.props;
+        if (row.phantom) {
             addLabel(row);
+        } else {
+            modifyLabel(row);
         }
-        console.log(row)
     }
 
-    onDelete = (e: any) => {
+    onDelete = (row: any) => {
         //如果为虚拟数据则不处理，否则调删除接口
-        console.log(e)
+        let { deleteLabel } = this.props;
+        if (!row.phantom) {
+            deleteLabel(row.id);
+        }
+    }
+
+    componentDidMount() {
+        this.props.fetchAllLabels();
     }
 
     render() {
+        let { labels } = this.props;
         return (
-            <EditTable
-                onChange={this.onChange}
-                onDelete={this.onDelete}
-                rows={rows}
-                headerColumns={headers}
-                enableDelete={true}
-            />
+            <div>
+                <TabbarTitle title='标签管理' />
+                <div style={{ padding: 30 }}>
+                    <EditTable
+                        onChange={this.onChange}
+                        onDelete={this.onDelete}
+                        dataSource={labels}
+                        headerColumns={headers}
+                        enableDelete={true}
+                    />
+                </div>
+            </div>
         );
     }
 }

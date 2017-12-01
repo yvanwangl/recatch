@@ -5,7 +5,7 @@ import FlatButton from 'material-ui/FlatButton';
 import ListIcon from 'material-ui/svg-icons/action/list';
 import TabbarTitle from '../../../components/tabbarTitle/TabbarTitle';
 import { Field, reduxForm, InjectedFormProps } from 'redux-form';
-import { TextField, SelectField } from 'redux-form-material-ui';
+import { TextField, SelectField } from 'redux-form-material-ui'
 import './index.css';
 
 export interface EditPostProps {

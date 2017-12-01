@@ -1,5 +1,5 @@
 import { Model, attr } from 'redux-orm';
-import { FETCH_LABEL_SUCCESS } from './constants';
+import { FETCH_LABEL_SUCCESS, ADD_LABEL_SUCCESS, MODIFY_LABEL_SUCCESS, DELETE_LABEL_SUCCESS } from './constants';
 
 export interface LabelProps {
     id: string | number;
@@ -12,18 +12,24 @@ class Label extends Model<LabelProps> {
 
     static fields = {
         id: attr(),
-        name: attr()
+        name: attr(),
+        bgColor: attr(),
+        fontColor: attr(),
+        enabled: attr()
     };
 
     static reducer(action: any, Label: any) {
-        let { type, payload: labels } = action;
+        let { type, payload } = action;
         switch (type) {
             case FETCH_LABEL_SUCCESS:
-                labels.map((label: any)=> {
-                    let newLabel = {id: label['_id'], name: label['name']};
-                    Label.upsert(newLabel);
-                });
+                payload.map((label: any) => Label.upsert({ id: label['_id'], ...label }));
                 break;
+            case ADD_LABEL_SUCCESS:
+            case MODIFY_LABEL_SUCCESS:
+                Label.upsert({ id: payload['_id'], ...payload });
+                break;
+            case DELETE_LABEL_SUCCESS:
+                Label.withId(payload['_id']).delete();
         }
     }
 }

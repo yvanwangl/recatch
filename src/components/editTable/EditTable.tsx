@@ -3,6 +3,10 @@ import IconButton from 'material-ui/IconButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import DatePicker from 'material-ui/DatePicker';
+// import ColorPicker from 'material-ui-color-picker';
+//import { BlockPicker } from 'react-color'
+import ColorPicker from '../colorPicker/ColorPicker';
+import Chip from 'material-ui/Chip';
 import Toggle from 'material-ui/Toggle';
 import Check from 'material-ui/svg-icons/navigation/check';
 import ModeEdit from 'material-ui/svg-icons/editor/mode-edit';
@@ -25,10 +29,11 @@ export interface RowProps {
 
 export interface EditTableProps {
     headerColumns: Array<ColumnProps>;
-    rows: Array<RowProps>;
+    rows?: Array<RowProps>;
     onChange: Function;
     onDelete: Function;
     enableDelete: boolean;
+    dataSource: Array<any>
 }
 
 export interface EditTableState {
@@ -41,9 +46,28 @@ export default class EditTable extends React.Component<EditTableProps, EditTable
 
     constructor(props: EditTableProps) {
         super(props);
-        let rows = this.props.rows.map((row, index) => ({ ...row, phantom: false, primaryId: row.id || -(index + 1) }));
+
+        let { headerColumns } = this.props;
+        let rows = this.props.dataSource.map((data, index) => {
+            let columns = headerColumns.map(column => {
+                let value = data[column.dataIndex];
+                if (column.dataIndex == 'labelStyle') {
+                    value = {
+                        text: data['name'],
+                        bgColor: data['bgColor'],
+                        fontColor: data['fontColor']
+                    };
+                }
+                return { ...column, value: value };
+            });
+            return { columns: columns, phantom: false, primaryId: data.id || -(index + 1), selected: false };
+        });
+        this.setState({
+            rows
+        });
+        
         this.state = {
-            rows: rows,
+            rows: [],
             hoverValue: false,
             currentRow: false
         };
@@ -80,6 +104,7 @@ export default class EditTable extends React.Component<EditTableProps, EditTable
         const width = cell && cell.width;
         const textFieldId = [id, rowId, header, 'text'].join('-');
         const datePickerId = [id, rowId, header, 'date'].join('-');
+        const colorPickerId = [id, rowId, header, 'color'].join('-');
 
         const textFieldStyle = {
             width: width
@@ -94,6 +119,9 @@ export default class EditTable extends React.Component<EditTableProps, EditTable
             const value = target.value
             var rows = self.state.rows
             rows[rowId].columns[id].value = value
+            if (id == 0) {
+                rows[rowId].columns[4].value['text'] = value;
+            }
             self.setState({ rows: rows })
         };
 
@@ -108,6 +136,17 @@ export default class EditTable extends React.Component<EditTableProps, EditTable
             rows[rowId].columns[id].value = !rows[rowId].columns[id].value
             self.setState({ rows: rows })
         };
+
+        const onColorPickerChange = (color: any) => {
+            var rows = self.state.rows
+            rows[rowId].columns[id].value = color
+            if (id == 1) {
+                rows[rowId].columns[4].value['bgColor'] = color;
+            } else if (id == 2) {
+                rows[rowId].columns[4].value['fontColor'] = color;
+            }
+            self.setState({ rows: rows })
+        }
 
         if (header || (type && type === 'ReadOnly')) {
             return <p style={{ color: '#888' }}>{value}</p>
@@ -132,8 +171,14 @@ export default class EditTable extends React.Component<EditTableProps, EditTable
                         value={value}
                     />
                 }
+                if (type === 'ColorPicker') {
+                    return <ColorPicker id={colorPickerId} value={value} onChange={onColorPickerChange} />
+                }
                 if (type === 'Toggle') {
                     return <Toggle onToggle={onToggle} toggled={value} />
+                }
+                if (type === 'Chip') {
+                    return <Chip style={{ margin: 4 }} backgroundColor={value.bgColor} labelColor={value.fontColor}>{value.text}</Chip>
                 }
             } else {
                 if (type === 'Toggle') {
@@ -148,6 +193,12 @@ export default class EditTable extends React.Component<EditTableProps, EditTable
                         value={value}
                         disabled={Boolean(true)}
                     />
+                }
+                if (type === 'ColorPicker') {
+                    return <ColorPicker disabled={true} value={value} id={colorPickerId} onChange={onColorPickerChange} />
+                }
+                if (type === 'Chip') {
+                    return <Chip style={{ margin: 4 }} backgroundColor={value.bgColor} labelColor={value.fontColor}>{value.text}</Chip>
                 }
             }
         }
@@ -296,6 +347,27 @@ export default class EditTable extends React.Component<EditTableProps, EditTable
         )
     };
 
+    componentWillReceiveProps() {
+        let { headerColumns } = this.props;
+        let rows = this.props.dataSource.map((data, index) => {
+            let columns = headerColumns.map(column => {
+                let value = data[column.dataIndex];
+                if (column.dataIndex == 'labelStyle') {
+                    value = {
+                        text: data['name'],
+                        bgColor: data['bgColor'],
+                        fontColor: data['fontColor']
+                    };
+                }
+                return { ...column, value: value };
+            });
+            return { columns: columns, phantom: false, primaryId: data.id || -(index + 1), selected: false };
+        });
+        this.setState({
+            rows
+        });
+    }
+
     render() {
         const self = this;
         const containerStyle = {
@@ -319,7 +391,12 @@ export default class EditTable extends React.Component<EditTableProps, EditTable
             const defaults = {
                 'TextField': '',
                 'Toggle': true,
-                'DatePicker': {}
+                'DatePicker': {},
+                'Chip': {
+                    text: '',
+                    bgColor: '',
+                    fontColor: ''
+                }
             };
             const newColumns = headerColumns.map((column, index) => {
                 const value = defaults[column.type];

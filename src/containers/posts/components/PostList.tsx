@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import TabbarTitle from '../../../components/tabbarTitle/TabbarTitle';
 import { postSelector } from '../selectors';
+import { labelSelector } from '../../labels/selectors';
 import StoreState from '../../../store/types';
 import PostItem, { PostModel } from './PostItem';
 import { fetchPosts } from '../actions';
@@ -14,6 +15,7 @@ import './index.css';
 
 export interface PostListProps {
     posts: Array<PostModel>;
+    labels: any;
     fetchPosts: Function;
     fetchAllLabels: Function;
     history: any;
@@ -21,7 +23,8 @@ export interface PostListProps {
 
 function mapStateToProps(state: StoreState) {
     return {
-        posts: postSelector(state)
+        posts: postSelector(state),
+        labels: labelSelector(state)
     }
 }
 
@@ -47,8 +50,11 @@ class PostList extends React.Component<PostListProps> {
     };
 
     componentDidMount() {
-        this.props.fetchPosts();
-        this.props.fetchAllLabels();
+        let {labels, fetchPosts, fetchAllLabels} = this.props;
+        fetchPosts();
+        if(labels.length == 0) {
+            fetchAllLabels()
+        }
     }
 
     render() {
