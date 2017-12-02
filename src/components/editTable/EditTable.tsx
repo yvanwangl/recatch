@@ -46,26 +46,6 @@ export default class EditTable extends React.Component<EditTableProps, EditTable
 
     constructor(props: EditTableProps) {
         super(props);
-
-        let { headerColumns } = this.props;
-        let rows = this.props.dataSource.map((data, index) => {
-            let columns = headerColumns.map(column => {
-                let value = data[column.dataIndex];
-                if (column.dataIndex == 'labelStyle') {
-                    value = {
-                        text: data['name'],
-                        bgColor: data['bgColor'],
-                        fontColor: data['fontColor']
-                    };
-                }
-                return { ...column, value: value };
-            });
-            return { columns: columns, phantom: false, primaryId: data.id || -(index + 1), selected: false };
-        });
-        this.setState({
-            rows
-        });
-        
         this.state = {
             rows: [],
             hoverValue: false,
@@ -88,7 +68,9 @@ export default class EditTable extends React.Component<EditTableProps, EditTable
         let rowData = row.columns.reduce((data, { dataIndex, value }) => Object.assign(data, { [dataIndex]: value }), {});
         rowData['phantom'] = row.phantom;
         rowData['id'] = row.primaryId;
-        this.props.onChange(rowData);
+        if(rowData['name'] && rowData['bgColor'] && rowData['fontColor']) {
+            this.props.onChange(rowData);
+        }
     };
 
     getCellValue = (cell: any) => {
@@ -347,22 +329,38 @@ export default class EditTable extends React.Component<EditTableProps, EditTable
         )
     };
 
-    componentWillReceiveProps() {
-        let { headerColumns } = this.props;
-        let rows = this.props.dataSource.map((data, index) => {
-            let columns = headerColumns.map(column => {
-                let value = data[column.dataIndex];
-                if (column.dataIndex == 'labelStyle') {
-                    value = {
-                        text: data['name'],
-                        bgColor: data['bgColor'],
-                        fontColor: data['fontColor']
-                    };
-                }
-                return { ...column, value: value };
-            });
-            return { columns: columns, phantom: false, primaryId: data.id || -(index + 1), selected: false };
+    formatRows = (headerColumns: Array<ColumnProps>, dataSource: Array<any>) => dataSource.map((data, index) => {
+        let columns = headerColumns.map(column => {
+            let value = data[column.dataIndex];
+            if (column.dataIndex == 'labelStyle') {
+                value = {
+                    text: data['name'],
+                    bgColor: data['bgColor'],
+                    fontColor: data['fontColor']
+                };
+            }
+            return { ...column, value: value };
         });
+        return { columns: columns, phantom: false, primaryId: data.id || -(index + 1), selected: false };
+    });
+
+
+    componentWillMount() {
+        let { headerColumns, dataSource } = this.props;
+        this.setState({
+            rows: this.formatRows(headerColumns, dataSource)
+        });
+    }
+
+    componentWillReceiveProps(nextProps: EditTableProps) {
+        let { headerColumns, dataSource } = nextProps;
+        var rows = this.formatRows(headerColumns, dataSource);
+        //判断是否有新增加的行，如果有增加到末尾行
+        var oldRows = this.state.rows;
+        var addRows = oldRows.slice(rows.length);
+        if(addRows.length == 1) {
+            rows.push(addRows[0]);
+        }
         this.setState({
             rows
         });

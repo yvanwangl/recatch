@@ -21,18 +21,18 @@ export interface EditPostState {
     values: Array<string | number>;
 }
 
-const names = [
-    'Oliver Hansen',
-    'Van Henry',
-    'April Tucker',
-    'Ralph Hubbard',
-    'Omar Alexander',
-    'Carlos Abbott',
-    'Miriam Wagner',
-    'Bradley Wilkerson',
-    'Virginia Andrews',
-    'Kelly Snyder',
-];
+// const names = [
+//     'Oliver Hansen',
+//     'Van Henry',
+//     'April Tucker',
+//     'Ralph Hubbard',
+//     'Omar Alexander',
+//     'Carlos Abbott',
+//     'Miriam Wagner',
+//     'Bradley Wilkerson',
+//     'Virginia Andrews',
+//     'Kelly Snyder',
+// ];
 
 
 class EditPost extends React.Component<EditPostProps & InjectedFormProps, EditPostState> {
@@ -63,20 +63,25 @@ class EditPost extends React.Component<EditPostProps & InjectedFormProps, EditPo
     }
 
     menuItems(values: any) {
-        //let {labels} = this.props;
-        return names.map((name) => (
+        let { labels } = this.props;
+        return labels.map(({id, name}: any) => (
             <MenuItem
-                key={name}
+                key={id}
                 insetChildren={true}
-                checked={values && values.indexOf(name) > -1}
-                value={name}
+                checked={values && values.indexOf(id) > -1}
+                value={id}
                 primaryText={name}
             />
         ));
     }
 
-    handleCancel = ()=> {
-        let {onCancel} = this.props;
+    handleChange = (values: any) => {
+        console.log(values);
+        this.setState({ values })
+    };
+
+    handleCancel = () => {
+        let { onCancel } = this.props;
         onCancel();
     };
 
@@ -94,9 +99,7 @@ class EditPost extends React.Component<EditPostProps & InjectedFormProps, EditPo
         });
     };
 
-    handleChange = (values: any) => this.setState({values});
-
-    componentDidMount(){
+    componentDidMount() {
 
     }
 

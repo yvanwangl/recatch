@@ -2,7 +2,7 @@ import * as React from 'react';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import StoreState from '../../../store/types';
-import { allLabelsSelector } from '../selectors';
+import { labelSelector } from '../../labels/selectors';
 import { uploadCoverImg } from '../actions';
 import EditPost from './EditPost';
 
@@ -14,7 +14,7 @@ export interface AddPostProps {
 
 function mapStateToProps(state: StoreState) {
     return {
-        labels: allLabelsSelector(state)
+        labels: labelSelector(state)
     }
 }
 

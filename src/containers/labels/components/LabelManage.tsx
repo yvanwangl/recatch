@@ -64,7 +64,10 @@ class LabelManage extends React.Component<LabelManageProps> {
     }
 
     componentDidMount() {
-        this.props.fetchAllLabels();
+        let { labels, fetchAllLabels } = this.props;
+        if (labels.length == 0) {
+            fetchAllLabels();
+        }
     }
 
     render() {

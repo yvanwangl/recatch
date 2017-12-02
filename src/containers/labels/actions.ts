@@ -19,7 +19,7 @@ export const addLabel = createAsyncAction({
 
 //修改标签
 export const modifyLabel = createAsyncAction({
-    callApi: (label: any) => request('/api/labels', {
+    callApi: (label: any) => request(`/api/labels/${label.id}`, {
         method: 'put',
         body: JSON.stringify(label)
     }),
