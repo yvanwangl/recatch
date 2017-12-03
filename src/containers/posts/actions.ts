@@ -13,11 +13,11 @@ export const uploadCoverImg = createAsyncAction({
 
 //新增文章
 export const addPost = createAsyncAction({
-    callApi: (post: any) => request('/api/posts/add', {
+    callApi: (post: any) => request('/api/posts', {
         method: 'post',
         body: JSON.stringify(post)
     }),
-    types: [, ADD_POST_SUCCESS,]
+    types: [, ADD_POST_SUCCESS, ]
 });
 
 //查询当前用户所有文章

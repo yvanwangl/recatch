@@ -5,7 +5,8 @@ import FlatButton from 'material-ui/FlatButton';
 import ListIcon from 'material-ui/svg-icons/action/list';
 import TabbarTitle from '../../../components/tabbarTitle/TabbarTitle';
 import { Field, reduxForm, InjectedFormProps } from 'redux-form';
-import { TextField, SelectField } from 'redux-form-material-ui'
+import { TextField, SelectField, Toggle } from 'redux-form-material-ui';
+import Editor from './Editor';
 import './index.css';
 
 export interface EditPostProps {
@@ -14,6 +15,7 @@ export interface EditPostProps {
     onCancel: Function;
     onSubmit: Function;
     uploadCoverImg: Function;
+    actions: any;
 }
 
 export interface EditPostState {
@@ -44,6 +46,7 @@ class EditPost extends React.Component<EditPostProps & InjectedFormProps, EditPo
         values: []
     };
 
+    //表单验证逻辑
     static validate(values: any) {
         const errors = { coverImg: '', title: '', author: '' };
 
@@ -62,9 +65,10 @@ class EditPost extends React.Component<EditPostProps & InjectedFormProps, EditPo
         return errors;
     }
 
+    //标签下拉列表
     menuItems(values: any) {
         let { labels } = this.props;
-        return labels.map(({id, name}: any) => (
+        return labels.map(({ id, name }: any) => (
             <MenuItem
                 key={id}
                 insetChildren={true}
@@ -75,18 +79,21 @@ class EditPost extends React.Component<EditPostProps & InjectedFormProps, EditPo
         ));
     }
 
-    handleChange = (values: any) => {
-        console.log(values);
-        this.setState({ values })
-    };
+    //标签变更事件
+    handleLabelChange = (values: any) => this.setState({ values });
 
+    //是否发布变更事件
+    handleStatusChange = (event: object, isInputChecked: boolean) => console.log(isInputChecked);
+
+    //取消按钮点击事件
     handleCancel = () => {
         let { onCancel } = this.props;
         onCancel();
     };
 
+    //上传封面图
     handleCoverImg = (e: any) => {
-        let { uploadCoverImg } = this.props;
+        let { uploadCoverImg, change } = this.props;
         let file = e.target.files[0];
         let formData = new FormData();
         formData.append('coverImg', file);
@@ -95,19 +102,22 @@ class EditPost extends React.Component<EditPostProps & InjectedFormProps, EditPo
                 this.setState({
                     coverImg: result.data
                 });
+                change('coverImg', result.data);
             }
         });
     };
 
-    componentDidMount() {
-
-    }
-
+    //获取文章内容
+    handleEditorChange = (model: any) => {
+        let { change } = this.props;
+        change('content', model);
+    };
 
     render() {
         const { handleSubmit } = this.props;
         const { coverImg, values } = this.state;
-        const handleChange = this.handleChange;
+        const handleLabelChange = this.handleLabelChange;
+        const handleEditorChange = this.handleEditorChange;
 
         return (
             <div>
@@ -124,6 +134,7 @@ class EditPost extends React.Component<EditPostProps & InjectedFormProps, EditPo
                         <Field
                             name="coverImg"
                             component={TextField as any}
+                            value={coverImg}
                             props={{
                                 fullWidth: true,
                                 hintText: '封面图',
@@ -173,14 +184,46 @@ class EditPost extends React.Component<EditPostProps & InjectedFormProps, EditPo
                                 hintText: '标签',
                                 floatingLabelText: '标签',
                                 value: values,
-                                onChange: handleChange
+                                onChange: handleLabelChange
                             } as any}
                         >
                             {this.menuItems(values)}
                         </Field>
                     </div>
+                    <div style={{ width: '100%' }}>
+                        <div className='EditPost-form-item-toggle'>
+                            <Field
+                                name="postStatus"
+                                component={Toggle as any}
+                                props={{
+                                    label: '是否发布',
+                                    labelStyle: { color: 'rgb(124, 124, 124)' }
+                                } as any}
+                            />
+                        </div>
+                        <div className='EditPost-form-item-toggle'>
+                            <Field
+                                name="updateDate"
+                                component={Toggle as any}
+                                props={{
+                                    label: '是否更新',
+                                    labelStyle: { color: 'rgb(124, 124, 124)' }
+                                } as any}
+                            />
+                        </div>
+                    </div>
+                    <div style={{ width: '100%', marginTop: 40 }}>
+                        <Field
+                            name="content"
+                            component={Editor as any}
+                            props={{
+                                onChange: handleEditorChange
+                            } as any}
+                        />
+
+                    </div>
                 </form>
-                <div style={{ marginTop: 12 }}>
+                <div style={{ marginTop: 12, paddingLeft: 30 }}>
                     <FlatButton
                         label="取消"
                         onClick={this.handleCancel}
@@ -201,4 +244,8 @@ class EditPost extends React.Component<EditPostProps & InjectedFormProps, EditPo
 export default reduxForm({
     form: 'editPost',
     validate: EditPost.validate,
+    initialValues: {
+        postStatus: true,
+        updateDate: true
+    }
 })(EditPost) as any;

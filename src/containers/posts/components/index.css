@@ -20,3 +20,9 @@
     display: flex;
     width: 45%;
 }
+.EditPost-form-item-toggle {
+    display: inline-block;
+    width: 12%;
+    margin-top: 42px;
+    margin-right: 170px;
+}

@@ -37,3 +37,6 @@ export function requestUpload(url: string, options?: object){
         return { error };
     })
 }
+
+//文件上传路径
+export const imgUpload = `${httpServer}/api/upload`;
