@@ -26,3 +26,87 @@
     margin-top: 42px;
     margin-right: 170px;
 }
+
+.PostItem-cart-wrapper {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 30px;
+}
+.PostItem-card {
+    width: 30%;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4) !important;
+    transition: all ease-out .3s;
+    cursor: pointer;
+}
+.PostItem-card:hover {
+    box-shadow: 0 6px 20px #AFAFAF !important;
+}
+.PostItem-coverImg {
+    height: 200px;
+    background-size: cover;
+    transition: all ease-out .3s;
+    transform: scale(1);
+}
+.PostItem-card:hover .PostItem-coverImg {
+    transform: scale(1.1);
+}
+.PostItem-card-title {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.5;
+    margin: 0;
+    color: #000;
+}
+.PostItem-card-text {
+    line-height: 2;
+    color: #2c2c2c !important;
+    max-height: 145px;
+    overflow: hidden;
+    white-space: normal;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    font-size: 16px !important;
+    letter-spacing: 1px;
+    margin-bottom: 52px;
+}
+.PostItem-card-icon-list {
+    display: flex;
+    padding-left: 14px;
+}
+.PostItem-card-icon-wrapper {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+    font-size: 14px;
+}
+.PostItem-card-icon {
+    color: #fff !important;
+    margin-right: 6px;
+    width: 22px !important;
+    height: 22px !important;
+}
+.PostItem-card-actions {
+    position: absolute !important;
+    bottom: 0;
+    width: 100%;
+}
+.PostView-content {
+    padding: 0 30px 30px 30px;
+    width: 60%;
+    max-width: 960px;
+    margin: 0 auto;
+}
+.PostView-content .fr-box.fr-basic .fr-element {
+    min-height: 600px;
+}
+.PostView-title {
+    text-align: center;
+    font-size: 24px;
+    line-height: 70px;
+    margin: 0;
+    font-weight: 400;
+}

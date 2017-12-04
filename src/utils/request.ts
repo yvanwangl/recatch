@@ -27,7 +27,9 @@ export default function request(url: string, options?: object) {
 
 // 文件上传请求
 export function requestUpload(url: string, options?: object){
-    let fetchConfig = {...defaultOptions, ...options};
+    //此处需要深拷贝，否则 delete 会删除 headers: 'content-type'
+    let defaultClone = JSON.parse(JSON.stringify(defaultOptions));
+    let fetchConfig = {...defaultClone, ...options};
     delete fetchConfig['headers']['content-type'];
     return fetch(`${httpServer}${url}`, fetchConfig)
     .then(checkStatus)

@@ -12,6 +12,7 @@ import { imgUpload } from '../../../utils/request';
 
 export interface EditorProps {
     onChange: Function;
+    input: any;
 }
 
 export interface EditorState {
@@ -22,7 +23,7 @@ export default class Editor extends React.Component<EditorProps, EditorState> {
     constructor(props: any) {
         super(props);
         this.state = {
-            model: '开始书写你的故事...'
+            model: this.props.input.value || '开始书写你的故事...'
         };
     }
 

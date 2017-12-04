@@ -63,7 +63,7 @@ class Login extends React.Component<LoginProps, LoginState> {
                     <SigninForm onSubmit={this.handleSubmit} onSignUp={this.handleToggle}/>:
                     <SignupForm onSubmit={this.handleSubmit} onSignIn={this.handleToggle}/>
                 }
-                 <Snackbar
+                <Snackbar
                     open={openSnackbar}
                     message="Username Or Password Error : ("
                     autoHideDuration={2000}

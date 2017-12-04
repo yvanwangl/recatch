@@ -10,12 +10,16 @@ export interface AddPostProps {
     uploadCoverImg: Function;
     addPost: Function;
     history: any;
-    labels: any;
+    allLabels: any;
+}
+
+export interface AddPostState {
+    openSnackbar: boolean;
 }
 
 function mapStateToProps(state: StoreState) {
     return {
-        labels: labelSelector(state)
+        allLabels: labelSelector(state)
     }
 }
 
@@ -27,17 +31,14 @@ function mapDispatchToProps(dispatch: Function) {
 }
 
 @(connect(mapStateToProps, mapDispatchToProps) as any)
-class AddPost extends React.Component<AddPostProps> {
-    //保存按钮点击事件
-    handleSubmit = (values: any) => {
-        let { addPost } = this.props;
-        //如果发布，则博客状态为 'Publish'
-        if (values.postStatus) {
-            values.postStatus = 'Publish';
-        }
-        addPost(values);
-        console.log(values)
-    };
+class AddPost extends React.Component<AddPostProps, AddPostState> {
+
+    constructor(props: AddPostProps) {
+        super(props);
+        this.state = {
+            openSnackbar: false
+        };
+    }
 
     //取消按钮点击事件
     handleCancel = () => {
@@ -46,14 +47,18 @@ class AddPost extends React.Component<AddPostProps> {
     };
 
     render() {
-        let { uploadCoverImg, labels } = this.props;
+        let { uploadCoverImg, allLabels, addPost } = this.props;
         return (
             <EditPost
-                initData={{}}
-                labels={labels}
+                editTitle='新增文章'
+                allLabels={allLabels}
                 uploadCoverImg={uploadCoverImg}
-                onSubmit={this.handleSubmit}
+                onSubmit={addPost}
                 onCancel={this.handleCancel}
+                initialValues={{
+                    postStatus: true,
+                    updateDate: true
+                }}
             />
         );
     }

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Snackbar from 'material-ui/Snackbar';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
@@ -10,17 +11,16 @@ import Editor from './Editor';
 import './index.css';
 
 export interface EditPostProps {
-    initData: any;
-    labels: any;
+    allLabels: any;
     onCancel: Function;
     onSubmit: Function;
     uploadCoverImg: Function;
-    actions: any;
+    editTitle: string;
 }
 
 export interface EditPostState {
-    coverImg: string;
-    values: Array<string | number>;
+    selectedLabels: Array<string | number>;
+    openSnackbar: boolean;
 }
 
 // const names = [
@@ -41,10 +41,14 @@ class EditPost extends React.Component<EditPostProps & InjectedFormProps, EditPo
 
     upload: any;
 
-    state = {
-        coverImg: '',
-        values: []
-    };
+    constructor(props: EditPostProps & InjectedFormProps) {
+        super(props);
+        console.log(props);
+        this.state = {
+            selectedLabels: props.initialValues['labels'] || [],
+            openSnackbar: false
+        };
+    }
 
     //表单验证逻辑
     static validate(values: any) {
@@ -66,13 +70,13 @@ class EditPost extends React.Component<EditPostProps & InjectedFormProps, EditPo
     }
 
     //标签下拉列表
-    menuItems(values: any) {
-        let { labels } = this.props;
-        return labels.map(({ id, name }: any) => (
+    menuItems(selectedLabels: any) {
+        let { allLabels } = this.props;
+        return allLabels.map(({ id, name }: any) => (
             <MenuItem
                 key={id}
                 insetChildren={true}
-                checked={values && values.indexOf(id) > -1}
+                checked={selectedLabels && selectedLabels.indexOf(id) > -1}
                 value={id}
                 primaryText={name}
             />
@@ -80,7 +84,7 @@ class EditPost extends React.Component<EditPostProps & InjectedFormProps, EditPo
     }
 
     //标签变更事件
-    handleLabelChange = (values: any) => this.setState({ values });
+    handleLabelChange = (selectedLabels: any) => this.setState({ selectedLabels });
 
     //是否发布变更事件
     handleStatusChange = (event: object, isInputChecked: boolean) => console.log(isInputChecked);
@@ -99,9 +103,6 @@ class EditPost extends React.Component<EditPostProps & InjectedFormProps, EditPo
         formData.append('coverImg', file);
         uploadCoverImg(formData).then((result: any) => {
             if (result.success) {
-                this.setState({
-                    coverImg: result.data
-                });
                 change('coverImg', result.data);
             }
         });
@@ -113,19 +114,42 @@ class EditPost extends React.Component<EditPostProps & InjectedFormProps, EditPo
         change('content', model);
     };
 
+    //表单提交事件
+    onFormSubmit = (values: any) => {
+        let { onSubmit } = this.props;
+        //如果发布，则博客状态为 'Publish', 否则为 'Draft'
+        values.postStatus = values.postStatus ? 'Publish' : 'Draft';
+        //设置文章概要
+        let fragment = document.createElement('div');
+        fragment.innerHTML = values.content;
+        values.plaintext = fragment.textContent ? fragment.textContent.substr(0, 200) : '';
+        onSubmit(values).then((result: any) => {
+            if (result.success) {
+                this.setState({ openSnackbar: true });
+            }
+        });
+        console.log(values);
+    };
+
     render() {
-        const { handleSubmit } = this.props;
-        const { coverImg, values } = this.state;
+        const { handleSubmit, editTitle } = this.props;
+        const { selectedLabels, openSnackbar } = this.state;
         const handleLabelChange = this.handleLabelChange;
         const handleEditorChange = this.handleEditorChange;
 
         return (
             <div>
                 <TabbarTitle
-                    title='新增文章'
+                    title={editTitle}
                     buttons={
                         [
-                            <FlatButton key='list' label="列表" icon={<ListIcon />} primary={true} />
+                            <FlatButton
+                                key='list'
+                                label="列表"
+                                icon={<ListIcon />}
+                                primary={true}
+                                onClick={this.handleCancel}
+                            />
                         ]
                     }
                 />
@@ -134,13 +158,11 @@ class EditPost extends React.Component<EditPostProps & InjectedFormProps, EditPo
                         <Field
                             name="coverImg"
                             component={TextField as any}
-                            value={coverImg}
                             props={{
                                 fullWidth: true,
                                 hintText: '封面图',
                                 floatingLabelText: '封面图',
-                                disabled: true,
-                                value: coverImg
+                                disabled: true
                             } as any}
                         />
                         <div style={{ height: 36, marginTop: 16 }}>
@@ -183,11 +205,10 @@ class EditPost extends React.Component<EditPostProps & InjectedFormProps, EditPo
                                 fullWidth: true,
                                 hintText: '标签',
                                 floatingLabelText: '标签',
-                                value: values,
                                 onChange: handleLabelChange
                             } as any}
                         >
-                            {this.menuItems(values)}
+                            {this.menuItems(selectedLabels)}
                         </Field>
                     </div>
                     <div style={{ width: '100%' }}>
@@ -232,20 +253,23 @@ class EditPost extends React.Component<EditPostProps & InjectedFormProps, EditPo
                     <RaisedButton
                         label="保存"
                         primary={true}
-                        onClick={handleSubmit}
+                        onClick={handleSubmit(this.onFormSubmit)}
                     />
                 </div>
+                <Snackbar
+                    open={openSnackbar}
+                    message="文章保存成功 :)"
+                    autoHideDuration={2000}
+                    style={{ textAlign: 'center' }}
+                />
             </div>
 
         );
     }
 }
 
+
 export default reduxForm({
     form: 'editPost',
-    validate: EditPost.validate,
-    initialValues: {
-        postStatus: true,
-        updateDate: true
-    }
+    validate: EditPost.validate
 })(EditPost) as any;

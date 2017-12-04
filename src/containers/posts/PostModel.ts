@@ -1,5 +1,5 @@
 import { Model, attr, many } from 'redux-orm';
-import { FETCH_POST_SUCCESS } from './constants';
+import { FETCH_POST_SUCCESS, ADD_POST_SUCCESS, MODIFY_POST_SUCCESS, DELETE_POST_SUCCESS } from './constants';
 
 export interface PostProps {
     id: number | string,
@@ -23,14 +23,13 @@ class Post extends Model<PostProps> {
     static fields = {
         id: attr(),
         title: attr(),
-        author: attr(),
+        userId: attr(),
+        userName: attr(),
         plaintext: attr(),
         content: attr(),
         publishDate: attr(),
-        blogStatus: attr(),
+        postStatus: attr(),
         count: attr(),
-        type: attr(),
-        updateDate: attr(),
         coverImg: attr(),
         comments: many({
             to: 'Comment',
@@ -39,12 +38,19 @@ class Post extends Model<PostProps> {
     };
 
     static reducer(action: any, Post: any) {
-        const { type, payload: posts } = action;
+        const { type, payload } = action;
         switch (type) {
             case FETCH_POST_SUCCESS:
-                posts.map((post: PostProps) => {
-                    Post.upsert(post);
+                payload.map((post: PostProps) => {
+                    Post.upsert({ id: post['_id'], ...post });
                 });
+                break;
+            case ADD_POST_SUCCESS:
+            case MODIFY_POST_SUCCESS:
+                Post.upsert({ id: payload['_id'], ...payload });
+                break;
+            case DELETE_POST_SUCCESS:
+                Post.withId(payload['_id']).delete();
                 break;
         }
     }

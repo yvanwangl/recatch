@@ -9,7 +9,7 @@ import { postSelector } from '../selectors';
 import { labelSelector } from '../../labels/selectors';
 import StoreState from '../../../store/types';
 import PostItem, { PostModel } from './PostItem';
-import { fetchPosts } from '../actions';
+import { fetchPosts, deletePost } from '../actions';
 import { fetchAllLabels } from '../../labels/actions';
 import './index.css';
 
@@ -18,6 +18,7 @@ export interface PostListProps {
     labels: any;
     fetchPosts: Function;
     fetchAllLabels: Function;
+    deletePost: Function;
     history: any;
 }
 
@@ -31,6 +32,7 @@ function mapStateToProps(state: StoreState) {
 function mapDispatchToProps(dispatch: Function) {
     return {
         fetchPosts: () => dispatch(fetchPosts()),
+        deletePost: (postId: string | number) => dispatch(deletePost(postId)),
         fetchAllLabels: () => dispatch(fetchAllLabels())
     }
 }
@@ -45,33 +47,65 @@ class PostList extends React.Component<PostListProps> {
 
     //新增按钮点击事件
     handleCreate = () => {
-        let {history} = this.props;
+        let { history } = this.props;
         history.push('/posts/create');
     };
 
+    //查看博客详情
+    handleItemClick = (postId: string | number) => {
+        let { history } = this.props;
+        history.push(`/posts/${postId}`);
+    };
+
+    //编辑博客
+    handleItemModify = (postId: string | number) => {
+        let { history } = this.props;
+        history.push(`/posts/modify/${postId}`);
+    };
+
+    //删除博客
+    handleItemDelete = (postId: string | number) => {
+        let { deletePost } = this.props;
+
+        deletePost(postId);
+    };
+
     componentDidMount() {
-        let {labels, fetchPosts, fetchAllLabels} = this.props;
-        fetchPosts();
+        let { posts, fetchPosts, labels, fetchAllLabels } = this.props;
+        if (posts.length == 0) {
+            fetchPosts();
+        }
         if (labels.length == 0) {
-            fetchAllLabels()
+            fetchAllLabels();
         }
     }
 
     render() {
         let { posts } = this.props;
-        let postItems = posts.map((post, index) => <PostItem key={index} post={post} />);
+        let postItems = posts.map((post, index) =>
+            <PostItem
+                key={index}
+                post={post}
+                handleItemClick={() => this.handleItemClick(post.id)}
+                handleItemModify={() => this.handleItemModify(post.id)}
+                handleItemDelete={() => this.handleItemDelete(post.id)}
+            />
+        );
+
         return (
             <div>
-                <TabbarTitle 
-                    title = '文章列表'
-                    buttons = {
+                <TabbarTitle
+                    title='文章列表'
+                    buttons={
                         [
                             <FlatButton key='create' label="新增" onClick={this.handleCreate} icon={<ContentAddIcon />} primary={true} />,
                             <FlatButton key='refresh' label="刷新" onClick={this.handleRefresh} icon={<RefreshIcon />} primary={true} />
                         ]
                     }
                 />
-                {postItems}
+                <div className='PostItem-cart-wrapper'>
+                    {postItems}
+                </div>
             </div>
         );
     }

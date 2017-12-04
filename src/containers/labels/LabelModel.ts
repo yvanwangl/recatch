@@ -30,6 +30,7 @@ class Label extends Model<LabelProps> {
                 break;
             case DELETE_LABEL_SUCCESS:
                 Label.withId(payload['_id']).delete();
+                break;
         }
     }
 }

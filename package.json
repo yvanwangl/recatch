@@ -71,8 +71,8 @@
     "whatwg-fetch": "2.0.3"
   },
   "scripts": {
-    "start": "node scripts/start.js",
-    "build": "node scripts/build.js",
+    "start": "cross-env NODE_ENV=development node scripts/start.js",
+    "build": "cross-env NODE_ENV=production node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
     "start:dev": "cross-env NODE_ENV=development webpack-dev-server --hot --progress --color --config webpack.dev.js"
   },

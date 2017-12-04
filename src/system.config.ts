@@ -1,6 +1,8 @@
 
 const debug = process.env.NODE_ENV === 'development';
 
+console.log(process.env.NODE_ENV);
+
 //开发模式，跨域请求
 //跨域请求url
 const httpServerDev = 'http://localhost:8082';
