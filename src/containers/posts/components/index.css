@@ -96,12 +96,21 @@
 }
 .PostView-content {
     padding: 0 30px 30px 30px;
-    width: 60%;
+    width: 90%;
     max-width: 960px;
     margin: 0 auto;
 }
 .PostView-content .fr-box.fr-basic .fr-element {
-    min-height: 600px;
+    min-height: 500px;
+}
+.PostView-content .fr-element.fr-disabled {
+    -webkit-user-select: auto;
+    user-select: auto;
+}
+.PostView-content .fr-toolbar.fr-top,
+.PostView-content .fr-box.fr-basic.fr-top .fr-wrapper {
+    box-shadow: none;
+    border: 0;
 }
 .PostView-title {
     text-align: center;

@@ -39,7 +39,11 @@ class PostView extends React.Component<PostViewProps> {
         placeholderText: 'Edit Your Content Here!',
         charCounterCount: false,
         toolbarButtons: [],
-        contenteditable: false
+        events: {
+            'froalaEditor.initialized': function (e: any, editor: any) {
+                editor.edit.off();
+            }
+        }
     };
 
     handleList = () => {
@@ -73,8 +77,6 @@ class PostView extends React.Component<PostViewProps> {
                         tag='textarea'
                         config={this.config}
                         model={post.content}
-                        contenteditable={false}
-                        disabled={true}
                     />
                 </div>
 

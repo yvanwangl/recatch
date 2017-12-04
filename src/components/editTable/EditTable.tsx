@@ -14,7 +14,7 @@ import Delete from 'material-ui/svg-icons/action/delete';
 
 export interface ColumnProps {
     value: string | boolean | object;
-    width?: number;
+    width?: number | string;
     type: string;
     dataIndex: string;
 }

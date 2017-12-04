@@ -8,8 +8,8 @@ import TabbarTitle from '../../../components/tabbarTitle/TabbarTitle';
 
 const headers = [
     { value: '名称', dataIndex: 'name', type: 'TextField', width: 200 },
-    { value: '背景颜色', dataIndex: 'bgColor', type: 'ColorPicker', width: 200 },
-    { value: '字体颜色', dataIndex: 'fontColor', type: 'ColorPicker', width: 200 },
+    { value: '背景颜色', dataIndex: 'bgColor', type: 'ColorPicker', width: 150 },
+    { value: '字体颜色', dataIndex: 'fontColor', type: 'ColorPicker', width: 150 },
     { value: '是否可用', dataIndex: 'enabled', type: 'Toggle', width: 50 },
     { value: '样式', dataIndex: 'labelStyle', type: 'Chip', width: 200 },
 ];

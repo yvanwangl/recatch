@@ -53,6 +53,7 @@ export default class ColorPicker extends React.Component<ColorPickerProps, Color
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                     <span className='ColorPicker-colorDot' style={{ background: `${color}` }}></span>
                     <TextField
+                        style={{ width: '100%' }}
                         disabled={disabled}
                         id={id}
                         onFocus={this.handleFocus}

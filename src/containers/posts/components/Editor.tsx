@@ -33,7 +33,12 @@ export default class Editor extends React.Component<EditorProps, EditorState> {
         // Set the file/image upload URL. 根据 imageUploadParam: FroalaImg 来判断返回不同的数据对象。
         imageUploadParam: 'FroalaImg',
         imageUploadURL: imgUpload,
-        fileUploadURL: imgUpload
+        fileUploadURL: imgUpload,
+        events: {
+            'froalaEditor.fullscreen.toggle': function (e: any, editor: any) {
+                console.log(editor.fullscreen.isActive())
+            }
+        }
     };
 
     handleModelChange = (model: any) => {
@@ -46,12 +51,14 @@ export default class Editor extends React.Component<EditorProps, EditorState> {
 
     render() {
         return (
-            <FroalaEditor
-                tag='textarea'
-                config={this.config}
-                model={this.state.model}
-                onModelChange={this.handleModelChange}
-            />
+            <div className='Editor-content'>
+                <FroalaEditor
+                    tag='textarea'
+                    config={this.config}
+                    model={this.state.model}
+                    onModelChange={this.handleModelChange}
+                />
+            </div>
         );
     }
 }
