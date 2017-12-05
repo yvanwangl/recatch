@@ -2,7 +2,7 @@ import * as React from 'react';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import StoreState from '../../../store/types';
-import { labelSelector } from '../../labels/selectors';
+import { labelSelector } from '../selectors';
 import { uploadCoverImg, addPost } from '../actions';
 import EditPost from './EditPost';
 
