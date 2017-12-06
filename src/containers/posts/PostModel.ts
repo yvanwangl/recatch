@@ -1,4 +1,4 @@
-import { Model, attr, many } from 'redux-orm';
+import { Model, attr } from 'redux-orm';
 import { FETCH_POST_SUCCESS, ADD_POST_SUCCESS, MODIFY_POST_SUCCESS, DELETE_POST_SUCCESS } from './constants';
 
 export interface PostProps {
@@ -31,10 +31,8 @@ class Post extends Model<PostProps> {
         postStatus: attr(),
         count: attr(),
         coverImg: attr(),
-        comments: many({
-            to: 'Comment',
-            relatedName: 'posts'
-        })
+        labels: attr(),
+        comments: attr(),
     };
 
     static reducer(action: any, Post: any) {

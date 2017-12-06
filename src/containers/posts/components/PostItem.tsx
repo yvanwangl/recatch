@@ -109,8 +109,8 @@ class PostItem extends React.Component<PostItemProps, PostItemState> {
 						{plaintext}
 					</CardText>
 					<CardActions className='PostItem-card-actions'>
-						<FlatButton label="删除" onClick={(e: any) => { e.stopPropagation(); this.handleOpen(); }} />
-						<FlatButton label="编辑" onClick={(e: any) => { e.stopPropagation(); handleItemModify(); }} />
+						<FlatButton label="删除" secondary={true} onClick={(e: any) => { e.stopPropagation(); this.handleOpen(); }} />
+						<FlatButton label="编辑" primary={true} onClick={(e: any) => { e.stopPropagation(); handleItemModify(); }} />
 					</CardActions>
 				</Card>
 				<Dialog

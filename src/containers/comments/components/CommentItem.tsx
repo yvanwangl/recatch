@@ -1,30 +1,54 @@
 import * as React from 'react';
-// import CommentInput from '../CommentInput/CommentInput';
+import CommentInput from './CommentInput';
 import { dateFormat } from '../../../utils/util';
-import DeleteIcon from 'material-ui/svg-icons/action/delete';
+//import DeleteIcon from 'material-ui/svg-icons/action/delete';
+import FlatButton from 'material-ui/FlatButton';
 import './index.css';
 
 export interface CommentItemPorps {
     comment: any;
     parentName: string;
+    handleAdd: Function;
     handleDelete: Function;
 }
 
-export default class CommentItem extends React.Component<CommentItemPorps> {
+export interface CommentItemState {
+    addChildComment: boolean;
+}
+
+export default class CommentItem extends React.Component<CommentItemPorps, CommentItemState> {
     constructor(props: CommentItemPorps) {
         super(props);
         this.state = {
-            addChildComment: false,
-            agreeClick: false,
-            disAgreeClick: false,
+            addChildComment: false
         };
     }
 
-    // _replyClick(event) {
-    //     this.setState({
-    //         addChildComment: !this.state.addChildComment
-    //     });
-    // }
+    //回复按钮点击事件
+    handleReply = () => {
+        this.setState({
+            addChildComment: !this.state.addChildComment
+        });
+    }
+
+    //取消按钮点击事件
+    handleCancel = () => {
+        this.setState({
+            addChildComment: false
+        });
+    };
+
+    //提交按钮点击事件
+    handleSave = (comment: any) => {
+        let { handleAdd } = this.props;
+        handleAdd(comment).then((result: any) => {
+            if (result.success) {
+                this.setState({
+                    addChildComment: false
+                });
+            }
+        });
+    };
 
     // _agreeClick(event) {
     //     let { comment, commentActions } = this.props;
@@ -91,9 +115,7 @@ export default class CommentItem extends React.Component<CommentItemPorps> {
         return (
             <div className={commentItem}>
                 <div className="commentatorInfo">
-                    <img src='' alt="默认头像" className="avator" />
-                    <p className="commentatorName">{comment['name']}</p>
-                    <p className="commentTime">{dateFormat(comment['commentTime'], 2)} {parentName == '' ? '如是说：' : '回复：@' + parentName}</p>
+                    <p className="commentTime">{comment['name']} {dateFormat(comment['commentTime'], 2)} {parentName == '' ? '如是说：' : '回复：@' + parentName}</p>
                 </div>
                 <p className="commentContent">
                     {comment['commentContent']}
@@ -112,20 +134,24 @@ export default class CommentItem extends React.Component<CommentItemPorps> {
                         <i>回复</i>
                     </span> */}
                     {/*<span className="delete" onClick={this.deleteClick}><Icon type="close" className="icon"/>删除</span>*/}
-                    <span className="delete" onClick={() => handleDelete(comment['id'])}>
+                    {/* <span className="delete" onClick={() => handleDelete(comment['id'])}>
                         <DeleteIcon />
                         <i>删除</i>
-                    </span>
+                    </span> */}
+                    <FlatButton label="删除" secondary={true} onClick={() => handleDelete(comment['id'])} />
+                    <FlatButton label="回复" primary={true} onClick={this.handleReply} />
                 </div>
-                {/* {
+                {
                     this.state.addChildComment ?
-                        <CommentInput parentId={comment['_id']}
+                        <CommentInput
+                            parentId={comment['id']}
                             parentName={comment['name']}
-                            blogId={blogId}
-                            saveComment={commentActions.saveComment}
-                            closeInput={this.closeInput.bind(this)} />
+                            postId={comment['postId']}
+                            saveComment={this.handleSave}
+                            cancelComment={this.handleCancel}
+                        />
                         : null
-                } */}
+                }
             </div>
         );
     }

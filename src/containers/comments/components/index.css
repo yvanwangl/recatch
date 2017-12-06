@@ -1,6 +1,24 @@
-.commentWrap {
-	margin-top: 200px;
-	padding: 0 15px; 
+.CommentManage-title {
+	font-size: 20px;
+	font-weight: 400;
+	margin: 0;
+}
+.CommentManage-commentWrap {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: start;
+	padding: 30px; 
+}
+.CommentCard-card {
+	width: 45%;
+}
+.CommentCard-card-title {
+	font-size: 20px;
+    font-weight: 400;
+    line-height: 1.5;
+    margin: 0;
+    color: #000;
 }
 .commentWrap .commentInitInfo {
 	text-align: center;
@@ -14,7 +32,14 @@
 	color: #5A5A5A; 
 }
 
-
+.CommentInput-form-item {
+	display: flex;
+}
+.CommentInput-buttons {
+	display: flex;
+	justify-content: flex-end;
+	margin: 10px 0;
+}
 .commentInput {
 	margin: 20px auto;
 	background-color: #f4f4f4;
@@ -90,7 +115,6 @@
 
 
 .commentItem {
-	padding: 15px 0;
 	font-size: 16px;
 	border-bottom: 1px dashed #ccc;
 	line-height: 30px; 
@@ -106,6 +130,8 @@
 .commentItem .commentatorInfo .commentTime {
 	font-size: 16px;
 	color: #9f9f9f; 
+	padding: 10px 0 0 0;
+    margin: 0;
 }
 .commentItem .avator {
 	float: left;
@@ -118,9 +144,9 @@
 	margin: 20px 0 0;
 	color: #666666; }
 .commentItem .commentAction {
-	margin-top: 15px;
 	text-align: right;
 	color: #ccc; 
+	padding-bottom: 10px;
 }
 .commentItem .commentAction:hover {
 	color: #000; 
