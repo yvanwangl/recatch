@@ -1,5 +1,5 @@
 import { Model, attr } from 'redux-orm';
-import { FETCH_COMMENT_SUCCESS, DELETE_COMMENT_SUCCESS } from './constants';
+import { FETCH_COMMENT_SUCCESS, ADD_COMMENT_SUCCESS, DELETE_COMMENT_SUCCESS } from './constants';
 
 export interface CommentProps {
     id: string;
@@ -35,6 +35,8 @@ class Comment extends Model<CommentProps> {
                     Comment.upsert({ id: comment['_id'], ...comment });
                 });
                 break;
+            case ADD_COMMENT_SUCCESS:
+                Comment.upsert({ id: payload['_id'], ...payload})
             case DELETE_COMMENT_SUCCESS:
                 Comment.withId(payload['_id']).delete();
                 break;

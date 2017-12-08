@@ -19,6 +19,7 @@ export const doLogin = createAsyncAction({
     types: [,LOGIN_SUCCESS,],
     callbacks: {
         success: (userInfo: any)=> {
+            //在sessionStorage 中写入用户信息
             sessionStorage.setItem('user', JSON.stringify(userInfo));
         }
     }

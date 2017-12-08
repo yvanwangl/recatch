@@ -5,6 +5,9 @@ import TextField from 'material-ui/TextField';
 import DatePicker from 'material-ui/DatePicker';
 // import ColorPicker from 'material-ui-color-picker';
 //import { BlockPicker } from 'react-color'
+import Popover from 'material-ui/Popover';
+import Menu from 'material-ui/Menu';
+import MenuItem from 'material-ui/MenuItem';
 import ColorPicker from '../colorPicker/ColorPicker';
 import Chip from 'material-ui/Chip';
 import Toggle from 'material-ui/Toggle';
@@ -40,6 +43,8 @@ export interface EditTableState {
     rows: Array<RowProps>;
     hoverValue: boolean;
     currentRow: boolean;
+    popoverOpen: boolean;
+    anchorEl: any;
 }
 
 export default class EditTable extends React.Component<EditTableProps, EditTableState> {
@@ -49,7 +54,9 @@ export default class EditTable extends React.Component<EditTableProps, EditTable
         this.state = {
             rows: [],
             hoverValue: false,
-            currentRow: false
+            currentRow: false,
+            popoverOpen: false,
+            anchorEl: {}
         };
     }
 
@@ -68,7 +75,7 @@ export default class EditTable extends React.Component<EditTableProps, EditTable
         let rowData = row.columns.reduce((data, { dataIndex, value }) => Object.assign(data, { [dataIndex]: value }), {});
         rowData['phantom'] = row.phantom;
         rowData['id'] = row.primaryId;
-        if(rowData['name'] && rowData['bgColor'] && rowData['fontColor']) {
+        if (rowData['name'] && rowData['bgColor'] && rowData['fontColor']) {
             this.props.onChange(rowData);
         }
     };
@@ -252,7 +259,14 @@ export default class EditTable extends React.Component<EditTableProps, EditTable
         const selected = (r && r.selected) || false
 
         const button = selected ? <Check /> : <ModeEdit />
-        const tooltip = selected ? 'Done' : 'Edit'
+        const tooltip = selected ? 'Done' : 'Edit';
+
+        const handleDelete = function(event: any){
+            self.setState({
+                popoverOpen: true,
+                anchorEl: event.currentTarget
+            });
+        };
 
         const onDeleteRow = function (e: any) {
             let rows = self.state.rows
@@ -270,7 +284,14 @@ export default class EditTable extends React.Component<EditTableProps, EditTable
             if (deleteEvent.primaryId != undefined) {
                 self.props.onDelete(deleteEvent)
             }
+            handleCancelDel();
         }
+
+        const handleCancelDel = function(){
+            self.setState({
+                popoverOpen: false
+            });
+        };
 
         const onClick = function (e: any) {
             if (selected) {
@@ -283,8 +304,19 @@ export default class EditTable extends React.Component<EditTableProps, EditTable
         const deleteButton = (!this.props.enableDelete || selected || row.header) ?
             <div style={deleteButtonStyle as any} />
             :
-            <IconButton style={deleteButtonStyle as any} tooltip={'Delete this row'} onClick={onDeleteRow}>
+            <IconButton style={deleteButtonStyle as any} tooltip={'Delete this row'} onClick={handleDelete}>
                 <Delete />
+                <Popover
+                    open={this.state.popoverOpen}
+                    anchorEl={this.state.anchorEl}
+                    anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
+                    targetOrigin={{ horizontal: 'left', vertical: 'top' }}
+                >
+                    <Menu>
+                        <MenuItem primaryText="确认" onClick={onDeleteRow}/>
+                        <MenuItem primaryText="取消" onClick={handleCancelDel}/>
+                    </Menu>
+                </Popover>
             </IconButton>
 
         const checkbox = row.header ?
@@ -358,7 +390,7 @@ export default class EditTable extends React.Component<EditTableProps, EditTable
         //判断是否有新增加的行，如果有增加到末尾行
         var oldRows = this.state.rows;
         var addRows = oldRows.slice(rows.length);
-        if(addRows.length == 1) {
+        if (addRows.length == 1) {
             rows.push(addRows[0]);
         }
         this.setState({

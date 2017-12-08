@@ -1,6 +1,5 @@
 import * as React from 'react';
 import Paper from 'material-ui/Paper';
-import { Route } from 'react-router-dom'
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
@@ -8,11 +7,13 @@ import DashBoardIcon from 'material-ui/svg-icons/action/dashboard';
 import PostListIcon from 'material-ui/svg-icons/action/list';
 import LabelIcon from 'material-ui/svg-icons/action/label';
 import CommentIcon from 'material-ui/svg-icons/communication/comment';
+import LogoutIcon from 'material-ui/svg-icons/action/power-settings-new';
 import MenuLink from '../../components/menuLink/MenuLink';
 import DashBoard from '../dashboard/components/DashBoard';
 import PostManage from '../posts/components/PostManage';
 import LabelManage from '../labels/components/LabelManage';
 import CommentManage from '../comments/components/CommentManage';
+import PrivateRouter from './PrivateRouter';
 import './index.css';
 
 const PADDING = 30;
@@ -49,7 +50,7 @@ class Home extends React.Component<object, AppState> {
         return (
             <div>
                 <AppBar
-                    title="Title"
+                    title="管理后台"
                     iconClassNameRight="muidocs-icon-navigation-expand-more"
                     style={{ zIndex: 9999 }}
                     onLeftIconButtonTouchTap={this.handleClick}
@@ -67,13 +68,14 @@ class Home extends React.Component<object, AppState> {
                         <MenuItem primaryText={<MenuLink to='/labels' linkText='标签' />} leftIcon={<LabelIcon />} />
                         <MenuItem primaryText={<MenuLink to='/posts' linkText='文章' />} leftIcon={<PostListIcon />} />
                         <MenuItem primaryText={<MenuLink to='/comments' linkText='评论' />} leftIcon={<CommentIcon />} />
+                        <MenuItem primaryText={<MenuLink to='/login' linkText='注销' />} leftIcon={<LogoutIcon />} onClick={()=> sessionStorage.removeItem('user') } />
                     </Drawer>
                     <div className='Home-container' style={{ left: this.state.drawerOpen ? 256 : 0 }}>
-                        <Paper style={{ minHeight: '100%', paddingBottom: PADDING}}>
-                            <Route exact path="/" component={DashBoard} />
-                            <Route path="/labels" component={LabelManage} />
-                            <Route path="/posts" component={PostManage} />
-                            <Route path="/comments" component={CommentManage} />
+                        <Paper style={{ minHeight: '100%', paddingBottom: PADDING }}>
+                            <PrivateRouter exact path="/" component={DashBoard} />
+                            <PrivateRouter path="/labels" component={LabelManage} />
+                            <PrivateRouter path="/posts" component={PostManage} />
+                            <PrivateRouter path="/comments" component={CommentManage} />
                         </Paper>
                     </div>
                 </div>

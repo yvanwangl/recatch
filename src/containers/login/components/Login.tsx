@@ -10,6 +10,7 @@ import './index.css';
 export interface LoginProps {
     doLogin: Function;
     history: any;
+    location: any;
 }
 
 interface LoginState {
@@ -26,7 +27,7 @@ function mapDispatchToProps(dispatch: Function) {
 @(connect(null, mapDispatchToProps) as any)
 class Login extends React.Component<LoginProps, LoginState> {
 
-    constructor(props: LoginProps){
+    constructor(props: LoginProps) {
         super(props);
         this.state = {
             signin: true,
@@ -34,34 +35,35 @@ class Login extends React.Component<LoginProps, LoginState> {
         };
     }
 
-    handleToggle = (e: any): void=>{
+    handleToggle = (e: any): void => {
         this.setState({
             signin: !this.state.signin
         });
     };
 
     handleSubmit = (values: any) => {
-        let {doLogin, history} = this.props;
+        let { doLogin, history, location } = this.props;
+        let { from } = location.state || { from: { pathname: '/' } };
         values['type'] = this.state.signin ? 'signin' : 'signup';
-        doLogin(values).then((result:any)=> {
-            if(result.success){
-                history.push('/');
-            }else {
+        doLogin(values).then((result: any) => {
+            if (result.success) {
+                history.push(from);
+            } else {
                 this.setState({
                     openSnackbar: true
                 });
-            }   
+            }
         });
     };
 
     render() {
-        const {signin, openSnackbar} = this.state;
+        const { signin, openSnackbar } = this.state;
         return (
             <div className='Login-wrapper'>
                 {
                     signin ?
-                    <SigninForm onSubmit={this.handleSubmit} onSignUp={this.handleToggle}/>:
-                    <SignupForm onSubmit={this.handleSubmit} onSignIn={this.handleToggle}/>
+                        <SigninForm onSubmit={this.handleSubmit} onSignUp={this.handleToggle} /> :
+                        <SignupForm onSubmit={this.handleSubmit} onSignIn={this.handleToggle} />
                 }
                 <Snackbar
                     open={openSnackbar}
