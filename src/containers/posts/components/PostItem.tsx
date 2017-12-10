@@ -21,7 +21,8 @@ export interface PostModel {
 	count?: string;
 	publishDate: string;
 	coverImg: string;
-	comments: Array<string>
+    comments: Array<string>;
+    labels: Array<any>;
 }
 
 export interface PostItemProps {

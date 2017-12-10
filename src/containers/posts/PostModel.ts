@@ -1,4 +1,4 @@
-import { Model, attr } from 'redux-orm';
+import { Model, attr, many } from 'redux-orm';
 import { FETCH_POST_SUCCESS, ADD_POST_SUCCESS, MODIFY_POST_SUCCESS, DELETE_POST_SUCCESS } from './constants';
 
 export interface PostProps {
@@ -13,6 +13,7 @@ export interface PostProps {
     type: string,
     updateDate: string,
     coverImg: string,
+    labels: Array<string>,
     comments: Array<object>
 }
 
@@ -31,7 +32,10 @@ class Post extends Model<PostProps> {
         postStatus: attr(),
         count: attr(),
         coverImg: attr(),
-        labels: attr(),
+        labels: many({
+            to: 'Label',
+            relatedName: 'posts'
+        }),
         comments: attr(),
     };
 
@@ -39,7 +43,7 @@ class Post extends Model<PostProps> {
         const { type, payload } = action;
         switch (type) {
             case FETCH_POST_SUCCESS:
-                payload.map((post: PostProps) => {
+                payload.posts.map((post: PostProps) => {
                     Post.upsert({ id: post['_id'], ...post });
                 });
                 break;

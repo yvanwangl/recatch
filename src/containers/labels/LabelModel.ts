@@ -1,5 +1,5 @@
 import { Model, attr } from 'redux-orm';
-import { FETCH_LABEL_SUCCESS, ADD_LABEL_SUCCESS, MODIFY_LABEL_SUCCESS, DELETE_LABEL_SUCCESS } from './constants';
+import { FETCH_LABEL_SUCCESS, FETCH_POST_SUCCESS, ADD_LABEL_SUCCESS, MODIFY_LABEL_SUCCESS, DELETE_LABEL_SUCCESS } from './constants';
 
 export interface LabelProps {
     id: string | number;
@@ -23,6 +23,9 @@ class Label extends Model<LabelProps> {
         switch (type) {
             case FETCH_LABEL_SUCCESS:
                 payload.map((label: any) => Label.upsert({ id: label['_id'], ...label }));
+                break;
+            case FETCH_POST_SUCCESS:
+                payload.lables.map((label: any) => Label.upsert({ id: label['_id'], ...label }));
                 break;
             case ADD_LABEL_SUCCESS:
             case MODIFY_LABEL_SUCCESS:

@@ -4,3 +4,23 @@ body {
   font-family: sans-serif;
   background-color: rgb(237, 236, 236);
 }
+
+.fr-view pre {
+    font-family: Menlo,Monaco,Consolas,Courier New,monospace;
+    line-height: 1.93rem;
+    overflow: auto;
+}
+
+.fr-view pre code {
+    font-size: 1rem;
+    padding: .67rem 1.3rem;
+    margin: 0;
+    word-break: normal;
+    display: block;
+    color: #333;
+    font-family: Menlo,Monaco,Consolas,Courier New,monospace;
+    border-radius: 2px;
+    background: #f8f8f8;
+    overflow-x: auto;
+}
+
