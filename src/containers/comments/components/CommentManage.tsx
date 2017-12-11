@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Paper from 'material-ui/Paper';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import CommentItem from './CommentItem';
@@ -114,12 +115,12 @@ class CommentManage extends React.Component<CommentManageProps, CommentManageSta
             );
         });
         return (
-            <div>
+            <Paper className='Manage-container'>
                 <TabbarTitle title='评论管理' />
                 <div className="CommentManage-commentWrap">
                     {commentList}
                 </div>
-            </div>
+            </Paper>
         );
     }
 }

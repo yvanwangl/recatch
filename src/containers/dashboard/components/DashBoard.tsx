@@ -1,11 +1,4 @@
 import * as React from 'react';
-//import FlatButton from 'material-ui/FlatButton';
-//import ContentAddIcon from 'material-ui/svg-icons/content/add';
-//import RefreshIcon from 'material-ui/svg-icons/action/cached';
-//import { connect } from 'react-redux';
-//import { postSelector } from '../selectors';
-//import StoreState from '../../../store/types';
-//import PostItem, { PostModel } from './PostItem';
 import './index.css';
 
 // export interface DashBoardProps {
@@ -25,8 +18,23 @@ class DashBoard extends React.Component {
 
     render() {
         return (
-            <div>
-                DashBoard
+            <div className="DashBoard">
+                <div className='DashBoard-item item-blue'>
+                    <h1>344</h1>
+                    <p>博客数量</p>
+                </div>
+                <div className='DashBoard-item item-orange'>
+                    <h1>344</h1>
+                    <p>评论数量</p>
+                </div>
+                <div className='DashBoard-item item-red'>
+                    <h1>34322</h1>
+                    <p>总访问量</p>
+                </div>
+                <div className='DashBoard-item item-green'>
+                    <h1>34322</h1>
+                    <p>总访问量</p>
+                </div>
             </div>
         );
     }

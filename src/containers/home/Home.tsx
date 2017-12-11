@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Paper from 'material-ui/Paper';
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
@@ -16,7 +15,7 @@ import CommentManage from '../comments/components/CommentManage';
 import PrivateRouter from './PrivateRouter';
 import './index.css';
 
-const PADDING = 30;
+//const PADDING = 30;
 
 // const style = {
 //     height: 100,
@@ -68,15 +67,13 @@ class Home extends React.Component<object, AppState> {
                         <MenuItem primaryText={<MenuLink to='/labels' linkText='标签' />} leftIcon={<LabelIcon />} />
                         <MenuItem primaryText={<MenuLink to='/posts' linkText='文章' />} leftIcon={<PostListIcon />} />
                         <MenuItem primaryText={<MenuLink to='/comments' linkText='评论' />} leftIcon={<CommentIcon />} />
-                        <MenuItem primaryText={<MenuLink to='/login' linkText='注销' />} leftIcon={<LogoutIcon />} onClick={()=> sessionStorage.removeItem('user') } />
+                        <MenuItem primaryText={<MenuLink to='/login' linkText='注销' />} leftIcon={<LogoutIcon />} onClick={() => sessionStorage.removeItem('user')} />
                     </Drawer>
                     <div className='Home-container' style={{ left: this.state.drawerOpen ? 256 : 0 }}>
-                        <Paper style={{ minHeight: '100%', paddingBottom: PADDING }}>
-                            <PrivateRouter exact path="/" component={DashBoard} />
-                            <PrivateRouter path="/labels" component={LabelManage} />
-                            <PrivateRouter path="/posts" component={PostManage} />
-                            <PrivateRouter path="/comments" component={CommentManage} />
-                        </Paper>
+                        <PrivateRouter exact path="/" component={DashBoard} />
+                        <PrivateRouter path="/labels" component={LabelManage} />
+                        <PrivateRouter path="/posts" component={PostManage} />
+                        <PrivateRouter path="/comments" component={CommentManage} />
                     </div>
                 </div>
             </div>

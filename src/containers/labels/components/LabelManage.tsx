@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Paper from 'material-ui/Paper';
 import { connect } from 'react-redux';
 import StoreState from '../../../store/types';
 import { fetchAllLabels, addLabel, modifyLabel, deleteLabel } from '../actions';
@@ -73,7 +74,7 @@ class LabelManage extends React.Component<LabelManageProps> {
     render() {
         let { labels } = this.props;
         return (
-            <div>
+            <Paper className='Manage-container'>
                 <TabbarTitle title='标签管理' />
                 <div style={{ padding: 30 }}>
                     <EditTable
@@ -84,7 +85,7 @@ class LabelManage extends React.Component<LabelManageProps> {
                         enableDelete={true}
                     />
                 </div>
-            </div>
+            </Paper>
         );
     }
 }

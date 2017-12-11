@@ -73,9 +73,7 @@ class PostView extends React.Component<PostViewProps> {
                 />
                 <div className='PostView-content'>
                     <h1 className='PostView-title'>{post.title}</h1>
-                    {
-                        post.labels.map(label => <span>{label.name}</span>)
-                    }
+                    
                     <FroalaEditor
                         tag='textarea'
                         config={this.config}
