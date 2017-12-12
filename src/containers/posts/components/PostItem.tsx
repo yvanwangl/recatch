@@ -12,7 +12,8 @@ export interface AuthorModel {
 	avatar?: string;
 }
 export interface PostModel {
-	id: number | string;
+    id: number | string;
+    author: string;
 	title: string;
 	userId: string;
 	userName: string;

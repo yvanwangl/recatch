@@ -70,12 +70,9 @@ class PostList extends React.Component<PostListProps> {
     };
 
     componentDidMount() {
-        let { posts, fetchPosts, labels, fetchAllLabels } = this.props;
+        let { posts, fetchPosts } = this.props;
         if (posts.length == 0) {
             fetchPosts();
-        }
-        if (labels.length == 0) {
-            fetchAllLabels();
         }
     }
 

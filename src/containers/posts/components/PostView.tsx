@@ -1,4 +1,9 @@
 import * as React from 'react';
+import Chip from 'material-ui/Chip';
+import TodayIcon from 'material-ui/svg-icons/action/today';
+import VisibilityIcon from 'material-ui/svg-icons/action/visibility';
+import CommentIcon from 'material-ui/svg-icons/communication/comment';
+import AuthorIcon from 'material-ui/svg-icons/image/edit';
 // Require Editor JS files.
 import 'froala-editor/js/froala_editor.pkgd.min.js';
 // Require Editor CSS files.
@@ -15,6 +20,7 @@ import { PostModel } from './PostItem';
 import TabbarTitle from '../../../components/tabbarTitle/TabbarTitle';
 import FlatButton from 'material-ui/FlatButton';
 import ListIcon from 'material-ui/svg-icons/action/list';
+import { dateFormat } from '../../../utils/util';
 
 export interface PostViewProps {
     posts: Array<PostModel>;
@@ -53,7 +59,24 @@ class PostView extends React.Component<PostViewProps> {
 
     render() {
         let { posts, match } = this.props;
-        let post = posts.filter(post => post.id == match.params.postId)[0] || { content: '' };
+        let {
+            author,
+            count,
+            title,
+            content,
+            publishDate,
+            comments,
+            labels
+        } = posts.filter(post => post.id == match.params.postId)[0];
+        let labelItems = labels.map((label, index) => {
+            return <Chip
+                key={index}
+                style={{ margin: 4, display: 'inline-block' }}
+                backgroundColor={label.bgColor}
+                labelColor={label.fontColor}>
+                {label.name}
+            </Chip>;
+        })
 
         return (
             <div>
@@ -72,13 +95,19 @@ class PostView extends React.Component<PostViewProps> {
                     }
                 />
                 <div className='PostView-content'>
-                    <h1 className='PostView-title'>{post.title}</h1>
-                    
+                    <h1 className='PostView-title'>{title}</h1>
+                    <div className='PostView-info'>
+                        <span className='PostView-card-icon-wrapper'><TodayIcon className='PostView-card-icon' /> {dateFormat(publishDate)}</span>
+                        <span className='PostView-card-icon-wrapper'><AuthorIcon className='PostView-card-icon' /> {author}</span>
+                        <span className='PostView-card-icon-wrapper'><VisibilityIcon className='PostView-card-icon' /> {count}</span>
+                        <span className='PostView-card-icon-wrapper'><CommentIcon className='PostView-card-icon' /> {comments.length}</span>
+                    </div>
                     <FroalaEditor
                         tag='textarea'
                         config={this.config}
-                        model={post.content}
+                        model={content}
                     />
+                    {labelItems}
                 </div>
 
             </div>

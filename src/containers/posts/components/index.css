@@ -73,11 +73,16 @@
     letter-spacing: 1px;
     margin-bottom: 52px;
 }
-.PostItem-card-icon-list {
+.PostItem-card-icon-list,
+.PostView-info {
     display: flex;
     padding-left: 14px;
 }
-.PostItem-card-icon-wrapper {
+.PostView-info {
+    justify-content: center;
+}
+.PostItem-card-icon-wrapper,
+.PostView-card-icon-wrapper {
     display: flex;
     align-items: center;
     margin-right: 20px;
@@ -89,6 +94,13 @@
     width: 22px !important;
     height: 22px !important;
 }
+.PostView-card-icon {
+    color: rgb(29, 152, 223) !important;
+    margin-right: 6px;
+    width: 22px !important;
+    height: 22px !important;
+}
+
 .PostItem-card-actions {
     position: absolute !important;
     bottom: 0;

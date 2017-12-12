@@ -25,7 +25,8 @@ class Label extends Model<LabelProps> {
                 payload.map((label: any) => Label.upsert({ id: label['_id'], ...label }));
                 break;
             case FETCH_POST_SUCCESS:
-                payload.lables.map((label: any) => Label.upsert({ id: label['_id'], ...label }));
+                //此处粗心将labels 写为 lables，导致错误
+                payload.labels.map((label: any) => Label.upsert({ id: label['_id'], ...label }));
                 break;
             case ADD_LABEL_SUCCESS:
             case MODIFY_LABEL_SUCCESS:
