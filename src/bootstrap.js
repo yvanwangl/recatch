@@ -30,6 +30,6 @@ export default function bootstrap(orm) {
     // Return the whole Redux initial state.
     return {
         orm: state,
-        ui: {},
+        ui: { dashboard: {}},
     };
 }

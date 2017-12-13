@@ -1,11 +1,11 @@
 import { Action } from '../../utils/createAction';
 import createReducer from '../../utils/createReducer';
-import { FETCH_POST_SUCCESS } from './constants';
+import { FETCH_STATISTICS_SUCCESS } from './constants';
 
-const blogReducer = createReducer({}, {
-    [FETCH_POST_SUCCESS]: (state: any, { payload }:Action) => {
-        return { ...state, };
+const dashboardReducer = createReducer({}, {
+    [FETCH_STATISTICS_SUCCESS]: (state: any, { payload }: Action) => {
+        return { ...state, ...payload };
     }
 });
 
-export default blogReducer;
+export default dashboardReducer;

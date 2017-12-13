@@ -64,3 +64,18 @@ export function formatComments(comments: any) {
 function sortComments(comments: any) {
     return comments.sort((commentA: any, commentB: any) => new Date(commentB['commentTime']).getTime() - new Date(commentA['commentTime']).getTime());
 }
+
+/**
+ * 判断一个对象是否为空对象
+ */
+export function emptyObj(obj: object){
+    if(typeof obj !== 'object'){
+        throw new Error('obj must be object type');
+    }
+    for(let key in obj) {
+        if(Object.prototype.hasOwnProperty.call(obj, key)){
+            return false;
+        }
+    }
+    return true;
+}

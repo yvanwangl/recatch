@@ -19,7 +19,7 @@ declare global {
     }
 }
 
-const initialState = bootstrap(orm) || {orm: orm.getEmptyState(), ui:{}};
+const initialState = bootstrap(orm) || { orm: orm.getEmptyState(), ui: { dashboard: {} } };
 const store = configStore(initialState);
 
 ReactDOM.render(

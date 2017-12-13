@@ -1,6 +1,6 @@
 interface StoreState {
     orm: object;
-    ui: object;
+    ui: { dashboard: object };
 }
 
 export default StoreState;
