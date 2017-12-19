@@ -77,7 +77,7 @@ class CommentManage extends React.Component<CommentManageProps, CommentManageSta
     }
 
     render() {
-        let { comments, addComment, deleteComment, posts } = this.props;
+        let { comments, addComment, deleteComment } = this.props;
         /**
          * 对评论进行序列化操作
          * 对评论按日期进行倒叙
@@ -102,9 +102,9 @@ class CommentManage extends React.Component<CommentManageProps, CommentManageSta
             }
 
             if (!commentMap[comment.postId]) {
-                let post = posts.filter((post: any) => post.id == comment.postId)[0] || '';
+                //let post = posts.filter((post: any) => post.id == comment.postId)[0] || '';
                 commentMap[comment.postId] = [];
-                commentMap[comment.postId]['postName'] = post.title;
+                commentMap[comment.postId]['postName'] = comment.postName;
             }
             commentMap[comment.postId].push(commentItems);
         });
