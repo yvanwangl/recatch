@@ -12,6 +12,7 @@ import DashBoard from '../dashboard/components/DashBoard';
 import PostManage from '../posts/components/PostManage';
 import LabelManage from '../labels/components/LabelManage';
 import CommentManage from '../comments/components/CommentManage';
+import ProjectManage from '../projects/components/ProjectManage';
 import PrivateRouter from './PrivateRouter';
 import './index.css';
 
@@ -67,6 +68,7 @@ class Home extends React.Component<object, AppState> {
                         <MenuItem primaryText={<MenuLink to='/labels' linkText='标签' />} leftIcon={<LabelIcon />} />
                         <MenuItem primaryText={<MenuLink to='/posts' linkText='文章' />} leftIcon={<PostListIcon />} />
                         <MenuItem primaryText={<MenuLink to='/comments' linkText='评论' />} leftIcon={<CommentIcon />} />
+                        <MenuItem primaryText={<MenuLink to='/projects' linkText='项目' />} leftIcon={<CommentIcon />} />
                         <MenuItem primaryText={<MenuLink to='/login' linkText='注销' />} leftIcon={<LogoutIcon />} onClick={() => sessionStorage.removeItem('user')} />
                     </Drawer>
                     <div className='Home-container' style={{ left: this.state.drawerOpen ? 256 : 0 }}>
@@ -74,6 +76,7 @@ class Home extends React.Component<object, AppState> {
                         <PrivateRouter path="/labels" component={LabelManage} />
                         <PrivateRouter path="/posts" component={PostManage} />
                         <PrivateRouter path="/comments" component={CommentManage} />
+                        <PrivateRouter path="/projects" component={ProjectManage} />
                     </div>
                 </div>
             </div>
