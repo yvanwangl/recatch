@@ -8,12 +8,17 @@ import TabbarTitle from '../../../components/tabbarTitle/TabbarTitle';
 import FlatButton from 'material-ui/FlatButton';
 import ContentAddIcon from 'material-ui/svg-icons/content/add';
 import ProjectItem from './ProjectItem';
+import ProjectForm from './ProjectForm';
 
-export interface LabelManageProps {
+export interface ProjectManageProps {
     fetchAllProjects: Function;
     addProject: Function;
     modifyProject: Function;
     projects: any;
+}
+
+export interface ProjectManageState {
+    openDialog: boolean;
 }
 
 function mapStateToProps(state: StoreState) {
@@ -25,15 +30,26 @@ function mapStateToProps(state: StoreState) {
 function mapDispatchToProps(dispatch: Function) {
     return {
         fetchAllProjects: () => dispatch(fetchAllProjects()),
-        addLabel: (project: any) => dispatch(addProject(project)),
-        modifyLabel: (project: any) => dispatch(modifyProject(project)),
+        addProject: (project: any) => dispatch(addProject(project)),
+        modifyProject: (project: any) => dispatch(modifyProject(project)),
     }
 }
 
 @(connect(mapStateToProps, mapDispatchToProps) as any)
-class LabelManage extends React.Component<LabelManageProps> {
+class LabelManage extends React.Component<ProjectManageProps, ProjectManageState> {
 
-    handleCreate = ()=> {};
+    constructor(props: ProjectManageProps){
+        super(props);
+        this.state = {
+            openDialog: false
+        };
+    }
+
+    handleCreate = () => { 
+        this.setState({
+            openDialog: true
+        });
+    };
 
     componentDidMount() {
         let { projects, fetchAllProjects } = this.props;
@@ -43,7 +59,8 @@ class LabelManage extends React.Component<LabelManageProps> {
     }
 
     render() {
-        let { projects } = this.props;
+        let { projects, addProject } = this.props;
+        let { openDialog } = this.state;
         let projectItems = projects.map((project: any) => <ProjectItem key={project.id} project={project} />);
         return (
             <Paper className='Manage-container'>
@@ -58,6 +75,11 @@ class LabelManage extends React.Component<LabelManageProps> {
                 <div style={{ padding: 30 }}>
                     {projectItems}
                 </div>
+                {
+                    openDialog ? 
+                    <ProjectForm onFormSubmit={addProject} openDialog={openDialog} />: null
+                }
+                
             </Paper>
         );
     }
