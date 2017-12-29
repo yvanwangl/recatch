@@ -19,6 +19,8 @@ export interface ProjectManageProps {
 
 export interface ProjectManageState {
     openDialog: boolean;
+    actionType: string;
+    initialValues: object;
 }
 
 function mapStateToProps(state: StoreState) {
@@ -38,16 +40,37 @@ function mapDispatchToProps(dispatch: Function) {
 @(connect(mapStateToProps, mapDispatchToProps) as any)
 class LabelManage extends React.Component<ProjectManageProps, ProjectManageState> {
 
-    constructor(props: ProjectManageProps){
+    constructor(props: ProjectManageProps) {
         super(props);
         this.state = {
-            openDialog: false
+            openDialog: false,
+            actionType: 'create',
+            initialValues: {}
         };
     }
 
-    handleCreate = () => { 
+    //新增按钮点击事件
+    handleCreate = () => {
         this.setState({
-            openDialog: true
+            actionType: 'create',
+            openDialog: true,
+            initialValues: {}
+        });
+    };
+
+    //取消按钮点击事件
+    handleCancel = () => {
+        this.setState({
+            openDialog: false
+        });
+    };
+
+    //修改按钮点击事件
+    handleModify = (project: any) => () => {
+        this.setState({
+            actionType: 'modify',
+            openDialog: true,
+            initialValues: project
         });
     };
 
@@ -59,9 +82,14 @@ class LabelManage extends React.Component<ProjectManageProps, ProjectManageState
     }
 
     render() {
-        let { projects, addProject } = this.props;
-        let { openDialog } = this.state;
-        let projectItems = projects.map((project: any) => <ProjectItem key={project.id} project={project} />);
+        let { projects, addProject, modifyProject } = this.props;
+        let { openDialog, actionType, initialValues } = this.state;
+        let projectItems = projects.map((project: any) =>
+            <ProjectItem
+                key={project.id}
+                project={project}
+                editProject={this.handleModify(project)}
+            />);
         return (
             <Paper className='Manage-container'>
                 <TabbarTitle
@@ -72,14 +100,21 @@ class LabelManage extends React.Component<ProjectManageProps, ProjectManageState
                         ]
                     }
                 />
-                <div style={{ padding: 30 }}>
+                <div className='ProjectManage-item-wrapper'>
                     {projectItems}
                 </div>
                 {
-                    openDialog ? 
-                    <ProjectForm onFormSubmit={addProject} openDialog={openDialog} />: null
+                    openDialog ?
+                        <ProjectForm
+                            type={actionType}
+                            onFormSubmit={actionType == 'create' ? addProject : modifyProject}
+                            openDialog={openDialog}
+                            handleCancel={this.handleCancel}
+                            initialValues={initialValues}
+                        />
+                        :
+                        null
                 }
-                
             </Paper>
         );
     }

@@ -1,0 +1,55 @@
+.ProjectManage-item-wrapper {
+    display: flex;
+    padding: 30px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.ProjectItem-card {
+    width: 45%;
+    position: relative;
+}
+.ProjectItem-card-title {
+	font-size: 20px;
+    font-weight: 400;
+    line-height: 1.5;
+    margin: 0;
+    color: #000;
+}
+.ProjectItem-card-text {
+    line-height: 2;
+    color: #2c2c2c !important;
+    max-height: 145px;
+    overflow: hidden;
+    white-space: normal;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    font-size: 16px !important;
+    letter-spacing: 1px;
+    margin-bottom: 52px;
+}
+.ProjectItem-card-actions {
+    position: absolute !important;
+    bottom: 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+.EditProject-form {
+    padding: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.EditProject-form-item {
+    display: flex;
+    width: 100%;
+}
+.EditProject-form-item-toggle {
+    display: inline-block;
+    width: 12%;
+    margin-top: 42px;
+    margin-right: 170px;
+}

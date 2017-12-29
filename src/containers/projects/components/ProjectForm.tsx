@@ -1,26 +1,28 @@
 import * as React from 'react';
 import { Field, reduxForm, InjectedFormProps } from 'redux-form';
-import { TextField, Toggle } from 'redux-form-material-ui';
+import { TextField } from 'redux-form-material-ui';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import Snackbar from 'material-ui/Snackbar';
+import './index.css';
 
 export interface ProjectFormProps {
+    handleCancel: () => void;
     onFormSubmit: Function;
     openDialog: boolean;
+    type: string;
 }
 
 export interface ProjectFormState {
-    open: boolean;
     openSnackbar: boolean;
 }
 
+const delayTime = 2000;
 class ProjectForm extends React.Component<ProjectFormProps & InjectedFormProps, ProjectFormState> {
 
     constructor(props: ProjectFormProps & InjectedFormProps) {
         super(props);
         this.state = {
-            open: this.props.openDialog,
             openSnackbar: false
         };
     }
@@ -44,33 +46,28 @@ class ProjectForm extends React.Component<ProjectFormProps & InjectedFormProps, 
         return errors;
     }
 
-    handleCancel = ()=> {
-        this.setState({
-            open: false
-        });
-    };
-
-    handleConfirm = (values: any)=> {
-        let {onFormSubmit} = this.props;
+    handleConfirm = (values: any) => {
+        let { onFormSubmit, handleCancel } = this.props;
         onFormSubmit(values).then((result: any) => {
             if (result.success) {
-                this.setState({ openSnackbar: true, open: false });
+                this.setState({ openSnackbar: true });
+                setTimeout(handleCancel, delayTime);
             }
         })
     };
 
     render() {
-        let { handleSubmit } = this.props;
-        let {open, openSnackbar} = this.state;
+        let { handleSubmit, handleCancel, openDialog, type } = this.props;
+        let { openSnackbar } = this.state;
 
         const actions = [
             <FlatButton
-                label="Cancel"
+                label="取消"
                 primary={true}
-                onClick={this.handleCancel}
+                onClick={handleCancel}
             />,
             <FlatButton
-                label="Submit"
+                label="确定"
                 primary={true}
                 keyboardFocused={true}
                 onClick={handleSubmit(this.handleConfirm)}
@@ -79,14 +76,14 @@ class ProjectForm extends React.Component<ProjectFormProps & InjectedFormProps, 
 
         return (
             <Dialog
-                title="项目"
+                title={type == 'create' ? '新增项目' : '修改项目'}
                 actions={actions}
                 modal={false}
-                open={open}
-                onRequestClose={this.handleCancel}
+                open={openDialog}
+                onRequestClose={handleCancel}
             >
-                <form className='EditPost-form'>
-                    <div className='EditPost-form-item'>
+                <form className='EditProject-form'>
+                    <div className='EditProject-form-item'>
                         <Field
                             name="name"
                             component={TextField as any}
@@ -97,7 +94,7 @@ class ProjectForm extends React.Component<ProjectFormProps & InjectedFormProps, 
                             } as any}
                         />
                     </div>
-                    <div className='EditPost-form-item'>
+                    <div className='EditProject-form-item'>
                         <Field
                             name="link"
                             component={TextField as any}
@@ -108,18 +105,21 @@ class ProjectForm extends React.Component<ProjectFormProps & InjectedFormProps, 
                             } as any}
                         />
                     </div>
-                    <div className='EditPost-form-item'>
+                    <div className='EditProject-form-item'>
                         <Field
                             name="description"
                             component={TextField as any}
                             props={{
                                 fullWidth: true,
                                 hintText: '项目描述',
-                                floatingLabelText: '项目描述'
+                                floatingLabelText: '项目描述',
+                                multiLine: true,
+                                rows: 2,
+                                rowsMax: 4
                             } as any}
                         />
                     </div>
-                    <div style={{ width: '100%' }}>
+                    {/* <div style={{ width: '100%' }}>
                         <div className='EditPost-form-item-toggle'>
                             <Field
                                 name="postStatus"
@@ -130,12 +130,12 @@ class ProjectForm extends React.Component<ProjectFormProps & InjectedFormProps, 
                                 } as any}
                             />
                         </div>
-                    </div>
+                    </div> */}
                 </form>
                 <Snackbar
                     open={openSnackbar}
                     message="项目保存成功 :)"
-                    autoHideDuration={2000}
+                    autoHideDuration={delayTime}
                     style={{ textAlign: 'center' }}
                 />
             </Dialog>

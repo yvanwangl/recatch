@@ -105,6 +105,7 @@
     position: absolute !important;
     bottom: 0;
     width: 100%;
+    box-sizing: border-box;
 }
 .PostView-content {
     padding: 0 30px 30px 30px;

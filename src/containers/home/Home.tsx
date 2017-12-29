@@ -6,6 +6,8 @@ import DashBoardIcon from 'material-ui/svg-icons/action/dashboard';
 import PostListIcon from 'material-ui/svg-icons/action/list';
 import LabelIcon from 'material-ui/svg-icons/action/label';
 import CommentIcon from 'material-ui/svg-icons/communication/comment';
+import ProjectIcon from 'material-ui/svg-icons/av/library-books';
+import LinkIcon from 'material-ui/svg-icons/social/share';
 import LogoutIcon from 'material-ui/svg-icons/action/power-settings-new';
 import MenuLink from '../../components/menuLink/MenuLink';
 import DashBoard from '../dashboard/components/DashBoard';
@@ -13,6 +15,7 @@ import PostManage from '../posts/components/PostManage';
 import LabelManage from '../labels/components/LabelManage';
 import CommentManage from '../comments/components/CommentManage';
 import ProjectManage from '../projects/components/ProjectManage';
+import LinkManage from '../links/components/LinkManage';
 import PrivateRouter from './PrivateRouter';
 import './index.css';
 
@@ -68,7 +71,8 @@ class Home extends React.Component<object, AppState> {
                         <MenuItem primaryText={<MenuLink to='/labels' linkText='标签' />} leftIcon={<LabelIcon />} />
                         <MenuItem primaryText={<MenuLink to='/posts' linkText='文章' />} leftIcon={<PostListIcon />} />
                         <MenuItem primaryText={<MenuLink to='/comments' linkText='评论' />} leftIcon={<CommentIcon />} />
-                        <MenuItem primaryText={<MenuLink to='/projects' linkText='项目' />} leftIcon={<CommentIcon />} />
+                        <MenuItem primaryText={<MenuLink to='/projects' linkText='项目' />} leftIcon={<ProjectIcon />} />
+                        <MenuItem primaryText={<MenuLink to='/links' linkText='友链' />} leftIcon={<LinkIcon />} />
                         <MenuItem primaryText={<MenuLink to='/login' linkText='注销' />} leftIcon={<LogoutIcon />} onClick={() => sessionStorage.removeItem('user')} />
                     </Drawer>
                     <div className='Home-container' style={{ left: this.state.drawerOpen ? 256 : 0 }}>
@@ -77,6 +81,7 @@ class Home extends React.Component<object, AppState> {
                         <PrivateRouter path="/posts" component={PostManage} />
                         <PrivateRouter path="/comments" component={CommentManage} />
                         <PrivateRouter path="/projects" component={ProjectManage} />
+                        <PrivateRouter path="/links" component={LinkManage} />
                     </div>
                 </div>
             </div>
