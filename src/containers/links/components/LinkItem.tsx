@@ -20,7 +20,7 @@ const LinkItem = ({ linkData, handleValid, handleInvalid }: linkItemProps) => {
             subtitle = '等待审核';
             subtitleColor = '#000';
             break;
-        case 'Invaild':
+        case 'Invalid':
             subtitle = '审核不通过';
             subtitleColor = 'red';
             break;
@@ -34,7 +34,9 @@ const LinkItem = ({ linkData, handleValid, handleInvalid }: linkItemProps) => {
             />
             <CardText className='LinkItem-card-text'>
                 {description}
-                <a href={link}>友链地址</a>
+                <div>
+                    <a style={{textDecoration: 'none'}} href={link} target='_blank'>友链地址</a>
+                </div>
             </CardText>
             <CardActions className='LinkItem-card-actions'>
                 <FlatButton secondary={true} label="审核通过" onClick={handleValid} />

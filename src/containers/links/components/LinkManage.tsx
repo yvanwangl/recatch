@@ -85,7 +85,7 @@ class LabelManage extends React.Component<linkManageProps, linkManageState> {
         return (
             <Paper className='Manage-container'>
                 <TabbarTitle
-                    title='项目管理'
+                    title='友链管理'
                 />
                 <div className='LinkManage-item-wrapper'>
                     {linkItems}
