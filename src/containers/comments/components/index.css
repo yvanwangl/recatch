@@ -12,6 +12,7 @@
 }
 .CommentCard-card {
 	width: 45%;
+	margin-bottom: 30px;
 }
 .CommentCard-card-title {
 	font-size: 20px;

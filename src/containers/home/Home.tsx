@@ -17,6 +17,7 @@ import CommentManage from '../comments/components/CommentManage';
 import ProjectManage from '../projects/components/ProjectManage';
 import LinkManage from '../links/components/LinkManage';
 import PrivateRouter from './PrivateRouter';
+import { userAuth } from '../../utils/util';
 import './index.css';
 
 //const PADDING = 30;
@@ -50,6 +51,10 @@ class Home extends React.Component<object, AppState> {
 
 
     render() {
+        let {
+            authenticate,
+            admin
+        } = userAuth();
         return (
             <div>
                 <AppBar
@@ -72,7 +77,9 @@ class Home extends React.Component<object, AppState> {
                         <MenuItem primaryText={<MenuLink to='/posts' linkText='文章' />} leftIcon={<PostListIcon />} />
                         <MenuItem primaryText={<MenuLink to='/comments' linkText='评论' />} leftIcon={<CommentIcon />} />
                         <MenuItem primaryText={<MenuLink to='/projects' linkText='项目' />} leftIcon={<ProjectIcon />} />
-                        <MenuItem primaryText={<MenuLink to='/links' linkText='友链' />} leftIcon={<LinkIcon />} />
+                        {
+                            authenticate && admin && <MenuItem primaryText={<MenuLink to='/links' linkText='友链' />} leftIcon={<LinkIcon />} />
+                        }
                         <MenuItem primaryText={<MenuLink to='/login' linkText='注销' />} leftIcon={<LogoutIcon />} onClick={() => sessionStorage.removeItem('user')} />
                     </Drawer>
                     <div className='Home-container' style={{ left: this.state.drawerOpen ? 256 : 0 }}>

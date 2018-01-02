@@ -66,6 +66,7 @@ class ModifyPost extends React.Component<ModifyPostProps> {
                 onCancel={this.handleCancel}
                 initialValues={{
                     ...post,
+                    labels: post['labels'] ? post['labels'].map((label: any) => label.id) : [],
                     postStatus: true,
                     updateDate: true
                 }}

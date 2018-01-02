@@ -454,7 +454,7 @@ export default class EditTable extends React.Component<EditTableProps, EditTable
                 <RaisedButton
                     onClick={onButtonClick}
                     style={buttonStyle}
-                    label='Add Row'
+                    label='新增'
                 />
             </div>
         )

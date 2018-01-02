@@ -68,14 +68,32 @@ function sortComments(comments: any) {
 /**
  * 判断一个对象是否为空对象
  */
-export function emptyObj(obj: object){
-    if(typeof obj !== 'object'){
+export function emptyObj(obj: object) {
+    if (typeof obj !== 'object') {
         throw new Error('obj must be object type');
     }
-    for(let key in obj) {
-        if(Object.prototype.hasOwnProperty.call(obj, key)){
+    for (let key in obj) {
+        if (Object.prototype.hasOwnProperty.call(obj, key)) {
             return false;
         }
     }
     return true;
+}
+
+/**
+ * 获取用户授权信息
+ */
+export function userAuth() {
+    let authenticate = false;
+    let admin = false;
+    let user = sessionStorage.getItem('user');
+    if (user) {
+        let userInfo = JSON.parse(user);
+        authenticate = user && userInfo.userId && userInfo.username;
+        admin = authenticate && userInfo.admin;
+    }
+    return {
+        authenticate,
+        admin
+    };
 }
