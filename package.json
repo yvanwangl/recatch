@@ -80,7 +80,7 @@
     "test": "node scripts/test.js --env=jsdom",
     "start:dev": "cross-env NODE_ENV=development webpack-dev-server --hot --progress --color --config webpack.dev.js",
     "start:prod": "cross-env NODE_ENV=production pm2 start ./build/service.js --name recatch",
-    "start:docker": "cross-env NODE_ENV=production pm2 start service.js --name recatch"
+    "start:docker": "cross-env NODE_ENV=production pm2 start ./build/service.js --name recatch"
   },
   "devDependencies": {
     "@types/jest": "^21.1.5",
