@@ -72,7 +72,8 @@
     "webpack": "3.5.1",
     "webpack-dev-server": "2.7.1",
     "webpack-manifest-plugin": "1.2.1",
-    "whatwg-fetch": "2.0.3"
+    "whatwg-fetch": "2.0.3",
+    "pm2-docker": "^2.1.0"
   },
   "scripts": {
     "start": "cross-env NODE_ENV=development node scripts/start.js",
@@ -80,7 +81,7 @@
     "test": "node scripts/test.js --env=jsdom",
     "start:dev": "cross-env NODE_ENV=development webpack-dev-server --hot --progress --color --config webpack.dev.js",
     "start:prod": "cross-env NODE_ENV=production pm2 start ./build/service.js --name recatch",
-    "start:docker": "cross-env NODE_ENV=production pm2 start ./build/service.js --name recatch"
+    "start:docker": "cross-env NODE_ENV=production pm2-docker start ./build/service.js"
   },
   "devDependencies": {
     "@types/jest": "^21.1.5",

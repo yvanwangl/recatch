@@ -3,6 +3,9 @@
 const path = require('path');
 const httpProxy = require('http-proxy');
 const express = require('express');
+const { PROXY_HOST, PROXY_PORT, PORT, NODE_ENV} = process.env;
+
+let proxyTarget = `http://${PROXY_HOST}:${PROXY_PORT}`;
 
 // initialize the server and configure support for ejs templates
 let app = express();
@@ -11,20 +14,20 @@ let app = express();
 app.use(express.static(path.join(__dirname, './public')));
 
 const proxy = httpProxy.createProxyServer({
-  target: 'http://localhost:8082'
+  target: proxyTarget
 });
 app.use('/api', (req, res) => {
   req.url = req.baseUrl + req.url;
-  return proxy.web(req, res, { target: 'http://localhost:8082' })
+  return proxy.web(req, res, { target: proxyTarget })
 });
 
-app.get('/', function (request, response) {
+app.get('*', function (request, response) {
   response.sendFile(path.resolve(__dirname, './index.html'));
 });
 
 // start the server
-const port = process.env.PORT || 8084;
-const env = process.env.NODE_ENV || 'production';
+const port = PORT || 8084;
+const env = NODE_ENV || 'production';
 
 console.log(port);
 
