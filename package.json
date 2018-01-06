@@ -14,8 +14,6 @@
     "@types/react-router-dom": "^4.2.0",
     "@types/redux-form": "^7.0.9",
     "@types/redux-logger": "^3.0.5",
-    "@types/redux-thunk": "^2.1.0",
-    "@types/reselect": "^2.2.0",
     "autoprefixer": "7.1.2",
     "case-sensitive-paths-webpack-plugin": "2.1.1",
     "chalk": "1.1.3",
