@@ -22,7 +22,7 @@ app.use('/api', (req, res) => {
 });
 
 app.get('*', function (request, response) {
-  response.sendFile(path.resolve(__dirname, './index.html'));
+  response.sendFile(path.resolve(__dirname, './public/index.html'));
 });
 
 // start the server

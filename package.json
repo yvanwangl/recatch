@@ -79,8 +79,7 @@
     "start": "cross-env NODE_ENV=development node scripts/start.js",
     "build": "cross-env NODE_ENV=production node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
-    "start:dev": "cross-env NODE_ENV=development webpack-dev-server --hot --progress --color --config webpack.dev.js",
-    "start:prod": "cross-env NODE_ENV=production pm2 start ./build/service.js --name recatch",
+    "start:prod": "pm2 start ecosystem.config.js --env production --name recatch",
     "start:docker": "cross-env NODE_ENV=production pm2-docker start ./build/service.js"
   },
   "devDependencies": {
