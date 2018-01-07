@@ -5,8 +5,9 @@ import Comment from '../containers/comments/CommentModel';
 import Label from '../containers/labels/LabelModel';
 import Project from '../containers/projects/ProjectModel';
 import Link from '../containers/links/LinkModel';
+import Info from '../containers/info/InfoModel';
 
 export const orm = new ORM();
-orm.register(User, Post, Comment, Label, Project, Link);
+orm.register(User, Post, Comment, Label, Project, Link, Info);
 
 export default orm;

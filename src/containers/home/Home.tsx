@@ -8,6 +8,7 @@ import LabelIcon from 'material-ui/svg-icons/action/label';
 import CommentIcon from 'material-ui/svg-icons/communication/comment';
 import ProjectIcon from 'material-ui/svg-icons/av/library-books';
 import LinkIcon from 'material-ui/svg-icons/social/share';
+import InfoIcon from 'material-ui/svg-icons/action/settings';
 import LogoutIcon from 'material-ui/svg-icons/action/power-settings-new';
 import MenuLink from '../../components/menuLink/MenuLink';
 import DashBoard from '../dashboard/components/DashBoard';
@@ -16,6 +17,7 @@ import LabelManage from '../labels/components/LabelManage';
 import CommentManage from '../comments/components/CommentManage';
 import ProjectManage from '../projects/components/ProjectManage';
 import LinkManage from '../links/components/LinkManage';
+import InfoManage from '../info/components/InfoManage';
 import PrivateRouter from './PrivateRouter';
 import { userAuth, logOut } from '../../utils/util';
 import './index.css';
@@ -84,6 +86,7 @@ class Home extends React.Component<object, AppState> {
                         {
                             authenticate && admin && <MenuItem primaryText={<MenuLink to='/links' linkText='友链' />} leftIcon={<LinkIcon />} />
                         }
+                        <MenuItem primaryText={<MenuLink to='/info' linkText='设置' />} leftIcon={<InfoIcon />} />                        
                         <MenuItem primaryText={<MenuLink to='/login' linkText='注销' />} leftIcon={<LogoutIcon />} onClick={logOut} />
                     </Drawer>
                     <div className='Home-container' style={{ left: this.state.drawerOpen ? 256 : 0 }}>
@@ -93,6 +96,7 @@ class Home extends React.Component<object, AppState> {
                         <PrivateRouter path="/comments" component={CommentManage} />
                         <PrivateRouter path="/projects" component={ProjectManage} />
                         <PrivateRouter path="/links" component={LinkManage} />
+                        <PrivateRouter path="/info" component={InfoManage} />
                     </div>
                 </div>
             </div>
