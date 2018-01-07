@@ -1,3 +1,5 @@
+import request from './request';
+
 function formatDate(date: Date | string) {
     if (typeof date == 'string') {
         date = new Date(date);
@@ -96,4 +98,15 @@ export function userAuth() {
         authenticate,
         admin
     };
+}
+
+/**
+ * 退出事件
+ */
+export function logOut() {
+    return request('/api/logout', { method: 'post' }).then((result) => {
+        if (result && result.success) {
+            sessionStorage.removeItem('user');
+        }
+    });
 }

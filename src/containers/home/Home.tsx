@@ -17,7 +17,7 @@ import CommentManage from '../comments/components/CommentManage';
 import ProjectManage from '../projects/components/ProjectManage';
 import LinkManage from '../links/components/LinkManage';
 import PrivateRouter from './PrivateRouter';
-import { userAuth } from '../../utils/util';
+import { userAuth, logOut } from '../../utils/util';
 import './index.css';
 
 //const PADDING = 30;
@@ -47,6 +47,10 @@ class Home extends React.Component<object, AppState> {
         this.setState({
             drawerOpen: !this.state.drawerOpen
         });
+    };
+
+    handleLogout = () => {
+
     };
 
 
@@ -80,7 +84,7 @@ class Home extends React.Component<object, AppState> {
                         {
                             authenticate && admin && <MenuItem primaryText={<MenuLink to='/links' linkText='友链' />} leftIcon={<LinkIcon />} />
                         }
-                        <MenuItem primaryText={<MenuLink to='/login' linkText='注销' />} leftIcon={<LogoutIcon />} onClick={() => sessionStorage.removeItem('user')} />
+                        <MenuItem primaryText={<MenuLink to='/login' linkText='注销' />} leftIcon={<LogoutIcon />} onClick={logOut} />
                     </Drawer>
                     <div className='Home-container' style={{ left: this.state.drawerOpen ? 256 : 0 }}>
                         <PrivateRouter exact path="/" component={DashBoard} />
