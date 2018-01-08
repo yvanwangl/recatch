@@ -16,6 +16,7 @@ export interface LoginProps {
 interface LoginState {
     signin: boolean;
     openSnackbar: boolean;
+    snackbarMsg: string;
 }
 
 function mapDispatchToProps(dispatch: Function) {
@@ -31,7 +32,8 @@ class Login extends React.Component<LoginProps, LoginState> {
         super(props);
         this.state = {
             signin: true,
-            openSnackbar: false
+            openSnackbar: false,
+            snackbarMsg: 'Username Or Password Error : ('
         };
     }
 
@@ -50,14 +52,22 @@ class Login extends React.Component<LoginProps, LoginState> {
                 history.push(from);
             } else {
                 this.setState({
-                    openSnackbar: true
+                    openSnackbar: true,
+                    snackbarMsg: result.errorCode
                 });
             }
         });
     };
 
+    handleSnackBar = (reason: string)=> {
+        this.setState({
+            openSnackbar: false,
+            snackbarMsg: ''
+        });
+    };
+
     render() {
-        const { signin, openSnackbar } = this.state;
+        const { signin, openSnackbar, snackbarMsg } = this.state;
         return (
             <div className='Login-wrapper'>
                 {
@@ -67,7 +77,8 @@ class Login extends React.Component<LoginProps, LoginState> {
                 }
                 <Snackbar
                     open={openSnackbar}
-                    message="Username Or Password Error : ("
+                    message={snackbarMsg}
+                    onRequestClose={this.handleSnackBar}
                     autoHideDuration={2000}
                 />
             </div>
