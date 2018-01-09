@@ -325,8 +325,8 @@ module.exports = {
     // You can remove this if you don't use Moment.js:
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     new CopyWebpackPlugin([{
-      from: path.join(__dirname, '../src/service.js'),
-      to:  path.join(__dirname, '../build/service.js'),
+      from: path.join(__dirname, '../src/server'),
+      to:  path.join(__dirname, '../build'),
     }]),
     new webpack.ProvidePlugin({
         $: "jquery",

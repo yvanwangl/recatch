@@ -12,6 +12,7 @@ let app = express();
 
 // define the folder that will be used for static assets
 app.use(express.static(path.join(__dirname, './public')));
+app.use(express.static(path.join(__dirname, './ssl')));
 
 const proxy = httpProxy.createProxyServer({
   target: proxyTarget
