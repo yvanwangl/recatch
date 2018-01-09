@@ -5,6 +5,7 @@ import Snackbar from 'material-ui/Snackbar';
 import { doLogin } from '../actions';
 import SigninForm from './SigninForm';
 import SignupForm from './SignupForm';
+import messages from './messages';
 import './index.css';
 
 export interface LoginProps {
@@ -53,7 +54,7 @@ class Login extends React.Component<LoginProps, LoginState> {
             } else {
                 this.setState({
                     openSnackbar: true,
-                    snackbarMsg: result.errorCode
+                    snackbarMsg: messages[result.errorCode]
                 });
             }
         });

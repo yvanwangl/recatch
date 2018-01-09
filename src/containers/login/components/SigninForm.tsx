@@ -26,6 +26,8 @@ class SigninForm extends React.Component<InjectedFormProps & SigninFormProps> {
         return errors;
     }
 
+    handleFieldBlur = (e: any) => e.preventDefault();
+
     render() {
         const { handleSubmit, submitting, onSignUp } = this.props;
         return (
@@ -42,9 +44,10 @@ class SigninForm extends React.Component<InjectedFormProps & SigninFormProps> {
                             <Field
                                 name="username"
                                 component={TextField as any}
+                                onBlur={this.handleFieldBlur}
                                 props={{
                                     fullWidth: true,
-                                    hintText: 'User Name',
+                                    //hintText: 'User Name',
                                     floatingLabelText: 'User Name'
                                 } as any}
                             />
@@ -53,9 +56,10 @@ class SigninForm extends React.Component<InjectedFormProps & SigninFormProps> {
                             <Field
                                 name="password"
                                 component={TextField as any}
+                                onBlur={this.handleFieldBlur}
                                 props={{
                                     fullWidth: true,
-                                    hintText: 'Password',
+                                    //hintText: 'Password',
                                     floatingLabelText: 'Password',
                                     type: 'password'
                                 } as any}

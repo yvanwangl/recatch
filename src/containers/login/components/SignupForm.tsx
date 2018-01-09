@@ -62,7 +62,7 @@ class SignupForm extends React.Component<InjectedFormProps & SignupFormProps> {
                                 component={TextField as any}
                                 props={{
                                     fullWidth: true,
-                                    hintText: 'User Name',
+                                    //hintText: 'User Name',
                                     floatingLabelText: 'User Name'
                                 } as any}
                             />
@@ -73,7 +73,7 @@ class SignupForm extends React.Component<InjectedFormProps & SignupFormProps> {
                                 component={TextField as any}
                                 props={{
                                     fullWidth: true,
-                                    hintText: 'Password',
+                                    //hintText: 'Password',
                                     floatingLabelText: 'Password',
                                     type: 'password'
                                 } as any}
@@ -85,7 +85,7 @@ class SignupForm extends React.Component<InjectedFormProps & SignupFormProps> {
                                 component={TextField as any}
                                 props={{
                                     fullWidth: true,
-                                    hintText: 'Confirm Password',
+                                    //hintText: 'Confirm Password',
                                     floatingLabelText: 'Confirm Password',
                                     type: 'password'
                                 } as any}

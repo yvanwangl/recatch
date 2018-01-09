@@ -35,7 +35,9 @@ export interface EditPostState {
 //     'Virginia Andrews',
 //     'Kelly Snyder',
 // ];
+const IMAGE_SIZE = 1000 * 1000;
 
+const maxSize = (val: any) => val && val >= IMAGE_SIZE ? '封面图尺寸不能大于1M' : undefined;
 
 class EditPost extends React.Component<EditPostProps & InjectedFormProps, EditPostState> {
 
@@ -97,15 +99,22 @@ class EditPost extends React.Component<EditPostProps & InjectedFormProps, EditPo
 
     //上传封面图
     handleCoverImg = (e: any) => {
-        let { uploadCoverImg, change } = this.props;
-        let file = e.target.files[0];
-        let formData = new FormData();
-        formData.append('coverImg', file);
-        uploadCoverImg(formData).then((result: any) => {
-            if (result.success) {
-                change('coverImg', result.data);
+        let { uploadCoverImg, change, blur } = this.props;
+        let files = e.target.files;
+        if(files.length > 0) {
+            let file = files[0];
+            if (file.size >= IMAGE_SIZE) {
+                blur('coverImg', file.size);
+            } else {
+                let formData = new FormData();
+                formData.append('coverImg', file);
+                uploadCoverImg(formData).then((result: any) => {
+                    if (result.success) {
+                        change('coverImg', result.data);
+                    }
+                });
             }
-        });
+        }
     };
 
     //获取文章内容
@@ -138,7 +147,7 @@ class EditPost extends React.Component<EditPostProps & InjectedFormProps, EditPo
         const handleEditorChange = this.handleEditorChange;
 
         return (
-            <div>
+            <div style={{ paddingBottom: 30 }}>
                 <TabbarTitle
                     title={editTitle}
                     buttons={
@@ -158,6 +167,7 @@ class EditPost extends React.Component<EditPostProps & InjectedFormProps, EditPo
                         <Field
                             name="coverImg"
                             component={TextField as any}
+                            validate={[maxSize]}
                             props={{
                                 fullWidth: true,
                                 hintText: '封面图',
