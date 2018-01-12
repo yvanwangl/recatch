@@ -66,7 +66,7 @@ class Home extends React.Component<object, AppState> {
                 <AppBar
                     title="管理后台"
                     iconClassNameRight="muidocs-icon-navigation-expand-more"
-                    style={{ zIndex: 9999 }}
+                    style={{ zIndex: 9999, position:'fixed' }}
                     onLeftIconButtonTouchTap={this.handleClick}
                 />
                 <div style={{
@@ -89,7 +89,7 @@ class Home extends React.Component<object, AppState> {
                         <MenuItem primaryText={<MenuLink to='/info' linkText='设置' />} leftIcon={<InfoIcon />} />                        
                         <MenuItem primaryText={<MenuLink to='/login' linkText='注销' />} leftIcon={<LogoutIcon />} onClick={logOut} />
                     </Drawer>
-                    <div className='Home-container' style={{ left: this.state.drawerOpen ? 256 : 0 }}>
+                    <div className='Home-container' style={{ marginLeft: this.state.drawerOpen ? 256 : 0 }}>
                         <PrivateRouter exact path="/" component={DashBoard} />
                         <PrivateRouter path="/labels" component={LabelManage} />
                         <PrivateRouter path="/posts" component={PostManage} />

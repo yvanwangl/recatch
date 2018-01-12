@@ -8,6 +8,7 @@ import TabbarTitle from '../../../components/tabbarTitle/TabbarTitle';
 import { Field, reduxForm, InjectedFormProps } from 'redux-form';
 import { TextField, SelectField, Toggle } from 'redux-form-material-ui';
 import Editor from './Editor';
+import scrollToFirstError from '../../../utils/handleSubmitFail';
 import './index.css';
 
 export interface EditPostProps {
@@ -56,9 +57,9 @@ class EditPost extends React.Component<EditPostProps & InjectedFormProps, EditPo
     static validate(values: any) {
         const errors = { coverImg: '', title: '', author: '' };
 
-        if (!values.coverImg) {
-            errors.coverImg = '封面图不能为空';
-        }
+        // if (!values.coverImg) {
+        //     errors.coverImg = '封面图不能为空';
+        // }
 
         if (!values.title) {
             errors.title = '文章标题不能为空';
@@ -101,7 +102,7 @@ class EditPost extends React.Component<EditPostProps & InjectedFormProps, EditPo
     handleCoverImg = (e: any) => {
         let { uploadCoverImg, change, blur } = this.props;
         let files = e.target.files;
-        if(files.length > 0) {
+        if (files.length > 0) {
             let file = files[0];
             if (file.size >= IMAGE_SIZE) {
                 blur('coverImg', file.size);
@@ -125,7 +126,7 @@ class EditPost extends React.Component<EditPostProps & InjectedFormProps, EditPo
 
     //表单提交事件
     onFormSubmit = (values: any) => {
-        let { onSubmit } = this.props;
+        let { onSubmit } = this.props;      
         //如果发布，则博客状态为 'Publish', 否则为 'Draft'
         values.postStatus = values.postStatus ? 'Publish' : 'Draft';
         //设置文章概要
@@ -243,7 +244,7 @@ class EditPost extends React.Component<EditPostProps & InjectedFormProps, EditPo
                             />
                         </div>
                     </div>
-                    <div style={{ width: '100%', marginTop: 40 }}>
+                    <div className='EditPost-Editor-wrapper'>
                         <Field
                             name="content"
                             component={Editor as any}
@@ -281,5 +282,6 @@ class EditPost extends React.Component<EditPostProps & InjectedFormProps, EditPo
 
 export default reduxForm({
     form: 'editPost',
-    validate: EditPost.validate
+    validate: EditPost.validate,
+    onSubmitFail: (errors: any) => scrollToFirstError(errors)
 })(EditPost) as any;

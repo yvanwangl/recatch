@@ -36,6 +36,7 @@
     "material-ui-color-picker": "^1.0.1",
     "material-ui-table-edit": "^3.0.3",
     "object-assign": "4.1.1",
+    "pm2-docker": "^2.1.0",
     "postcss-flexbugs-fixes": "3.2.0",
     "postcss-loader": "2.0.6",
     "promise": "8.0.1",
@@ -49,6 +50,7 @@
     "react-router": "^4.2.0",
     "react-router-config": "^1.0.0-beta.4",
     "react-router-dom": "^4.2.2",
+    "react-scroll": "^1.7.5",
     "redux": "^3.7.2",
     "redux-form": "^7.1.2",
     "redux-form-material-ui": "^4.3.1",
@@ -70,8 +72,7 @@
     "webpack": "3.5.1",
     "webpack-dev-server": "2.7.1",
     "webpack-manifest-plugin": "1.2.1",
-    "whatwg-fetch": "2.0.3",
-    "pm2-docker": "^2.1.0"
+    "whatwg-fetch": "2.0.3"
   },
   "scripts": {
     "start": "cross-env NODE_ENV=development node scripts/start.js",

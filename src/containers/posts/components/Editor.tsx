@@ -34,6 +34,8 @@ export default class Editor extends React.Component<EditorProps, EditorState> {
         imageUploadParam: 'FroalaImg',
         imageUploadURL: imgUpload,
         fileUploadURL: imgUpload,
+        toolbarSticky: true,
+        toolbarStickyOffset: 64,
         events: {
             'froalaEditor.fullscreen.toggle': function (e: any, editor: any) {
                 console.log(editor.fullscreen.isActive())
