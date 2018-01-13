@@ -1,0 +1,9 @@
+{
+    "presets": ["env", "react", "stage-2"],
+    "env": {
+        "development": {
+            "presets": ["react-hmre"]
+        }
+    },
+    "plugins": ["transform-object-assign"]
+}
