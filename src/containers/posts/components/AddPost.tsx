@@ -33,7 +33,7 @@ function mapDispatchToProps(dispatch: Function) {
 @(connect(mapStateToProps, mapDispatchToProps) as any)
 class AddPost extends React.Component<AddPostProps & RouteComponentProps<any>, AddPostState> {
 
-    constructor(props: AddPostProps) {
+    constructor(props: AddPostProps & RouteComponentProps<any>) {
         super(props);
         this.state = {
             openSnackbar: false

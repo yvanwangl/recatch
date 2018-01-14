@@ -37,9 +37,6 @@ function mapStateToProps(state: StoreState, props: any) {
 
 @(connect(mapStateToProps) as any)
 class PostView extends React.Component<PostViewProps & RouteComponentProps<any>> {
-    constructor(props: any) {
-        super(props);
-    }
 
     config = {
         placeholderText: 'Edit Your Content Here!',
