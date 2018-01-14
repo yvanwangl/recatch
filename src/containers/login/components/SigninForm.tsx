@@ -7,7 +7,7 @@ import { TextField } from 'redux-form-material-ui';
 import './index.css';
 
 interface SigninFormProps {
-    onSignUp: any;
+    onSignUp: ((event: any) => void);
 }
 
 class SigninForm extends React.Component<InjectedFormProps & SigninFormProps> {
@@ -39,7 +39,7 @@ class SigninForm extends React.Component<InjectedFormProps & SigninFormProps> {
                         </span>
                     </div>
                     <h2 className='Signin-title'>Sign In</h2>
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         <div className='Signin-form-item'>
                             <Field
                                 name="username"
@@ -72,11 +72,11 @@ class SigninForm extends React.Component<InjectedFormProps & SigninFormProps> {
 
                         <RaisedButton
                             label="Sign In"
+                            type='submit'
                             primary={true}
                             fullWidth={true}
                             style={{ marginTop: 25 }}
                             disabled={submitting}
-                            onClick={handleSubmit}
                         />
                     </form>
                 </div>

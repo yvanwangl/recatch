@@ -8,7 +8,7 @@ import { validateUsername } from '../actions';
 import './index.css';
 
 interface SignupFormProps {
-    onSignIn: any;
+    onSignIn: ((event: any) => void);
 }
 
 //异步验证 用户名 是否存在
@@ -55,7 +55,7 @@ class SignupForm extends React.Component<InjectedFormProps & SignupFormProps> {
                         </span>
                     </div>
                     <h2 className='Signup-title'>Sign Up</h2>
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         <div className='Signup-form-item'>
                             <Field
                                 name="username"
@@ -98,11 +98,11 @@ class SignupForm extends React.Component<InjectedFormProps & SignupFormProps> {
 
                         <RaisedButton
                             label="Sign Up"
+                            type='submit'
                             primary={true}
                             fullWidth={true}
                             style={{ marginTop: 25 }}
                             disabled={submitting}
-                            onClick={handleSubmit}
                         />
                     </form>
                 </div>
