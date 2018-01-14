@@ -3,7 +3,7 @@ import FlatButton from 'material-ui/FlatButton';
 import ContentAddIcon from 'material-ui/svg-icons/content/add';
 import RefreshIcon from 'material-ui/svg-icons/action/cached';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
+import { withRouter, RouteComponentProps } from 'react-router';
 import TabbarTitle from '../../../components/tabbarTitle/TabbarTitle';
 import { postSelector } from '../selectors';
 import StoreState from '../../../store/types';
@@ -32,7 +32,7 @@ function mapDispatchToProps(dispatch: Function) {
 }
 
 @(connect(mapStateToProps, mapDispatchToProps) as any)
-class PostList extends React.Component<PostListProps> {
+class PostList extends React.Component<PostListProps & RouteComponentProps<any>> {
 
     //刷新按钮点击事件
     handleRefresh = () => {

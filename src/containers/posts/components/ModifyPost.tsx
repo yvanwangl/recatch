@@ -1,6 +1,6 @@
 import * as React from 'react';
 //import Snackbar from 'material-ui/Snackbar';
-import { withRouter } from 'react-router';
+import { withRouter, RouteComponentProps } from 'react-router';
 import { connect } from 'react-redux';
 import StoreState from '../../../store/types';
 import { postSelector, labelSelector } from '../selectors';
@@ -32,7 +32,7 @@ function mapDispatchToProps(dispatch: Function) {
 }
 
 @(connect(mapStateToProps, mapDispatchToProps) as any)
-class ModifyPost extends React.Component<ModifyPostProps> {
+class ModifyPost extends React.Component<ModifyPostProps & RouteComponentProps<any>> {
     // //保存按钮点击事件
     // handleSubmit = (values: any) => {
     //     let { modifyPost } = this.props;

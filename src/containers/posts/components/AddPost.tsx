@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { withRouter } from 'react-router';
+import { withRouter, RouteComponentProps } from 'react-router';
 import { connect } from 'react-redux';
 import StoreState from '../../../store/types';
 import { labelSelector } from '../selectors';
@@ -31,7 +31,7 @@ function mapDispatchToProps(dispatch: Function) {
 }
 
 @(connect(mapStateToProps, mapDispatchToProps) as any)
-class AddPost extends React.Component<AddPostProps, AddPostState> {
+class AddPost extends React.Component<AddPostProps & RouteComponentProps<any>, AddPostState> {
 
     constructor(props: AddPostProps) {
         super(props);

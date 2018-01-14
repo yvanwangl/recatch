@@ -13,7 +13,7 @@ import 'froala-editor/css/froala_editor.pkgd.min.css';
 import 'font-awesome/css/font-awesome.css';
 import FroalaEditor from 'react-froala-wysiwyg';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
+import { withRouter, RouteComponentProps } from 'react-router';
 import { postSelector } from '../selectors';
 import StoreState from '../../../store/types';
 import { PostModel } from './PostItem';
@@ -36,7 +36,7 @@ function mapStateToProps(state: StoreState, props: any) {
 }
 
 @(connect(mapStateToProps) as any)
-class PostView extends React.Component<PostViewProps> {
+class PostView extends React.Component<PostViewProps & RouteComponentProps<any>> {
     constructor(props: any) {
         super(props);
     }
