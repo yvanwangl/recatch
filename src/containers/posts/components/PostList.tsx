@@ -5,26 +5,22 @@ import RefreshIcon from 'material-ui/svg-icons/action/cached';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import TabbarTitle from '../../../components/tabbarTitle/TabbarTitle';
-import { postSelector, labelSelector } from '../selectors';
+import { postSelector } from '../selectors';
 import StoreState from '../../../store/types';
 import PostItem, { PostModel } from './PostItem';
 import { fetchPosts, deletePost } from '../actions';
-import { fetchAllLabels } from '../../labels/actions';
 import './index.css';
 
 export interface PostListProps {
     posts: Array<PostModel>;
-    labels: any;
     fetchPosts: Function;
-    fetchAllLabels: Function;
     deletePost: Function;
     history: any;
 }
 
 function mapStateToProps(state: StoreState) {
     return {
-        posts: postSelector(state),
-        labels: labelSelector(state)
+        posts: postSelector(state)
     }
 }
 
@@ -32,7 +28,6 @@ function mapDispatchToProps(dispatch: Function) {
     return {
         fetchPosts: () => dispatch(fetchPosts()),
         deletePost: (postId: string | number) => dispatch(deletePost(postId)),
-        fetchAllLabels: () => dispatch(fetchAllLabels())
     }
 }
 
