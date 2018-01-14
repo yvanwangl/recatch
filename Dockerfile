@@ -13,7 +13,7 @@ RUN mkdir -p /usr/src/recatch
 
 WORKDIR /usr/src/recatch
 COPY . .
-RUN cp -a /tmp/node_modules /usr/src/recatch
+RUN cp -a /tmp/node_modules /usr/src/recatch && npm run build
 
 #RUN npm install -g cross-env pm2-docker
 RUN npm install pm2 -g
