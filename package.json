@@ -98,8 +98,7 @@
     "awesome-typescript-loader": "^3.3.0",
     "babel-plugin-transform-object-assign": "^6.22.0",
     "copy-webpack-plugin": "^4.3.1",
-    "redux-devtools-extension": "^2.13.2",
-    "source-map-loader": "^0.2.3"
+    "redux-devtools-extension": "^2.13.2"
   },
   "jest": {
     "mapCoverage": true,
