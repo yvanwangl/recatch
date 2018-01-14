@@ -8,7 +8,7 @@ import { validateUsername } from '../actions';
 import './index.css';
 
 interface SignupFormProps {
-    onSignIn: ((event: any) => void);
+    onSignIn: any;
 }
 
 //异步验证 用户名 是否存在

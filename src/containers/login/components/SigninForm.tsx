@@ -7,7 +7,7 @@ import { TextField } from 'redux-form-material-ui';
 import './index.css';
 
 interface SigninFormProps {
-    onSignUp: ((event: any) => void);
+    onSignUp: any;
 }
 
 class SigninForm extends React.Component<InjectedFormProps & SigninFormProps> {
