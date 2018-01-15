@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Paper from 'material-ui/Paper';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
 import CommentItem from './CommentItem';
 import CommentCard from './CommentCard';
 import TabbarTitle from '../../../components/tabbarTitle/TabbarTitle';
@@ -125,4 +124,4 @@ class CommentManage extends React.Component<CommentManageProps, CommentManageSta
     }
 }
 
-export default withRouter(CommentManage);
+export default CommentManage;

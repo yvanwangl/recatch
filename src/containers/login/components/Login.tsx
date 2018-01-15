@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
+import { withRouter, RouteComponentProps } from 'react-router';
 import Snackbar from 'material-ui/Snackbar';
 import { doLogin } from '../actions';
 import SigninForm from './SigninForm';
@@ -27,9 +27,9 @@ function mapDispatchToProps(dispatch: Function) {
 }
 
 @(connect(null, mapDispatchToProps) as any)
-class Login extends React.Component<LoginProps, LoginState> {
+class Login extends React.Component<LoginProps & RouteComponentProps<any>, LoginState> {
 
-    constructor(props: LoginProps) {
+    constructor(props: LoginProps & RouteComponentProps<any>) {
         super(props);
         this.state = {
             signin: true,
