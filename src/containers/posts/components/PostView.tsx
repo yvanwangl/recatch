@@ -39,6 +39,7 @@ function mapStateToProps(state: StoreState, props: any) {
 class PostView extends React.Component<PostViewProps & RouteComponentProps<any>> {
 
     config = {
+        key: 'GC-9qigB-32jbjD6lD-8I-8==',
         placeholderText: 'Edit Your Content Here!',
         charCounterCount: false,
         toolbarButtons: [],

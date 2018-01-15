@@ -138,9 +138,6 @@
     margin: 0;
     font-weight: 400;
 }
-.Editor-content .fr-box.fr-basic.fr-top .fr-wrapper>div:first-child>a:first-child {
-    display: none !important;
-}
 
 /* 代码样式重写 */
 

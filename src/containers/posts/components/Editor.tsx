@@ -28,6 +28,7 @@ export default class Editor extends React.Component<EditorProps, EditorState> {
     }
 
     config = {
+        key: 'GC-9qigB-32jbjD6lD-8I-8==',
         placeholderText: 'Edit Your Content Here!',
         charCounterCount: false,
         // Set the file/image upload URL. 根据 imageUploadParam: FroalaImg 来判断返回不同的数据对象。

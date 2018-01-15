@@ -46,7 +46,6 @@ class EditPost extends React.Component<EditPostProps & InjectedFormProps, EditPo
 
     constructor(props: EditPostProps & InjectedFormProps) {
         super(props);
-        console.log(props);
         this.state = {
             selectedLabels: props.initialValues['labels'] || [],
             openSnackbar: false
@@ -138,7 +137,6 @@ class EditPost extends React.Component<EditPostProps & InjectedFormProps, EditPo
                 this.setState({ openSnackbar: true });
             }
         });
-        console.log(values);
     };
 
     render() {
