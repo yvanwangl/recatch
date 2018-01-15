@@ -129,10 +129,10 @@ module.exports = {
       //   enforce: 'pre',
       //   include: paths.appSrc,
       // },
-      {
-        test: /\.js$/,
-        loader: require.resolve('babel-loader'),
-      },
+      // {
+      //   test: /\.js$/,
+      //   loader: require.resolve('babel-loader'),
+      // },
       {
         test: /\.js$/,
         loader: require.resolve('source-map-loader'),
