@@ -39,7 +39,7 @@ class SigninForm extends React.Component<InjectedFormProps & SigninFormProps> {
                         </span>
                     </div>
                     <h2 className='Signin-title'>Sign In</h2>
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmit as any}>
                         <div className='Signin-form-item'>
                             <Field
                                 name="username"

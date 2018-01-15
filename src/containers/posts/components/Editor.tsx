@@ -34,6 +34,8 @@ export default class Editor extends React.Component<EditorProps, EditorState> {
         imageUploadParam: 'FroalaImg',
         imageUploadURL: imgUpload,
         fileUploadURL: imgUpload,
+        //开发模式跨域，需要配置，携带cookie
+        requestWithCredentials: process.env.NODE_ENV === 'development',
         toolbarSticky: true,
         toolbarStickyOffset: 64,
         events: {

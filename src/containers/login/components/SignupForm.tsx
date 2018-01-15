@@ -55,7 +55,7 @@ class SignupForm extends React.Component<InjectedFormProps & SignupFormProps> {
                         </span>
                     </div>
                     <h2 className='Signup-title'>Sign Up</h2>
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmit as any}>
                         <div className='Signup-form-item'>
                             <Field
                                 name="username"
