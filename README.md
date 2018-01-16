@@ -22,27 +22,27 @@ react/redux/redux-form/redux-orm/react-router v4/material-ui，使用 Typescript
 ### 项目部分界面
 `1.`博客首页</br>
 实现一个简单的站点数据概览功能：</br>
-![image.png](//dn-cnode.qbox.me/FlT4UaSlGzjqZ88z1Rn39bIDEvhI)
+![image.png](./docs/images/dashboard.png)
 
 `2.`标签管理</br>
 该模块主要进行标签的增删操作：</br>
-![image.png](//dn-cnode.qbox.me/Fi8Iz1R9eizNOLY0hpYotxF2XBQO)
+![image.png](./docs/images/label.png)
 
 `3.`文章管理</br>
 该模块主要进行文章的增加修改和删除操作：</br>
-![image.png](//dn-cnode.qbox.me/FuYkRaTbR4JgIJ9H2g7crazyUKnP)
+![image.png](./docs/images/post.png)
 
 `4.`评论管理</br>
 对文章的评论进行管理
-![image.png](//dn-cnode.qbox.me/Fg0703cgD5DidnziyoPBFlBF8BPl)
+![image.png](./docs/images/comment.png)
 
 `5.`项目管理</br>
 该模块主要用于编辑个人项目，用于前端界面展示</br>
-![image.png](//dn-cnode.qbox.me/Fum8ObU8HP8hF4hee0Yijh4zesGl)
+![image.png](./docs/images/project.png)
 
 `6.`友链管理</br>
 博客首页支持访客增加友链申请，后端管理界面可以用于审核</br>
-![image.png](//dn-cnode.qbox.me/FrSdUJ_mxA5TvLG4z4O3es6BhdDJ)
+![image.png](./docs/images/link.png)
 
 ### 如何运行
 `1.` `https://github.com/yvanwangl/recatch.git`</br>
