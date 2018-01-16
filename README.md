@@ -51,7 +51,7 @@ react/redux/redux-form/redux-orm/react-router v4/material-ui，使用 Typescript
 ![image.png](./docs/images/link.png)
 
 ### 如何运行
-`1.` `https://github.com/yvanwangl/recatch.git`</br>
+`1.` `git clone https://github.com/yvanwangl/recatch.git`</br>
 `2.` `cd recatch && npm install`</br>
 `3.` `npm run start`</br>
 
