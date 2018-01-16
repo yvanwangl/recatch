@@ -1,34 +1,66 @@
 ## 博客项目第二版管理后台 代号 recatch
 
-该项目为我的个人博客第二版，实现功能：
-`1.`博客数据预览
-`2.`标签管理
-`3.`文章管理
-`4.`评论管理
-`5.`项目管理
-`6.`友链管理
-`7.`个人信息设置
-等7个模块功能。
+该项目为我的个人博客第二版，实现功能：</br>
+`1.`博客数据预览</br>
+`2.`标签管理</br>
+`3.`文章管理</br>
+`4.`评论管理</br>
+`5.`项目管理</br>
+`6.`友链管理</br>
+`7.`个人信息设置</br>
+等7个模块功能。</br>
 
-[在线预览地址](https://admin.yvanwang.com/)
-暂时没有开发注册功能。。。
+[在线预览地址](https://admin.yvanwang.com/)</br>
+体验账号：registor</br>
+密码：123456</br>
+暂时没有开放注册功能。。。
 
 ### 项目技术栈
-该项目采用前后端分离技术，前端依然采用 React 系列技术栈，包括： react/redux/redux-form/redux-orm/react-router v4/material-ui，使用 Typescript 进行代码编写。
+该项目采用前后端分离技术，前端依然采用 React 系列技术栈，包括： </br>
+react/redux/redux-form/redux-orm/react-router v4/material-ui，使用 Typescript 进行代码编写。</br>
+
+### 项目部分界面
+`1.`博客首页</br>
+实现一个简单的站点数据概览功能：</br>
+![image.png](//dn-cnode.qbox.me/FlT4UaSlGzjqZ88z1Rn39bIDEvhI)
+
+`2.`标签管理</br>
+该模块主要进行标签的增删操作：</br>
+![image.png](//dn-cnode.qbox.me/Fi8Iz1R9eizNOLY0hpYotxF2XBQO)
+
+`3.`文章管理</br>
+该模块主要进行文章的增加修改和删除操作：</br>
+![image.png](//dn-cnode.qbox.me/FuYkRaTbR4JgIJ9H2g7crazyUKnP)
+
+`4.`评论管理</br>
+对文章的评论进行管理
+![image.png](//dn-cnode.qbox.me/Fg0703cgD5DidnziyoPBFlBF8BPl)
+
+`5.`项目管理</br>
+该模块主要用于编辑个人项目，用于前端界面展示</br>
+![image.png](//dn-cnode.qbox.me/Fum8ObU8HP8hF4hee0Yijh4zesGl)
+
+`6.`友链管理</br>
+博客首页支持访客增加友链申请，后端管理界面可以用于审核</br>
+![image.png](//dn-cnode.qbox.me/FrSdUJ_mxA5TvLG4z4O3es6BhdDJ)
 
 ### 如何运行
-`1.` `https://github.com/yvanwangl/recatch.git`
-`2.` `cd recatch && npm install`
-`3.` `npm run start`
+`1.` `https://github.com/yvanwangl/recatch.git`</br>
+`2.` `cd recatch && npm install`</br>
+`3.` `npm run start`</br>
 
 ### 项目构建
-`1.` 通过 `npm run build` 进行项目构建
+`1.` 通过 `npm run build` 进行项目构建</br>
 
 ### 项目部署
-该项目支持两种部署方式：
-`1.` 基于node环境部署：
-`npm run start:prod`
+该项目支持两种部署方式：</br>
+`1.` 基于node环境部署：`npm run start:prod`</br>
 
-`2.`部署 docker 容器：
-首先构建 docker 镜像：`docker build --rm -f Dockerfile -t recatch:latest .`
-然后运行容器：`docker run -d -it recatch:latest`
+`2.`部署 docker 容器：</br>
+首先构建 docker 镜像，需要在项目根目录下运行：`docker build --rm -f Dockerfile -t recatch:latest .`</br>
+然后运行容器：`docker run -d -p 8084:8084 --name recatch recatch:latest`</br>
+-p  将容器内部的网络端口映射到我们使用的宿主机上    第一个 8084 为宿主机端口    第二个 8084 为容器端口</br>
+
+由于该项目采用前后端分离的方式进行开发，只部署该项目没有后端服务提供数据，所以还需要部署服务项目 [recatch-service](https://github.com/yvanwangl/recatch-service)
+
+> 欢迎Star，有问题请提 issue :)
