@@ -61,11 +61,38 @@ react/redux/redux-form/redux-orm/react-router v4/material-ui，使用 Typescript
 ### 项目部署
 该项目支持两种部署方式：</br>
 `1.` 基于node环境部署：`npm run start:prod`</br>
+注意： 运行前需要对环境变量进行配置</br>
+该方式的部署需要修改根目录下的 ecosystem.config.js 文件</br>
+
+```
+env_production: {
+    "PROXY_HOST": "localhost",
+    "PROXY_PORT": 8082,
+    "PORT": 8084,
+    "NODE_ENV": "production",
+}
+```
 
 `2.`部署 docker 容器：</br>
 首先构建 docker 镜像，需要在项目根目录下运行：`docker build --rm -f Dockerfile -t recatch:latest .`</br>
-然后运行容器：`docker run -d -p 8084:8084 --name recatch recatch:latest`</br>
--p  将容器内部的网络端口映射到我们使用的宿主机上    第一个 8084 为宿主机端口    第二个 8084 为容器端口</br>
+然后使用 docker-compose 运行容器：docker-compose up -d</br>
+注意： 运行前需要对环境变量进行配置</br>
+该方式的部署需要修改根目录下的 docker-compose.yml 文件</br>
+
+```
+environment:
+    - PROXY_PORT=8082
+    - PORT=8084
+    - PROXY_HOST=192.168.0.1
+```
+
+### 配置参数说明：
+PROXY_HOST: 代理服务器地址</br>
+PROXY_PORT: 代理服务器端口</br>
+PORT: 资源服务器端口</br>
+
+部署模式下，该项目会起一个 node 资源服务器，将以 `/api` 为前缀的请求转发至代理服务器</br>
+
 
 由于该项目采用前后端分离的方式进行开发，只部署该项目没有后端服务提供数据，所以还需要部署服务项目 [recatch-service](https://github.com/yvanwangl/recatch-service)
 
