@@ -10,6 +10,8 @@
 `7.`个人信息设置</br>
 等7个模块功能。</br>
 
+![git](./docs/images/20180117_124343.gif)
+
 [在线预览地址](https://admin.yvanwang.com/)</br>
 体验账号：registor</br>
 密码：123456</br>
