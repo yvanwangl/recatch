@@ -179,6 +179,7 @@
     color: #96cbfe;
     padding: 30px;
     border-top: 10px solid;
+    font-size: 18px;
 }
 
 .Editor-content .fr-view code[class*=language-], .Editor-content .fr-view pre[class*=language-] {

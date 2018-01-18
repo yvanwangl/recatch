@@ -85,6 +85,7 @@ class PostItem extends React.Component<PostItemProps, PostItemState> {
 			<span className='PostItem-card' onClick={handleItemClick}>
 				<Card style={{ height: '100%' }} containerStyle={{ height: '100%', position: 'relative' }}>
 					<CardHeader
+						textStyle={{paddingRight: 0}}
 						title={<h1 className='PostItem-card-title'>{title}</h1>}
 					//avatar={avatar}
 					/>
