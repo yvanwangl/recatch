@@ -13,6 +13,8 @@ export interface EditEmailState {
     openSnackbar: boolean;
 }
 
+const validEmail = (val: any) => val && !/^[\w]+@[\w]+\.[a-zA-Z]{2,3}$/.test(val) ? '邮箱格式不正确' : undefined;
+
 class EditEmail extends React.Component<EditEmailProps & InjectedFormProps, EditEmailState> {
 
     constructor(props: EditEmailProps & InjectedFormProps) {
@@ -53,6 +55,7 @@ class EditEmail extends React.Component<EditEmailProps & InjectedFormProps, Edit
                         <Field
                             name="email"
                             component={TextField as any}
+                            validate={[validEmail]}
                             props={{
                                 fullWidth: true,
                                 hintText: '设置邮箱',
