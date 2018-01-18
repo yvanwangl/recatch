@@ -37,8 +37,11 @@ export interface EditPostState {
 //     'Kelly Snyder',
 // ];
 const IMAGE_SIZE = 1000 * 1000;
+const INVALID_FILE_TYPE = 'invalid file type';
 
 const maxSize = (val: any) => val && val >= IMAGE_SIZE ? '封面图尺寸不能大于1M' : undefined;
+
+const invalidFile = (val: any) => val && val == INVALID_FILE_TYPE ? '文件格式不正确，请上传 png | jpeg | jpg 文件' : undefined;
 
 class EditPost extends React.Component<EditPostProps & InjectedFormProps, EditPostState> {
 
@@ -103,16 +106,20 @@ class EditPost extends React.Component<EditPostProps & InjectedFormProps, EditPo
         let files = e.target.files;
         if (files.length > 0) {
             let file = files[0];
-            if (file.size >= IMAGE_SIZE) {
-                blur('coverImg', file.size);
-            } else {
-                let formData = new FormData();
-                formData.append('coverImg', file);
-                uploadCoverImg(formData).then((result: any) => {
-                    if (result.success) {
-                        change('coverImg', result.data);
-                    }
-                });
+            if (/image\/(png|jpeg|jpg)/.test(file.type)) {
+                if (file.size >= IMAGE_SIZE) {
+                    blur('coverImg', file.size);
+                } else {
+                    let formData = new FormData();
+                    formData.append('coverImg', file);
+                    uploadCoverImg(formData).then((result: any) => {
+                        if (result.success) {
+                            change('coverImg', result.data);
+                        }
+                    });
+                }
+            }else {
+                blur('coverImg', INVALID_FILE_TYPE);
             }
         }
     };
@@ -125,7 +132,7 @@ class EditPost extends React.Component<EditPostProps & InjectedFormProps, EditPo
 
     //表单提交事件
     onFormSubmit = (values: any) => {
-        let { onSubmit } = this.props;      
+        let { onSubmit } = this.props;
         //如果发布，则博客状态为 'Publish', 否则为 'Draft'
         values.postStatus = values.postStatus ? 'Publish' : 'Draft';
         //设置文章概要
@@ -166,7 +173,7 @@ class EditPost extends React.Component<EditPostProps & InjectedFormProps, EditPo
                         <Field
                             name="coverImg"
                             component={TextField as any}
-                            validate={[maxSize]}
+                            validate={[maxSize, invalidFile]}
                             props={{
                                 fullWidth: true,
                                 hintText: '封面图',
