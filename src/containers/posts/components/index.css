@@ -151,7 +151,8 @@
     text-decoration: none;
 }
 
-.Editor-content .fr-element li {
+.Editor-content .fr-element li,
+.Editor-content .fr-view li {
     line-height: 1.93;
 }
 
