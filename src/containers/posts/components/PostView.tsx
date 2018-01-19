@@ -11,7 +11,8 @@ import 'froala-editor/css/froala_style.min.css';
 import 'froala-editor/css/froala_editor.pkgd.min.css';
 // Require Font Awesome.
 import 'font-awesome/css/font-awesome.css';
-import FroalaEditor from 'react-froala-wysiwyg';
+//import FroalaEditor from 'react-froala-wysiwyg';
+import FroalaEditorView from 'react-froala-wysiwyg/FroalaEditorView';
 import { connect } from 'react-redux';
 import { withRouter, RouteComponentProps } from 'react-router';
 import { postSelector } from '../selectors';
@@ -20,12 +21,14 @@ import { PostModel } from './PostItem';
 import TabbarTitle from '../../../components/tabbarTitle/TabbarTitle';
 import FlatButton from 'material-ui/FlatButton';
 import ListIcon from 'material-ui/svg-icons/action/list';
+import { fetchPosts } from '../actions';
 import { dateFormat } from '../../../utils/util';
 
 export interface PostViewProps {
     posts: Array<PostModel>;
     match: any;
-    history: any
+    history: any;
+    fetchPosts: Function;
 };
 
 
@@ -35,7 +38,13 @@ function mapStateToProps(state: StoreState, props: any) {
     }
 }
 
-@(connect(mapStateToProps) as any)
+function mapDispatchToProps(dispatch: Function) {
+    return {
+        fetchPosts: () => dispatch(fetchPosts()),
+    }
+}
+
+@(connect(mapStateToProps, mapDispatchToProps) as any)
 class PostView extends React.Component<PostViewProps & RouteComponentProps<any>> {
 
     config = {
@@ -55,8 +64,18 @@ class PostView extends React.Component<PostViewProps & RouteComponentProps<any>>
         history.push('/posts');
     };
 
+    componentDidMount(){
+        let { posts, fetchPosts } = this.props;
+        if (posts.length == 0) {
+            fetchPosts();
+        }
+    }
+
     render() {
         let { posts, match } = this.props;
+        if (posts.length == 0) {
+            return null;
+        }
         let {
             author,
             count,
@@ -100,11 +119,7 @@ class PostView extends React.Component<PostViewProps & RouteComponentProps<any>>
                         <span className='PostView-card-icon-wrapper'><VisibilityIcon className='PostView-card-icon' /> {count}</span>
                         <span className='PostView-card-icon-wrapper'><CommentIcon className='PostView-card-icon' /> {comments.length}</span>
                     </div>
-                    <FroalaEditor
-                        tag='textarea'
-                        config={this.config}
-                        model={content}
-                    />
+                    <FroalaEditorView model={content} />
                     {labelItems}
                 </div>
 

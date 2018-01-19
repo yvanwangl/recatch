@@ -8,3 +8,7 @@
 declare module 'react-froala-wysiwyg' {
     export default class FroalaEditor extends React.Component<any, any> { }
 }
+
+declare module 'react-froala-wysiwyg/FroalaEditorView' {
+    export default class FroalaEditorView extends React.Component<any, any> { }
+}

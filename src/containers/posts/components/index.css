@@ -146,7 +146,8 @@
 
 
 /* 代码样式重写 */
-.Editor-content .fr-element a {
+.Editor-content .fr-element a,
+.Editor-content .fr-view a {
     text-decoration: none;
 }
 
