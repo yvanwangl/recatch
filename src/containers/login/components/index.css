@@ -47,3 +47,13 @@
 .Signup-up-btn span:hover {
     color: rgb(0, 188, 212)
 }
+
+@media screen and (max-width: 420px) {
+    .Login-wrapper>div:first-child {
+        border-radius: 0 !important;
+    }
+    .Signin-form,
+    .Signup-form {
+        padding: 20px;
+    }
+}
