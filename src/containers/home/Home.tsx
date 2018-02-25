@@ -86,6 +86,9 @@ class Home extends React.Component<object, AppState> {
                         {
                             authenticate && admin && <MenuItem primaryText={<MenuLink to='/links' linkText='友链' />} leftIcon={<LinkIcon />} />
                         }
+                        {
+                            authenticate && admin && <MenuItem primaryText={<MenuLink to='/users' linkText='用户管理' />} leftIcon={<LinkIcon />} />
+                        }
                         <MenuItem primaryText={<MenuLink to='/info' linkText='设置' />} leftIcon={<InfoIcon />} />                        
                         <MenuItem primaryText={<MenuLink to='/login' linkText='注销' />} leftIcon={<LogoutIcon />} onClick={logOut} />
                     </Drawer>
@@ -96,6 +99,7 @@ class Home extends React.Component<object, AppState> {
                         <PrivateRouter path="/comments" component={CommentManage} />
                         <PrivateRouter path="/projects" component={ProjectManage} />
                         <PrivateRouter path="/links" component={LinkManage} />
+                        <PrivateRouter path="/users" component={LinkManage} />
                         <PrivateRouter path="/info" component={InfoManage} />
                     </div>
                 </div>
