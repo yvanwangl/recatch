@@ -18,6 +18,7 @@ import CommentManage from '../comments/components/CommentManage';
 import ProjectManage from '../projects/components/ProjectManage';
 import LinkManage from '../links/components/LinkManage';
 import InfoManage from '../info/components/InfoManage';
+import UserManage from '../users/components/UserManage';
 import PrivateRouter from './PrivateRouter';
 import { userAuth, logOut } from '../../utils/util';
 import './index.css';
@@ -99,7 +100,7 @@ class Home extends React.Component<object, AppState> {
                         <PrivateRouter path="/comments" component={CommentManage} />
                         <PrivateRouter path="/projects" component={ProjectManage} />
                         <PrivateRouter path="/links" component={LinkManage} />
-                        <PrivateRouter path="/users" component={LinkManage} />
+                        <PrivateRouter path="/users" component={UserManage} />
                         <PrivateRouter path="/info" component={InfoManage} />
                     </div>
                 </div>
