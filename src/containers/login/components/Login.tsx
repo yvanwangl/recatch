@@ -5,7 +5,7 @@ import Snackbar from 'material-ui/Snackbar';
 import { doLogin } from '../actions';
 import SigninForm from './SigninForm';
 import SignupForm from './SignupForm';
-import messages from './messages';
+import messages from '../../../utils/messages';
 import './index.css';
 
 export interface LoginProps {

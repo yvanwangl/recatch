@@ -27,7 +27,7 @@ export interface AsyncData {
 
 export function createAsyncAction(asyncData: AsyncData): Function {
     const { callApi, types: [requestType, successType, failType], callbacks } = asyncData;
-    return (params?: any): Function => {
+    return (...params: any[]): Function => {
         /**
          * return function action, to dispatch for redux-thunk
          */
@@ -35,7 +35,7 @@ export function createAsyncAction(asyncData: AsyncData): Function {
             dispatch({
                 type: requestType || "REQUEST"
             });
-            return callApi(params)
+            return callApi(...params)
                 .then((jsonData: any) => {
                     if(jsonData.success) {
                         callbacks && callbacks.success && callbacks.success(jsonData.data);

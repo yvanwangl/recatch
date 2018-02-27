@@ -1,5 +1,5 @@
 import { Model, attr } from 'redux-orm';
-import { FETCH_USER_SUCCESS, LOCK_USER_SUCCESS } from './constants';
+import { FETCH_USER_SUCCESS, LOCK_TOGGLE_USER_SUCCESS } from './constants';
 
 export interface UserListProps {
     id: string | number;
@@ -27,7 +27,7 @@ class UserList extends Model<UserListProps> {
             case FETCH_USER_SUCCESS:
                 payload.map((user: any) => UserList.upsert({ id: user['_id'], ...user }));
                 break;
-            case LOCK_USER_SUCCESS:
+            case LOCK_TOGGLE_USER_SUCCESS:
                 UserList.upsert({ id: payload['_id'], ...payload });
                 break;
         }

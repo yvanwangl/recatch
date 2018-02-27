@@ -9,6 +9,7 @@ import CommentIcon from 'material-ui/svg-icons/communication/comment';
 import ProjectIcon from 'material-ui/svg-icons/av/library-books';
 import LinkIcon from 'material-ui/svg-icons/social/share';
 import InfoIcon from 'material-ui/svg-icons/action/settings';
+import UserIcon from 'material-ui/svg-icons/action/perm-contact-calendar';
 import LogoutIcon from 'material-ui/svg-icons/action/power-settings-new';
 import MenuLink from '../../components/menuLink/MenuLink';
 import DashBoard from '../dashboard/components/DashBoard';
@@ -88,7 +89,7 @@ class Home extends React.Component<object, AppState> {
                             authenticate && admin && <MenuItem primaryText={<MenuLink to='/links' linkText='友链' />} leftIcon={<LinkIcon />} />
                         }
                         {
-                            authenticate && admin && <MenuItem primaryText={<MenuLink to='/users' linkText='用户管理' />} leftIcon={<LinkIcon />} />
+                            authenticate && admin && <MenuItem primaryText={<MenuLink to='/users' linkText='用户管理' />} leftIcon={<UserIcon />} />
                         }
                         <MenuItem primaryText={<MenuLink to='/info' linkText='设置' />} leftIcon={<InfoIcon />} />                        
                         <MenuItem primaryText={<MenuLink to='/login' linkText='注销' />} leftIcon={<LogoutIcon />} onClick={logOut} />
