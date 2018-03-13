@@ -1,5 +1,8 @@
 import * as React from 'react';
 import FlatButton from 'material-ui/FlatButton';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import PrevIcon from 'material-ui/svg-icons/image/navigate-before';
+import NextIcon from 'material-ui/svg-icons/image/navigate-next';
 import ContentAddIcon from 'material-ui/svg-icons/content/add';
 import RefreshIcon from 'material-ui/svg-icons/action/cached';
 import { connect } from 'react-redux';
@@ -11,8 +14,12 @@ import PostItem, { PostModel } from './PostItem';
 import { fetchPosts, deletePost } from '../actions';
 import './index.css';
 
+const { limit } = require('../../../system.config');
+
 export interface PostListProps {
     posts: Array<PostModel>;
+    totalCount: number;
+    currentPage: number;
     fetchPosts: Function;
     deletePost: Function;
     history: any;
@@ -20,13 +27,15 @@ export interface PostListProps {
 
 function mapStateToProps(state: StoreState) {
     return {
-        posts: postSelector(state)
+        posts: postSelector(state),
+        totalCount: state.ui.postPagination.totalCount,
+        currentPage: state.ui.postPagination.currentPage
     }
 }
 
 function mapDispatchToProps(dispatch: Function) {
     return {
-        fetchPosts: () => dispatch(fetchPosts()),
+        fetchPosts: (currentPage: number) => dispatch(fetchPosts(currentPage)),
         deletePost: (postId: string | number) => dispatch(deletePost(postId)),
     }
 }
@@ -64,24 +73,35 @@ class PostList extends React.Component<PostListProps & RouteComponentProps<any>>
         deletePost(postId);
     };
 
+    //上下页切换事件
+    handlePageChange = (step: number) => {
+        let { fetchPosts, currentPage } = this.props;
+        fetchPosts(currentPage + step);
+    };
+
     componentDidMount() {
-        let { posts, fetchPosts } = this.props;
+        let { posts, fetchPosts, currentPage } = this.props;
         if (posts.length == 0) {
-            fetchPosts();
+            fetchPosts(currentPage);
         }
     }
 
     render() {
-        let { posts } = this.props;
+        let { posts, totalCount, currentPage } = this.props;
+        let postRemainder = posts.length % 3;
+        let postFill = postRemainder == 0 ? 0 : 3 - postRemainder;
         let postItems = posts.map((post, index) =>
             <PostItem
-                key={index}
+                key={post.id}
                 post={post}
                 handleItemClick={() => this.handleItemClick(post.id)}
                 handleItemModify={() => this.handleItemModify(post.id)}
                 handleItemDelete={() => this.handleItemDelete(post.id)}
             />
         );
+        let fillPostItems = new Array(postFill).fill('post').map((p, index) => <span key={`${p}-${index}`} className='PostItem-card PostItem-fill'></span>);
+        const nextBtn = <FloatingActionButton className='nextPage' secondary={true} onClick={() => this.handlePageChange(1)}><NextIcon /></FloatingActionButton>;
+        const prevBtn = <FloatingActionButton className='prevPage' secondary={true} onClick={() => this.handlePageChange(-1)}><PrevIcon /></FloatingActionButton>;
 
         return (
             <div>
@@ -96,6 +116,15 @@ class PostList extends React.Component<PostListProps & RouteComponentProps<any>>
                 />
                 <div className='PostItem-cart-wrapper'>
                     {postItems}
+                    {fillPostItems}
+                </div>
+                <div className='pagination'>
+                    {
+                        totalCount <= limit ? null :
+                            currentPage == 1 ? nextBtn :
+                                currentPage == Math.ceil(totalCount / limit) ? prevBtn :
+                                    <span>{prevBtn} {nextBtn}</span>
+                    }
                 </div>
             </div>
         );

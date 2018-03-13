@@ -39,6 +39,6 @@ export const deletePost = createAsyncAction({
 
 //查询当前用户所有文章
 export const fetchPosts = createAsyncAction({
-    callApi: () => request('/api/posts/get-by-user'),
+    callApi: (currentPage: number) => request(`/api/posts/get-by-user?currentPage=${currentPage}`),
     types: [FETCH_POST_REQUEST, FETCH_POST_SUCCESS, FETCH_POST_FAIL],
 });

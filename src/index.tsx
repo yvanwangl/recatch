@@ -9,7 +9,7 @@ import App from './App';
 // import { renderRoutes } from 'react-router-config';
 // import routes from './routes';
 import registerServiceWorker from './registerServiceWorker';
-import orm from './reducer/orm';
+//import orm from './reducer/orm';
 //import bootstrap from './bootstrap';
 import './index.css';
 
@@ -19,8 +19,8 @@ declare global {
     }
 }
 
-const initialState = { orm: orm.getEmptyState(), ui: { dashboard: {} } };
-const store = configStore(initialState);
+//const initialState = { orm: orm.getEmptyState(), ui: { dashboard: {}, postReducer: { totalCount: 1, currentPage: 1} } };
+const store = configStore();
 
 ReactDOM.render(
     <Provider store={store}>
